@@ -20,6 +20,18 @@ import mongoose from 'mongoose';
   app.use(compression());
   app.use(cors());
 
+  // Expenses
+  app.get('/api/expenses', (req, res) => {});
+
+  // Expense Groups
+  app.get('/api/expense-groups/:id?', (req, res) => {
+    const { id } = req.params;
+  });
+
+  app.post('/api/expense-groups', (req, res) => {
+    const { body } = req;
+  });
+
   app.listen(port, () => {
     console.log('Server running on port:', port);
   });
