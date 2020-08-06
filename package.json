@@ -4,6 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "lint:css": "stylelint ./src/**/*.scss --config .stylelintrc.json --fix",
+    "lint:js": "eslint 'src/**/*.js' --fix --ignore-pattern '*.test.js'",
     "build": "parcel build src/index.html",
     "build:server": "NODE_ENV=production babel -d ./dist ./src/server -s",
     "start": "parcel src/index.html",
