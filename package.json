@@ -1,0 +1,53 @@
+{
+  "name": "budget-buddy",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "parcel build src/index.html",
+    "build:server": "NODE_ENV=production babel -d ./dist ./src/server -s",
+    "start": "parcel src/index.html",
+    "start:server": "NODE_ENV=development nodemon --exec babel-node ./src/server/"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@alaneicker/atomik-ui": "^1.0.0",
+    "@babel/cli": "^7.10.5",
+    "body-parser": "^1.19.0",
+    "classnames": "^2.2.6",
+    "compression": "^1.7.4",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "nodemon": "^2.0.4",
+    "prop-types": "^15.7.2",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-redux": "^7.2.1",
+    "redux": "^4.0.5"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.9.6",
+    "@babel/node": "^7.10.5",
+    "@babel/preset-env": "^7.9.6",
+    "@babel/preset-react": "^7.9.4",
+    "babel-eslint": "^10.1.0",
+    "core-js": "^3.6.5",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.2",
+    "eslint": "^7.0.0",
+    "eslint-config-airbnb": "^18.1.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-react": "^7.20.0",
+    "jest": "^26.0.1",
+    "node-sass": "^4.14.1",
+    "parcel-bundler": "^1.12.4",
+    "stylelint": "^13.3.3",
+    "stylelint-config-prettier": "^8.0.1",
+    "stylelint-config-standard": "^20.0.0",
+    "stylelint-scss": "^3.17.2",
+    "stylelint-selector-bem-pattern": "^2.1.0"
+  }
+}
