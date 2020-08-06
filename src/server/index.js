@@ -31,13 +31,23 @@ import schemas from './schemas';
 
   // Expenses
   app.get('/api/expenses', async (req, res) => {
-    const data = await expenses.find({});
-    res.send(data);
+    try {
+      const data = await expenses.find({});
+      res.status(200).send(data);
+    } catch (err) {
+      res.status(500).send(err);
+    }
   });
 
   // Expense Groups
-  app.get('/api/expense-groups/:id?', (req, res) => {
-    const { id } = req.params;
+  app.get('/api/expense-groups/:id?', async (req, res) => {
+    try {
+      const { id } = req.params;
+      const expenseGroup = await expenseGroups.findById(id);
+      res.status(200).send(expenseGroup);
+    } catch (err) {
+      res.status(500).send(err);
+    }
   });
 
   app.post('/api/expense-groups', (req, res) => {
