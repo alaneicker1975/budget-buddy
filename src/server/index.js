@@ -4,8 +4,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import express from 'express';
 import mongoose from 'mongoose';
-
-import { expenses } from './schemas';
+import schemas from './schemas';
 
 (async () => {
   dotenv.config();
@@ -17,6 +16,8 @@ import { expenses } from './schemas';
   const db = mongoose.connection;
   const app = express();
   const port = process.env.port || 9000;
+
+  const { expenses, expenseGroups } = schemas;
 
   app.use(bodyParser.json());
   app.use(compression());
