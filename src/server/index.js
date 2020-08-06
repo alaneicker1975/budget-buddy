@@ -22,8 +22,17 @@ import { expenses } from './schemas';
   app.use(compression());
   app.use(cors());
 
+  db.on('error', console.error.bind(console, 'connection error:'));
+
+  db.once('open', () => {
+    console.log('Connected to database');
+  });
+
   // Expenses
-  app.get('/api/expenses', (req, res) => {});
+  app.get('/api/expenses', async (req, res) => {
+    const data = await expenses.find({});
+    res.send(data);
+  });
 
   // Expense Groups
   app.get('/api/expense-groups/:id?', (req, res) => {
