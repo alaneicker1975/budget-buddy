@@ -5,6 +5,8 @@ import dotenv from 'dotenv';
 import express from 'express';
 import mongoose from 'mongoose';
 
+import { expenses } from './schemas';
+
 (async () => {
   dotenv.config();
 
