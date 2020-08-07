@@ -72,10 +72,12 @@ import schemas from './schemas';
   app.get('/api/expenses/:id?', async (req, res) => {
     try {
       const { id } = req.params;
-      const data = id ? Expense.findById(id) : await Expense.find({});
+      const data = id ? await Expense.findById(id) : await Expense.find({});
       res.status(200).send({ data });
-    } catch (err) {
-      res.status(500).send({ err });
+    } catch ({ name, message }) {
+      res.status(500).send({
+        err: { statusCode: 500, name, message },
+      });
     }
   });
 
@@ -86,8 +88,10 @@ import schemas from './schemas';
         ? await ExpenseGroup.findById(id)
         : await ExpenseGroup.find({});
       res.status(200).send({ data });
-    } catch (err) {
-      res.status(500).send({ err });
+    } catch ({ name, message }) {
+      res.status(500).send({
+        err: { statusCode: 500, name, message },
+      });
     }
   });
 
@@ -104,8 +108,10 @@ import schemas from './schemas';
       }).save();
 
       res.status(201).send({ insertId: expenseGroup._id });
-    } catch (err) {
-      res.status(500).send({ err });
+    } catch ({ name, message }) {
+      res.status(500).send({
+        err: { statusCode: 500, name, message },
+      });
     }
   });
 
