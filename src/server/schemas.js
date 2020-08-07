@@ -1,9 +1,8 @@
-/* eslint-disable import/prefer-default-export */
-import mongoose from 'mongoose';
+const mongoose = require('mongoose');
 
 const { Schema } = mongoose;
 
-const expenses = mongoose.model(
+const Expense = mongoose.model(
   'Expenses',
   new Schema({
     expense: String, // The name of the expense
@@ -11,7 +10,7 @@ const expenses = mongoose.model(
   }),
 );
 
-const expenseGroups = mongoose.model(
+const ExpenseGroup = mongoose.model(
   'ExpenseGroups',
   new Schema({
     title: String,
@@ -23,7 +22,7 @@ const expenseGroups = mongoose.model(
   }),
 );
 
-export default {
-  expenses,
-  expenseGroups,
+module.exports = {
+  Expense,
+  ExpenseGroup,
 };

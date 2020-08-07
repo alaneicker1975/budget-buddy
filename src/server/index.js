@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 import bodyParser from 'body-parser';
 import compression from 'compression';
 import cors from 'cors';
@@ -17,7 +18,46 @@ import schemas from './schemas';
   const app = express();
   const port = process.env.port || 9000;
 
-  const { expenses, expenseGroups } = schemas;
+  const { Expense, ExpenseGroup } = schemas;
+
+  // async function addExpenseGroups() {
+  //   try {
+  //     await ExpenseGroup.insertMany([
+  //       {
+  //         title: 'August 2020',
+  //         startDate: new Date('08/01/2020'),
+  //         endDate: new Date('08/31/2020'),
+  //         budgetAmount: 9000,
+  //         budgetEndGoal: 2000,
+  //         expenses: [
+  //           { expense: 'Mortgage', balance: 1941.65, isPaid: false },
+  //           { expense: 'Day Care', balance: 880.0, isPaid: false },
+  //           { expense: 'Jeep Car Payment', balance: 359.15, isPaid: false },
+  //           { expense: 'Groceries', balance: 400.0, isPaid: false },
+  //         ],
+  //       },
+  //       {
+  //         title: 'September 2020',
+  //         startDate: new Date('08/01/2020'),
+  //         endDate: new Date('08/31/2020'),
+  //         budgetAmount: 9000,
+  //         budgetEndGoal: 2000,
+  //         expenses: [
+  //           { expense: 'Mortgage', balance: 1941.65, isPaid: false },
+  //           { expense: 'Day Care', balance: 880.0, isPaid: false },
+  //           { expense: 'Jeep Car Payment', balance: 359.15, isPaid: false },
+  //           { expense: 'Groceries', balance: 400.0, isPaid: false },
+  //         ],
+  //       },
+  //     ]);
+
+  //     console.log('Expense group successfully added!');
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // }
+
+  // addExpenseGroups();
 
   app.use(bodyParser.json());
   app.use(compression());
@@ -29,29 +69,44 @@ import schemas from './schemas';
     console.log('Connected to database');
   });
 
-  // Expenses
-  app.get('/api/expenses', async (req, res) => {
+  app.get('/api/expenses/:id?', async (req, res) => {
     try {
-      const data = await expenses.find({});
-      res.status(200).send(data);
+      const { id } = req.params;
+      const data = id ? Expense.findById(id) : await Expense.find({});
+      res.status(200).send({ data });
     } catch (err) {
-      res.status(500).send(err);
+      res.status(500).send({ err });
     }
   });
 
-  // Expense Groups
   app.get('/api/expense-groups/:id?', async (req, res) => {
     try {
       const { id } = req.params;
-      const expenseGroup = await expenseGroups.findById(id);
-      res.status(200).send(expenseGroup);
+      const data = id
+        ? await ExpenseGroup.findById(id)
+        : await ExpenseGroup.find({});
+      res.status(200).send({ data });
     } catch (err) {
-      res.status(500).send(err);
+      res.status(500).send({ err });
     }
   });
 
-  app.post('/api/expense-groups', (req, res) => {
-    const { body } = req;
+  app.post('/api/expense-groups', async (req, res) => {
+    try {
+      const {
+        body: { startDate, endDate, ...rest },
+      } = req;
+
+      const expenseGroup = await new ExpenseGroup({
+        startDate: new Date(startDate),
+        endDate: new Date(endDate),
+        ...rest,
+      }).save();
+
+      res.status(201).send({ insertId: expenseGroup._id });
+    } catch (err) {
+      res.status(500).send({ err });
+    }
   });
 
   app.listen(port, () => {
