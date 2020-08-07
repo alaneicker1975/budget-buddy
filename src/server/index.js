@@ -115,6 +115,14 @@ import schemas from './schemas';
     }
   });
 
+  app.put('/api/expense-groups/:id', (req, res) => {
+    const { id } = req.params;
+  });
+
+  app.delete('/api/expense-groups/:id', (req, res) => {
+    const { id } = req.params;
+  });
+
   app.listen(port, () => {
     console.log('Server running on port:', port);
   });
