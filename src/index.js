@@ -11,6 +11,8 @@ import './styles/main.scss';
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(todosReducer, applyMiddleware(sagaMiddleware));
 
+sagaMiddleware.run(rootSaga);
+
 const App = () => {
   return <>Budget Buddy</>;
 };
