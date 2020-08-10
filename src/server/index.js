@@ -38,8 +38,8 @@ import schemas from './schemas';
   //       },
   //       {
   //         title: 'September 2020',
-  //         startDate: new Date('08/01/2020'),
-  //         endDate: new Date('08/31/2020'),
+  //         startDate: new Date('09/01/2020'),
+  //         endDate: new Date('09/31/2020'),
   //         budgetAmount: 9000,
   //         budgetEndGoal: 2000,
   //         expenses: [

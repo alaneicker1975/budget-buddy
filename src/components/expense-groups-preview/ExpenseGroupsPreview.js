@@ -1,8 +1,10 @@
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import moment from 'moment';
 import PropTypes from 'prop-types';
+import { List, ListItem } from '@alaneicker/atomik-ui';
 
-const ExpenseGroupsPreview = ({ className }) => {
+const ExpenseGroupsPreview = () => {
   const dispatch = useDispatch();
 
   const { expenseGroups, error } = useSelector((state) => {
@@ -18,9 +20,25 @@ const ExpenseGroupsPreview = ({ className }) => {
   }
 
   return (
-    <div className="expense-group-preview">
-      {JSON.stringify(expenseGroups, null, 2)}
-    </div>
+    <List loose>
+      {expenseGroups.map(({ _id, expenses, startDate, endDate, title }) => {
+        return (
+          <ListItem key={_id}>
+            <h3>{title}</h3>
+            <div>
+              {moment(startDate).format('L')} - {moment(endDate).format('L')}
+            </div>
+            <div>
+              {expenses
+                .map(({ expense }) => {
+                  return expense;
+                })
+                .join(', ')}
+            </div>
+          </ListItem>
+        );
+      })}
+    </List>
   );
 };
 
