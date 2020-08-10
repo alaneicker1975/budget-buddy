@@ -21,19 +21,23 @@ const App = () => {
 
   return (
     <main className="layout">
-      <div className="layout__sidebar"></div>
+      <div className="layout__header">{/* <Feader /> */}</div>
       <div className="layout__main">
-        <Router>
-          <Route
-            path="/"
-            exact
-            component={() => {
-              return <ExpenseGroupsPreview data={expenseGroups} />;
-            }}
-          />
-          <Route path="/expense-group/:id" component={ExpenseGroupDetail} />
-        </Router>
+        <div className="layout__sidebar"></div>
+        <div className="layout__content">
+          <Router>
+            <Route
+              path="/"
+              exact
+              component={() => {
+                return <ExpenseGroupsPreview data={expenseGroups} />;
+              }}
+            />
+            <Route path="/expense-group/:id" component={ExpenseGroupDetail} />
+          </Router>
+        </div>
       </div>
+      <div className="layout__footer">{/* <Footer /> */}</div>
     </main>
   );
 };
