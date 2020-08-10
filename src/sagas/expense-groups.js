@@ -2,9 +2,7 @@ import { takeLatest, put } from 'redux-saga/effects';
 
 function* fetchExpenseGroups() {
   try {
-    const response = yield fetch(
-      'http://localhost:9000/api/api/expense-groups',
-    );
+    const response = yield fetch('http://localhost:9000/api/expense-groups');
 
     const { err, data } = yield response.json();
 
