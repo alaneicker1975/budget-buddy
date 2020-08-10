@@ -1,39 +1,32 @@
-import React, { useEffect, useMemo } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import moment from 'moment';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { List, ListItem } from '@alaneicker/atomik-ui';
+import moment from 'moment';
+import { Button, List, ListItem } from '@alaneicker/atomik-ui';
+import './expense-groups-preview.scss';
 
-const ExpenseGroupsPreview = () => {
-  const dispatch = useDispatch();
-
-  const { expenseGroups, error } = useSelector((state) => {
-    return state;
-  });
-
-  useEffect(() => {
-    dispatch({ type: 'FETCH_EXPENSE_GROUPS' });
-  }, []);
-
-  if (error) {
-    return <div className="padding-8 text-color-red">{error}</div>;
-  }
-
+const ExpenseGroupsPreview = ({ data }) => {
   return (
-    <List loose>
-      {expenseGroups.map(({ _id, expenses, startDate, endDate, title }) => {
+    <List className="expense-groups-list" loose>
+      {data.map(({ _id, expenses, startDate, endDate, title }) => {
         return (
-          <ListItem key={_id}>
-            <h3>{title}</h3>
-            <div>
-              {moment(startDate).format('L')} - {moment(endDate).format('L')}
+          <ListItem key={_id} className="expense-groups-list__item">
+            <div className="expense-groups-list__item__hd">
+              <h3>{title}</h3>
+              <h4>
+                {moment(startDate).format('L')} - {moment(endDate).format('L')}
+              </h4>
             </div>
-            <div>
-              {expenses
-                .map(({ expense }) => {
-                  return expense;
-                })
-                .join(', ')}
+            <div className="expense-groups-list__item__bd">
+              <div className="margin-bottom-16">
+                {expenses
+                  .map(({ expense }) => {
+                    return expense;
+                  })
+                  .join(', ')}
+              </div>
+              <Button size="md" condensed>
+                View Expense Group
+              </Button>
             </div>
           </ListItem>
         );
@@ -42,8 +35,20 @@ const ExpenseGroupsPreview = () => {
   );
 };
 
-ExpenseGroupsPreview.propTypes = {};
+ExpenseGroupsPreview.propTypes = {
+  data: PropTypes.arrayOf(
+    PropTypes.shape({
+      _id: PropTypes.string,
+      expenses: PropTypes.array,
+      startDate: PropTypes.string,
+      endDate: PropTypes.string,
+      title: PropTypes.string,
+    }),
+  ),
+};
 
-ExpenseGroupsPreview.defaultProps = {};
+ExpenseGroupsPreview.defaultProps = {
+  data: [],
+};
 
 export default ExpenseGroupsPreview;
