@@ -1,0 +1,26 @@
+.expense-group-detail {
+  height: 100%;
+
+  &__hd {
+    border-bottom: rem(1) solid darken($gray-100, 5%);
+    margin-bottom: rem(16);
+    padding-bottom: rem(16);
+  }
+
+  &__bd {
+  }
+
+  @media (min-width: $breakpoint-medium) {
+    &__bd {
+      display: flex;
+
+      & > * {
+        flex: 1;
+      }
+
+      & > * + * {
+        margin-left: rem(20);
+      }
+    }
+  }
+}

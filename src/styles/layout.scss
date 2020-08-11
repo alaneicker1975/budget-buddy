@@ -20,7 +20,8 @@
   }
 
   &__content {
-    padding: rem(24);
+    flex: 1;
     overflow: auto;
+    padding: rem(24);
   }
 }

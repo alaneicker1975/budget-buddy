@@ -6,7 +6,7 @@ body,
 
 body {
   font-size: rem(16);
-  line-height: 1.4;
+  line-height: 1.3;
 }
 
 * {
@@ -14,7 +14,15 @@ body {
 }
 
 h1 {
-  font-size: rem(32);
-  font-weight: $font-medium;
+  font-size: rem(38);
+  font-weight: bold;
   text-transform: uppercase;
+}
+
+h2 {
+  font-size: rem(24);
+}
+
+hr {
+  border-top: 1px solid $gray-100;
 }

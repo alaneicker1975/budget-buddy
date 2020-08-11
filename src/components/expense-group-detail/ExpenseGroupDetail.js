@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import classnames from 'classnames';
-import PropTypes from 'prop-types';
+import moment from 'moment';
+import ExpenseGroupForm from '../expense-group-form';
 
 const ExpenseGroupDetail = () => {
   const { id } = useParams();
@@ -15,13 +15,32 @@ const ExpenseGroupDetail = () => {
     return state;
   });
 
+  const {
+    _id,
+    budgetAmount,
+    budgetEndGoal,
+    expenses,
+    title,
+    startDate,
+    endDate,
+  } = selectedExpense;
+
   useEffect(() => {
     dispatch({ type: 'FETCH_EXPENSE', id });
   }, [id]);
 
   return selectedExpense ? (
     <div className="expense-group-detail">
-      <h1>{selectedExpense.title}</h1>
+      <div className="expense-group-detail__hd">
+        <h1>{title}</h1>
+        <h2>
+          {moment(startDate).format('L')} - {moment(endDate).format('L')}
+        </h2>
+      </div>
+      <div className="expense-group-detail__bd">
+        <ExpenseGroupForm expenses={expenses} />
+        <div>&nbsp;</div>
+      </div>
     </div>
   ) : null;
 };
