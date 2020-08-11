@@ -7,9 +7,10 @@
     & > a {
       color: $blue-300;
       display: block;
+      font-weight: $font-medium;
       padding: rem(12 16);
       text-decoration: none;
-      font-weight: $font-medium;
+      white-space: nowrap;
 
       &:hover,
       &:focus {

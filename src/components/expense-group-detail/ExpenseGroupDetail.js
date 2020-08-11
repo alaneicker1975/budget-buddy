@@ -1,16 +1,27 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
 
 const ExpenseGroupDetail = () => {
   const { id } = useParams();
 
-  return (
+  const dispatch = useDispatch();
+
+  const { selectedExpense } = useSelector((state) => {
+    return state;
+  });
+
+  useEffect(() => {
+    dispatch({ type: 'FETCH_EXPENSE', id });
+  }, [id]);
+
+  return selectedExpense ? (
     <div className="expense-group-detail">
-      <h1 className="text-size-36">ExpenseGroupDetail</h1>
+      <h1>{selectedExpense.title}</h1>
     </div>
-  );
+  ) : null;
 };
 
 ExpenseGroupDetail.propTypes = {};

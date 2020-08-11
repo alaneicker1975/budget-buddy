@@ -7,7 +7,7 @@ function* fetchExpenseGroups() {
 
   if (err) {
     yield put({
-      type: 'FETCH_ERROR',
+      type: 'SET_ERROR',
       error: { status: err.status, name: err.name, message: err.message },
     });
   }
