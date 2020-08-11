@@ -1,7 +1,24 @@
 .side-nav {
+  & > * + * {
+    border-top: rem(1) solid darken($gray-100, 10%);
+  }
+
   &__item {
     & > a {
       color: $blue-300;
+      display: block;
+      padding: rem(12 16);
+      text-decoration: none;
+      font-weight: $font-medium;
+
+      &:hover,
+      &:focus {
+        background: darken($gray-100, 3%);
+      }
+
+      &:focus {
+        outline: 0;
+      }
     }
   }
 }

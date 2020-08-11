@@ -14,7 +14,13 @@
   }
 
   &__sidebar {
-    background: $gray-100;
-    min-width: rem(250);
+    background: $gray-000;
+    max-width: rem(250);
+    overflow: auto;
+  }
+
+  &__content {
+    padding: rem(24);
+    overflow: auto;
   }
 }

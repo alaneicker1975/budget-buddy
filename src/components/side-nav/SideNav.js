@@ -6,7 +6,7 @@ import { List, ListItem } from '@alaneicker/atomik-ui';
 
 const SideNav = ({ data }) => {
   return (
-    <List className="side-nav" loose>
+    <List className="side-nav">
       {data.map(({ _id, startDate, endDate }) => {
         return (
           <ListItem key={_id} className="side-nav__item">
