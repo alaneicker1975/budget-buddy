@@ -1,0 +1,14 @@
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  font-size: rem(16);
+  line-height: 1.4;
+}
+
+* {
+  box-sizing: border-box;
+}

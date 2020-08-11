@@ -1,0 +1,20 @@
+.layout {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+
+  &__header {
+    background: $blue-500;
+    height: rem(50);
+  }
+
+  &__main {
+    display: flex;
+    height: 100%;
+  }
+
+  &__sidebar {
+    background: $gray-100;
+    min-width: rem(250);
+  }
+}

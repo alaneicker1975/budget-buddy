@@ -76,7 +76,7 @@ import schemas from './schemas';
       res.status(200).send({ data });
     } catch ({ name, message }) {
       res.status(500).send({
-        err: { statusCode: 500, name, message },
+        err: { status: 500, name, message },
       });
     }
   });
@@ -86,11 +86,11 @@ import schemas from './schemas';
       const { id } = req.params;
       const data = id
         ? await ExpenseGroup.findById(id)
-        : await ExpenseGroup.find({});
+        : await ExpenseGroup.find({}, [], { sort: { startDate: -1 } });
       res.status(200).send({ data });
     } catch ({ name, message }) {
       res.status(500).send({
-        err: { statusCode: 500, name, message },
+        err: { status: 500, name, message },
       });
     }
   });
@@ -110,7 +110,7 @@ import schemas from './schemas';
       res.status(201).send({ insertId: expenseGroup._id });
     } catch ({ name, message }) {
       res.status(500).send({
-        err: { statusCode: 500, name, message },
+        err: { status: 500, name, message },
       });
     }
   });

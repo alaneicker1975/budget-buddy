@@ -1,0 +1,77 @@
+@mixin appearance-reset {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+@mixin label {
+  font-family: inherit;
+  font-size: rem(12);
+  font-weight: $font-bold;
+  text-transform: uppercase;
+}
+
+@mixin focus-outline {
+  box-shadow: rem(0 0 0 2) $focus-blue-light;
+}
+
+@mixin focus-error-outline {
+  box-shadow: rem(0 0 0 2) $focus-red;
+}
+
+@mixin focus-warning-outline {
+  box-shadow: rem(0 0 0 2) $focus-orange;
+}
+
+@mixin radio-button-focus-outline {
+  box-shadow: rem(0 0 0 2) $focus-blue-light,
+    inset 0 0 0 rem(6) $focus-blue-medium;
+}
+
+@mixin radio-button-checked-outline {
+  box-shadow: inset 0 0 0 rem(6) $focus-blue-medium;
+}
+
+@mixin form-option {
+  background-color: $white;
+  border: $input-border;
+  height: rem(22);
+  outline: 0;
+  width: rem(22);
+}
+
+@mixin input {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-color: $white;
+  border: rem(1) solid $gray-200;
+  border-radius: rem($base-border-radius);
+  font-family: inherit;
+  font-size: inherit;
+  height: rem($input-height);
+  outline: 0;
+  padding: rem(0 8);
+  width: 100%;
+
+  &:disabled {
+    background: $default-background-lightest-gray;
+    border: 0;
+    color: $gray-300;
+  }
+
+  &:read-only {
+    border: 0;
+    padding: 0;
+  }
+
+  &:not(:read-only):focus {
+    @include focus-outline();
+  }
+}
+
+@mixin box {
+  background: $gray-000;
+  padding: rem(20 20 20 60);
+  position: relative;
+}

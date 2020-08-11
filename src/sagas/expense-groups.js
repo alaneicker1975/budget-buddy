@@ -1,22 +1,21 @@
 import { takeLatest, put } from 'redux-saga/effects';
 
 function* fetchExpenseGroups() {
-  try {
-    const response = yield fetch('http://localhost:9000/api/expense-groups');
+  const response = yield fetch('http://localhost:9000/api/expense-groups');
 
-    const { err, data } = yield response.json();
+  const { err, data } = yield response.json();
 
-    if (err) {
-      throw new Error(err);
-    }
-
+  if (err) {
     yield put({
-      type: 'FETCH_EXPENSE_GROUP_SUCCESS',
-      data,
+      type: 'FETCH_ERROR',
+      error: { status: err.status, name: err.name, message: err.message },
     });
-  } catch ({ statusCode, name, message }) {
-    yield put({ type: 'FETCH_ERROR', error: { statusCode, name, message } });
   }
+
+  yield put({
+    type: 'FETCH_EXPENSE_GROUP_SUCCESS',
+    data,
+  });
 }
 
 export default function* watchFetchExpenseGroups() {

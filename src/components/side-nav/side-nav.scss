@@ -1,0 +1,7 @@
+.side-nav {
+  &__item {
+    & > a {
+      color: $blue-300;
+    }
+  }
+}
