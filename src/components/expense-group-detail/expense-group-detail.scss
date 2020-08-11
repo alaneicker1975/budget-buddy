@@ -3,12 +3,26 @@
     border-bottom: rem(1) solid darken($gray-100, 5%);
     margin-bottom: rem(16);
     padding-bottom: rem(16);
-  }
 
-  &__bd {
+    & > * + * {
+      margin-top: rem(8);
+    }
   }
 
   @media (min-width: $breakpoint-medium) {
+    &__hd {
+      align-items: center;
+      display: flex;
+
+      & > * {
+        flex: 1;
+      }
+
+      & > * + * {
+        margin-top: 0;
+      }
+    }
+
     &__bd {
       display: flex;
 
