@@ -32,8 +32,8 @@ const ExpenseGroupDetail = () => {
   return selectedExpense ? (
     <div className="expense-group-detail">
       <div className="expense-group-detail__hd">
-        <h1>{title}</h1>
-        <h2>
+        <h1 className="text-size-24 text-size-36@medium">{title}</h1>
+        <h2 className="text-size-20@medium">
           {moment(startDate).format('L')} - {moment(endDate).format('L')}
         </h2>
       </div>
