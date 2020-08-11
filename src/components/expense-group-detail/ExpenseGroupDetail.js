@@ -9,7 +9,9 @@ const ExpenseGroupDetail = () => {
 
   const dispatch = useDispatch();
 
-  const { selectedExpense } = useSelector((state) => {
+  const {
+    expenses: { selectedExpense },
+  } = useSelector((state) => {
     return state;
   });
 

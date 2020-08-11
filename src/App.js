@@ -8,7 +8,10 @@ import SideNav from './components/side-nav';
 const App = () => {
   const dispatch = useDispatch();
 
-  const { expenseGroups, error } = useSelector((state) => {
+  const {
+    expenses: { expenseGroups },
+    error,
+  } = useSelector((state) => {
     return state;
   });
 
