@@ -9,7 +9,7 @@ const App = () => {
   const dispatch = useDispatch();
 
   const {
-    expenses: { expenseGroups },
+    expenses: { expenseGroups, selectedExpenseId },
     error,
   } = useSelector((state) => {
     return state;
@@ -32,7 +32,7 @@ const App = () => {
       )}
       <div className="layout__main">
         <div className="layout__sidebar">
-          <SideNav data={expenseGroups} />
+          <SideNav data={expenseGroups} selectedExpenseId={selectedExpenseId} />
         </div>
         <div className="layout__content">
           <Route path="/expense-group/:id" component={ExpenseGroupDetail} />

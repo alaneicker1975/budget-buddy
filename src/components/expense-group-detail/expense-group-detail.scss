@@ -9,6 +9,10 @@
     }
   }
 
+  &__ft {
+    border-top: rem(1) solid $gray-100;
+  }
+
   @media (min-width: $breakpoint-medium) {
     &__hd {
       align-items: center;

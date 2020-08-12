@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
+import { Statistic } from '@alaneicker/atomik-ui';
 import ExpenseGroupForm from '../expense-group-form';
 
 const ExpenseGroupDetail = () => {
@@ -25,6 +26,10 @@ const ExpenseGroupDetail = () => {
     endDate,
   } = selectedExpense;
 
+  const unpaidBalance = expenses.reduce((a, b) => {
+    return !b.isPaid ? a + b.balance : a;
+  }, 0);
+
   useEffect(() => {
     dispatch({ type: 'FETCH_EXPENSE', id });
   }, [id]);
@@ -32,25 +37,36 @@ const ExpenseGroupDetail = () => {
   return selectedExpense ? (
     <div className="expense-group-detail">
       <div className="expense-group-detail__hd">
-        <div>
-          <h1 className="text-size-24 text-size-36@medium text-weight-bold">
-            {title}
-          </h1>
-          <h2 className="text-size-20">
-            {moment(startDate).format('L')} - {moment(endDate).format('L')}
-          </h2>
+        <div className="text-align-center text-align-left@medium">
+          <Statistic
+            value={title}
+            label={`${moment(startDate).format('L')} - ${moment(endDate).format(
+              'L',
+            )}`}
+            topLabel
+          />
         </div>
-        <div className="text-align-right@medium">
-          <h4 className="text-size-20@medium text-weight-bold">
-            Budget Amount
-          </h4>
-          <span className="text-size-20 text-size-30@medium">
-            ${budgetAmount.toLocaleString()}
+        <div className="text-align-center text-align-right@medium">
+          <span className="text-size-20@medium">
+            <Statistic
+              value={`$${budgetAmount.toLocaleString()}`}
+              label="Budget Amount"
+              theme="green"
+              size="md"
+              topLabel
+            />
           </span>
         </div>
       </div>
       <div className="expense-group-detail__bd">
-        <ExpenseGroupForm expenses={expenses} />
+        <div>
+          <ExpenseGroupForm expenses={expenses} />
+          <hr />
+          <h4 className="text-size-20@medium text-weight-bold">
+            Total Unpaid Balance:{' '}
+            <span className="text-color-red-100">${unpaidBalance}</span>
+          </h4>
+        </div>
         <div>&nbsp;</div>
       </div>
     </div>

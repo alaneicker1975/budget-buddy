@@ -20,6 +20,10 @@
       &:focus {
         outline: 0;
       }
+
+      &.is-active {
+        background: $white;
+      }
     }
   }
 }

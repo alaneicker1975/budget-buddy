@@ -7,11 +7,11 @@
       & > * {
         margin-bottom: rem(8);
       }
-
-      & > :first-child {
-        flex: 1;
-      }
     }
+  }
+
+  &__expense-field {
+    flex: 1;
   }
 
   @media (min-width: $breakpoint-medium) {
@@ -19,22 +19,6 @@
       & > * {
         align-items: center;
         display: flex;
-
-        & > :first-child {
-          input {
-            min-width: rem(150);
-          }
-        }
-
-        & > :nth-child(2) {
-          input {
-            width: rem(90);
-          }
-        }
-
-        & > :last-child {
-          flex: rem(80) 0 0;
-        }
 
         & > * {
           margin-bottom: rem(0);
@@ -44,6 +28,22 @@
           margin-left: rem(20);
         }
       }
+    }
+
+    &__balance-field {
+      input {
+        width: rem(90);
+      }
+    }
+
+    &__expense-field {
+      input {
+        min-width: rem(150);
+      }
+    }
+
+    &__status-field {
+      flex: rem(100) 0 0;
     }
   }
 }

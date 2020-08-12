@@ -13,22 +13,27 @@ const ExpenseGroupForm = ({ expenses }) => {
   return (
     <form className="expense-group-form">
       <List className="expense-group-form__list">
-        {expenses.map(({ expense, balance, isPaid }) => {
+        {expenses.map(({ _id, expense, balance, isPaid }) => {
           return (
             <ListItem key={shortid.generate()}>
-              <div>
+              <div className="expense-group-form__expense-field">
                 <FormField value={expense} placeholder="Expense" />
               </div>
-              <div>
+              <div className="expense-group-form__balance-field">
                 <FormField value={balance.toFixed(2)} placeholder="Balance" />
               </div>
-              <div>
+              <div className="expense-group-form__status-field">
                 <CheckOption
                   label={isPaid ? 'Paid' : 'Not Paid'}
                   checked={isPaid}
                   name="isPaidCheckbox"
                   onChange={() => {}}
                 />
+              </div>
+              <div className="expense-group-form__delete-btn">
+                <Button theme="tertiary" size="md">
+                  Delete
+                </Button>
               </div>
             </ListItem>
           );
