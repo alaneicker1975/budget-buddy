@@ -46,7 +46,6 @@ const App = () => {
           <Route path="/expense-group/:id" component={ExpenseGroupDetail} />
         </div>
       </div>
-      <div className="layout__footer">{/* <Footer /> */}</div>
     </main>
   );
 };

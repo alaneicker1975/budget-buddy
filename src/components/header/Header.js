@@ -1,11 +1,14 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 const Header = ({ logo, logoText }) => {
   return (
     <div className="header">
-      <div className="header__logo">{logo}</div>
-      <div className="header__logo-text">{logoText}</div>
+      <Link className="header__logo" to="/">
+        <div className="header__logo__icon">{logo}</div>
+        <div className="header__logo__text">{logoText}</div>
+      </Link>
     </div>
   );
 };
