@@ -1,0 +1,18 @@
+.header {
+  align-items: center;
+  background: $blue-500;
+  display: flex;
+  padding: rem(0 16);
+  width: 100%;
+
+  &__logo {
+    margin-right: rem(8);
+  }
+
+  &__logo-text {
+    color: $white;
+    font-size: rem(18);
+    font-weight: $font-medium;
+    text-transform: uppercase;
+  }
+}

@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
-import { Statistic } from '@alaneicker/atomik-ui';
+import { Statistic, Button } from '@alaneicker/atomik-ui';
 import ExpenseGroupForm from '../expense-group-form';
 
 const ExpenseGroupDetail = () => {
@@ -49,7 +49,9 @@ const ExpenseGroupDetail = () => {
         <div className="text-align-center text-align-right@medium">
           <span className="text-size-20@medium">
             <Statistic
-              value={`$${budgetAmount.toLocaleString()}`}
+              value={`$${budgetAmount.toLocaleString('en', {
+                minimumFractionDigits: 2,
+              })}`}
               label="Budget Amount"
               theme="green"
               size="md"
@@ -60,11 +62,19 @@ const ExpenseGroupDetail = () => {
       </div>
       <div className="expense-group-detail__bd">
         <div>
+          <div className="flex flex--align-middle flex--space-between">
+            <h3 className="text-size-20@medium text-weight-bold">Expenses</h3>
+            <Button size="md">+ Add</Button>
+          </div>
+          <hr />
           <ExpenseGroupForm expenses={expenses} />
           <hr />
           <h4 className="text-size-20@medium text-weight-bold">
             Total Unpaid Balance:{' '}
-            <span className="text-color-red-100">${unpaidBalance}</span>
+            <span className="text-color-red-100">
+              $
+              {unpaidBalance.toLocaleString('en', { minimumFractionDigits: 2 })}
+            </span>
           </h4>
         </div>
         <div>&nbsp;</div>

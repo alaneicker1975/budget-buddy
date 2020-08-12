@@ -2,8 +2,11 @@ import React, { useEffect } from 'react';
 import { Route } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { Alert } from '@alaneicker/atomik-ui';
+import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
+import { faPiggyBank } from '@fortawesome/free-solid-svg-icons';
 import ExpenseGroupDetail from './components/expense-group-detail';
 import SideNav from './components/side-nav';
+import Header from './components/header';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -21,7 +24,12 @@ const App = () => {
 
   return (
     <main className="layout">
-      <div className="layout__header">{/* <Feader /> */}</div>
+      <div className="layout__header">
+        <Header
+          logo={<Icon icon={faPiggyBank} size="lg" color="white" />}
+          logoText="Budget Buddy"
+        />
+      </div>
       {error && (
         <Alert theme="error">
           <h4>
