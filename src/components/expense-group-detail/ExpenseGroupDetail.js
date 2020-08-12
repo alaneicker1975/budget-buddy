@@ -69,8 +69,8 @@ const ExpenseGroupDetail = () => {
           <hr />
           <ExpenseGroupForm expenses={expenses} />
           <hr />
-          <h4 className="text-size-20@medium text-weight-bold">
-            Total Unpaid Balance:{' '}
+          <h4 className="text-size-20@medium text-weight-medium">
+            Unpaid Balance:{' '}
             <span className="text-color-red-100">
               $
               {unpaidBalance.toLocaleString('en', { minimumFractionDigits: 2 })}

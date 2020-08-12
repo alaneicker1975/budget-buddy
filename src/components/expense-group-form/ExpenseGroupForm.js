@@ -10,6 +10,10 @@ import {
 } from '@alaneicker/atomik-ui';
 
 const ExpenseGroupForm = ({ expenses }) => {
+  const onExpenseDelete = (_id) => {
+    // dispatch action to delete expense from group
+  };
+
   return (
     <form className="expense-group-form">
       <List className="expense-group-form__list">
@@ -31,7 +35,13 @@ const ExpenseGroupForm = ({ expenses }) => {
                 />
               </div>
               <div className="expense-group-form__delete-btn">
-                <Button theme="tertiary" size="md">
+                <Button
+                  theme="tertiary"
+                  size="md"
+                  onClick={() => {
+                    return onExpenseDelete(_id);
+                  }}
+                >
                   Delete
                 </Button>
               </div>
