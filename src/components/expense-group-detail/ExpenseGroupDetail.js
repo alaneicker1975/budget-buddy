@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
 import { Statistic, Button } from '@alaneicker/atomik-ui';
 import ExpenseGroupForm from '../expense-group-form';
+import SavingsGoalChart from '../savings-goal-chart';
 
 const ExpenseGroupDetail = () => {
   const { id } = useParams();
@@ -64,7 +65,9 @@ const ExpenseGroupDetail = () => {
         <div>
           <div className="flex flex--align-middle flex--space-between">
             <h3 className="text-size-20@medium text-weight-bold">Expenses</h3>
-            <Button size="md">+ Add</Button>
+            <Button theme="link" size="md">
+              <span className="text-weight-semibold">+ Add Expense</span>
+            </Button>
           </div>
           <hr />
           <ExpenseGroupForm expenses={expenses} />
@@ -77,7 +80,13 @@ const ExpenseGroupDetail = () => {
             </span>
           </h4>
         </div>
-        <div>&nbsp;</div>
+        <div>
+          <SavingsGoalChart
+            budgetAmount={budgetAmount}
+            budgetEndGoal={budgetEndGoal}
+            unpaidBalance={unpaidBalance}
+          />
+        </div>
       </div>
     </div>
   ) : null;
