@@ -1,7 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Chart from 'react-apexcharts';
 
 const BudgetVisualizationChart = ({ expenses, totalBalance }) => {
+  const options = {
+    labels: expenses.map(({ expense }) => {
+      return expense;
+    }),
+  };
+
+  const series = expenses.map(({ balance }) => {
+    return balance;
+  });
+
   return (
     <div className="savings-goal-chart">
       <div className="flex flex--align-middle flex--space-between">
@@ -14,12 +25,21 @@ const BudgetVisualizationChart = ({ expenses, totalBalance }) => {
         </span>
       </div>
       <hr />
+      <div>
+        <Chart options={options} type="donut" series={series} />
+      </div>
     </div>
   );
 };
 
 BudgetVisualizationChart.propTypes = {
-  expenses: PropTypes.arrayOf(PropTypes.number),
+  expenses: PropTypes.arrayOf(
+    PropTypes.shape({
+      expense: PropTypes.string,
+      balance: PropTypes.number,
+      isPaid: PropTypes.bool,
+    }),
+  ),
   totalBalance: PropTypes.number,
 };
 
