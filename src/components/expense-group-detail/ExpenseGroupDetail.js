@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
 import { Statistic, Button } from '@alaneicker/atomik-ui';
 import ExpenseGroupForm from '../expense-group-form';
-import SavingsGoalChart from '../savings-goal-chart';
+import BudgetVisualizationChart from '../budget-visualization-chart';
 
 const ExpenseGroupDetail = () => {
   const { id } = useParams();
@@ -29,6 +29,10 @@ const ExpenseGroupDetail = () => {
 
   const unpaidBalance = expenses.reduce((a, b) => {
     return !b.isPaid ? a + b.balance : a;
+  }, 0);
+
+  const totalBalance = expenses.reduce((a, b) => {
+    return a + b.balance;
   }, 0);
 
   useEffect(() => {
@@ -81,10 +85,9 @@ const ExpenseGroupDetail = () => {
           </h4>
         </div>
         <div>
-          <SavingsGoalChart
-            budgetAmount={budgetAmount}
-            budgetEndGoal={budgetEndGoal}
-            unpaidBalance={unpaidBalance}
+          <BudgetVisualizationChart
+            expenses={expenses}
+            totalBalance={totalBalance}
           />
         </div>
       </div>
