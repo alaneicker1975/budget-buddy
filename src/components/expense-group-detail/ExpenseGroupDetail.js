@@ -35,7 +35,7 @@ const ExpenseGroupDetail = () => {
     return a + b.balance;
   }, 0);
 
-  const remainingBalnace = totalBalance - unpaidBalance;
+  const remainingBalnace = budgetAmount - totalBalance;
 
   useEffect(() => {
     dispatch({ type: 'FETCH_EXPENSE', id });
@@ -101,8 +101,10 @@ const ExpenseGroupDetail = () => {
             and a total balance of $
             {totalBalance.toLocaleString('en', { minimumFractionDigits: 2 })} in
             expenses due, you should have a remaning balance of $
-            {totalBalance.toLocaleString('en', { minimumFractionDigits: 2 })} on{' '}
-            {moment(endDate).format('L')}.
+            {remainingBalnace.toLocaleString('en', {
+              minimumFractionDigits: 2,
+            })}{' '}
+            on {moment(endDate).format('L')}.
           </p>
         </div>
       </div>
