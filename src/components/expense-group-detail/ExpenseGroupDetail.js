@@ -20,19 +20,18 @@ const ExpenseGroupDetail = () => {
   const {
     _id,
     budgetAmount,
-    budgetEndGoal,
     expenses,
     title,
     startDate,
     endDate,
   } = selectedExpense;
 
-  const unpaidBalance = expenses.reduce((a, b) => {
-    return !b.isPaid ? a + b.balance : a;
-  }, 0);
-
   const totalBalance = expenses.reduce((a, b) => {
     return a + b.balance;
+  }, 0);
+
+  const unpaidBalance = expenses.reduce((a, b) => {
+    return !b.isPaid ? a + b.balance : a;
   }, 0);
 
   const remainingBalnace = budgetAmount - totalBalance;
