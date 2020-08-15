@@ -17,6 +17,7 @@
 
   &__sidebar {
     background: $gray-000;
+    display: none;
     min-width: rem(220);
     overflow: auto;
   }
@@ -25,5 +26,11 @@
     flex: 1;
     overflow: auto;
     padding: rem(24);
+  }
+
+  @media (min-width: $breakpoint-medium) {
+    &__sidebar {
+      display: block;
+    }
   }
 }

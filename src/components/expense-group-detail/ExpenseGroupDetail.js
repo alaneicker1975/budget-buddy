@@ -35,6 +35,8 @@ const ExpenseGroupDetail = () => {
     return a + b.balance;
   }, 0);
 
+  const remainingBalnace = totalBalance - unpaidBalance;
+
   useEffect(() => {
     dispatch({ type: 'FETCH_EXPENSE', id });
   }, [id]);
@@ -85,10 +87,23 @@ const ExpenseGroupDetail = () => {
           </h4>
         </div>
         <div>
+          <div className="margin-top-32 margin-collapse@medium" />
           <BudgetVisualizationChart
             expenses={expenses}
             totalBalance={totalBalance}
           />
+          <h4 className="margin-top-16 margin-bottom-8 text-weight-bold">
+            End of Month Projection
+          </h4>
+          <p>
+            Base on your current budget of $
+            {budgetAmount.toLocaleString('en', { minimumFractionDigits: 2 })}{' '}
+            and a total balance of $
+            {totalBalance.toLocaleString('en', { minimumFractionDigits: 2 })} in
+            expenses due, you should have a remaning balance of $
+            {totalBalance.toLocaleString('en', { minimumFractionDigits: 2 })} on{' '}
+            {moment(endDate).format('L')}.
+          </p>
         </div>
       </div>
     </div>
