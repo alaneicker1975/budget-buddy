@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
-import { Statistic, Button } from '@alaneicker/atomik-ui';
+import { Statistic, Modal, Button } from '@alaneicker/atomik-ui';
 import ExpenseGroupForm from '../expense-group-form';
 import BudgetVisualizationChart from '../budget-visualization-chart';
 
@@ -10,6 +10,8 @@ const ExpenseGroupDetail = () => {
   const { id } = useParams();
 
   const dispatch = useDispatch();
+
+  const [shoWModal, setShowModal] = useState(false);
 
   const {
     expenses: { selectedExpense },
@@ -35,6 +37,10 @@ const ExpenseGroupDetail = () => {
   }, 0);
 
   const remainingBalnace = budgetAmount - totalBalance;
+
+  const submit = () => {
+    setShowModal(false);
+  };
 
   useEffect(() => {
     dispatch({ type: 'FETCH_EXPENSE', id });
@@ -70,7 +76,13 @@ const ExpenseGroupDetail = () => {
         <div>
           <div className="flex flex--align-middle flex--space-between">
             <h3 className="text-size-20@medium text-weight-bold">Expenses</h3>
-            <Button theme="link" size="md">
+            <Button
+              theme="link"
+              size="md"
+              onClick={() => {
+                return setShowModal(true);
+              }}
+            >
               <span className="text-weight-semibold">+ Add Expense</span>
             </Button>
           </div>
@@ -107,12 +119,24 @@ const ExpenseGroupDetail = () => {
           </p>
         </div>
       </div>
+      <Modal
+        disableEscapKey
+        disableOverlayclick
+        isOpen={shoWModal}
+        onClose={() => {
+          return setShowModal(false);
+        }}
+        title="Add New Expense"
+        footer={
+          <Button size="md" onClick={submit}>
+            Submit Expense
+          </Button>
+        }
+      >
+        Expense form...
+      </Modal>
     </div>
   ) : null;
 };
-
-ExpenseGroupDetail.propTypes = {};
-
-ExpenseGroupDetail.defaultProps = {};
 
 export default ExpenseGroupDetail;
