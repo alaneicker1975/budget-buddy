@@ -2,13 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
-import {
-  Statistic,
-  Modal,
-  Button,
-  List,
-  ListItem,
-} from '@alaneicker/atomik-ui';
+import { Statistic, Modal, Button } from '@alaneicker/atomik-ui';
 import ExpenseGroupForm from '../expense-group-form';
 import BudgetVisualizationChart from '../budget-visualization-chart';
 
@@ -18,7 +12,6 @@ const ExpenseGroupDetail = () => {
   const dispatch = useDispatch();
 
   const [showAddModal, setShowAddModal] = useState(false);
-  const [editMode, setEditMode] = useState(false);
 
   const {
     expenses: { selectedExpense },
@@ -79,36 +72,18 @@ const ExpenseGroupDetail = () => {
         <div>
           <div className="flex flex--align-middle flex--space-between">
             <h3 className="text-size-20@medium text-weight-bold">Expenses</h3>
-            <List type="horizontal">
-              <ListItem>
-                <Button
-                  theme="link"
-                  size="md"
-                  onClick={() => {
-                    return setShowAddModal(true);
-                  }}
-                >
-                  <span className="text-weight-semibold">+ Add Expense</span>
-                </Button>
-              </ListItem>
-              <ListItem>|</ListItem>
-              <ListItem>
-                <Button
-                  theme="link"
-                  size="md"
-                  onClick={() => {
-                    return setEditMode(true);
-                  }}
-                >
-                  <span className="text-weight-semibold">
-                    Edit Expense Group
-                  </span>
-                </Button>
-              </ListItem>
-            </List>
+            <Button
+              theme="link"
+              size="md"
+              onClick={() => {
+                return setShowAddModal(true);
+              }}
+            >
+              <span className="text-weight-semibold">+ Add Expense</span>
+            </Button>
           </div>
           <hr />
-          <ExpenseGroupForm expenses={expenses} isEditMode={editMode} />
+          <ExpenseGroupForm expenses={expenses} />
           <hr />
           <h4 className="text-size-20@medium text-weight-medium">
             Unpaid Balance:{' '}

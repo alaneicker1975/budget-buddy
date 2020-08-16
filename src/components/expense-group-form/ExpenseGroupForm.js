@@ -11,9 +11,8 @@ import {
   CheckOption,
 } from '@alaneicker/atomik-ui';
 
-const ExpenseGroupForm = ({ expenses, isNewGroup, isEditMode }) => {
+const ExpenseGroupForm = ({ expenses, isNewGroup }) => {
   const [expenseGroups, setExpenseGroups] = useState([]);
-  const [editMode, setEditMode] = useState(false);
 
   const onExpenseDelete = (_id) => {
     // dispatch action to delete expense from group
@@ -22,10 +21,6 @@ const ExpenseGroupForm = ({ expenses, isNewGroup, isEditMode }) => {
   useEffect(() => {
     setExpenseGroups(expenses);
   }, [expenses]);
-
-  useEffect(() => {
-    setEditMode(isEditMode);
-  }, [isEditMode]);
 
   return (
     <form className="expense-group-form">
@@ -42,29 +37,20 @@ const ExpenseGroupForm = ({ expenses, isNewGroup, isEditMode }) => {
                   <FormField
                     value={expense}
                     placeholder="Expense (E.g. Electric Bill)"
-                    readOnly={!editMode && !isNewGroup}
                   />
                 </div>
                 <div className="expense-group-form__balance-field">
-                  <FormField
-                    value={balance.toFixed(2)}
-                    placeholder="Balance"
-                    readOnly={!editMode && !isNewGroup}
-                  />
+                  <FormField value={balance.toFixed(2)} placeholder="Balance" />
                 </div>
                 <div className="expense-group-form__status-field">
-                  {!editMode ? (
-                    paidLabel
-                  ) : (
-                    <CheckOption
-                      label={paidLabel}
-                      checked={isPaid}
-                      name="isPaidCheckbox"
-                      onChange={() => {}}
-                    />
-                  )}
+                  <CheckOption
+                    label={paidLabel}
+                    checked={isPaid}
+                    name="isPaidCheckbox"
+                    onChange={() => {}}
+                  />
                 </div>
-                {isEditMode && (
+                {!isNewGroup && (
                   <div className="expense-group-form__delete-btn">
                     <Button
                       theme="tertiary"
@@ -103,11 +89,10 @@ const ExpenseGroupForm = ({ expenses, isNewGroup, isEditMode }) => {
             </Button>
           </div>
         )}
-        {isNewGroup && <div className="margin-top-20" />}
-        {(isEditMode || isNewGroup) && (
-          <div className="margin-top-8 margin-bottom-16">
-            <Button theme="primary">Submit</Button>
-          </div>
+        {isNewGroup && (
+          <Button theme="primary" className="margin-top-8 margin-bottom-16">
+            Submit
+          </Button>
         )}
       </>
     </form>
@@ -123,7 +108,6 @@ ExpenseGroupForm.propTypes = {
     }),
   ),
   isNewGroup: PropTypes.bool,
-  editMode: PropTypes.bool,
 };
 
 ExpenseGroupForm.defaultProps = {
@@ -135,7 +119,6 @@ ExpenseGroupForm.defaultProps = {
     },
   ],
   isNewGroup: false,
-  editMode: false,
 };
 
 export default ExpenseGroupForm;
