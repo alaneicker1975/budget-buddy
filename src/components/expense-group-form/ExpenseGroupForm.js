@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import shortid from 'shortid';
 import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
 import * as yup from 'yup';
 import { useFormik } from 'formik';
 import {
@@ -12,7 +13,18 @@ import {
 } from '@alaneicker/atomik-ui';
 
 const ExpenseGroupForm = ({ expenses, isNewGroup }) => {
+  const dispatch = useDispatch();
+
   const [expenseGroups, setExpenseGroups] = useState([]);
+
+  const onExpenseUpdate = (e, id) => {
+    const { type, name, value, checked } = e.target;
+
+    dispatch({
+      type: 'UPDATE_EXPENSE_GROUP',
+      data: { id, type, name, value, checked },
+    });
+  };
 
   const onExpenseDelete = (_id) => {
     // dispatch action to delete expense from group
@@ -35,19 +47,32 @@ const ExpenseGroupForm = ({ expenses, isNewGroup }) => {
               <ListItem key={shortid.generate()}>
                 <div className="expense-group-form__expense-field">
                   <FormField
+                    name="expense"
                     value={expense}
                     placeholder="Expense (E.g. Electric Bill)"
+                    onChange={(e) => {
+                      return onExpenseUpdate(e, _id);
+                    }}
                   />
                 </div>
                 <div className="expense-group-form__balance-field">
-                  <FormField value={balance.toFixed(2)} placeholder="Balance" />
+                  <FormField
+                    name="balance"
+                    value={balance.toFixed(2)}
+                    placeholder="Balance"
+                    onChange={(e) => {
+                      return onExpenseUpdate(e, _id);
+                    }}
+                  />
                 </div>
                 <div className="expense-group-form__status-field">
                   <CheckOption
+                    name="isPaid"
                     label={paidLabel}
                     checked={isPaid}
-                    name="isPaidCheckbox"
-                    onChange={() => {}}
+                    onChange={(e) => {
+                      return onExpenseUpdate(e, _id);
+                    }}
                   />
                 </div>
                 {!isNewGroup && (

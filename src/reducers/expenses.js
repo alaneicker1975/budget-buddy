@@ -20,6 +20,23 @@ const expenseReducer = (state = initialState, action) => {
       return { ...state, expenses: action.data };
     case 'FETCH_EXPENSE_GROUP_SUCCESS':
       return { ...state, expenseGroups: action.data };
+    case 'UPDATE_EXPENSE_GROUP_SUCCESS':
+      return {
+        ...state,
+        expenses: state.expenses.map((group) => {
+          return action.data.id === group._id
+            ? {
+                ...group,
+                ...(action.data.type === 'checkbox' && {
+                  isPaid: action.data.checked,
+                }),
+                ...(action.data.type === 'text' && {
+                  [action.data.name]: action.data.value,
+                }),
+              }
+            : group;
+        }),
+      };
     case 'SET_ERROR':
       return { ...state, error: action.error };
     default:

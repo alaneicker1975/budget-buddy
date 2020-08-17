@@ -18,6 +18,16 @@ function* fetchExpenseGroups() {
   });
 }
 
-export default function* watchFetchExpenseGroups() {
+function* updateExpenseGroup(data) {
+  // Do fetch to PUT updated data
+
+  yield put({
+    type: 'UPDATE_EXPENSE_GROUP_SUCCESS',
+    data,
+  });
+}
+
+export default function* watchExpenseGroupChange() {
   yield takeLatest('FETCH_EXPENSE_GROUPS', fetchExpenseGroups);
+  yield takeLatest('UPDATE_EXPENSE_GROUP', updateExpenseGroup);
 }
