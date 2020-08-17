@@ -17,12 +17,12 @@ const ExpenseGroupForm = ({ expenses, isNewGroup }) => {
 
   const [expenseGroups, setExpenseGroups] = useState([]);
 
-  const onExpenseUpdate = (e, id) => {
+  const onExpenseUpdate = (e, expenseId) => {
     const { type, name, value, checked } = e.target;
 
     dispatch({
       type: 'UPDATE_EXPENSE_GROUP',
-      data: { id, type, name, value, checked },
+      data: { expenseId, type, name, value, checked },
     });
   };
 
@@ -37,60 +37,56 @@ const ExpenseGroupForm = ({ expenses, isNewGroup }) => {
   return (
     <form className="expense-group-form">
       <List className="expense-group-form__list">
-        {expenseGroups
-          .sort((a, b) => {
-            return b.balance - a.balance;
-          })
-          .map(({ _id, expense, balance, isPaid }) => {
-            const paidLabel = isPaid ? 'Paid' : 'Not Paid';
-            return (
-              <ListItem key={shortid.generate()}>
-                <div className="expense-group-form__expense-field">
-                  <FormField
-                    name="expense"
-                    value={expense}
-                    placeholder="Expense (E.g. Electric Bill)"
-                    onChange={(e) => {
-                      return onExpenseUpdate(e, _id);
+        {expenseGroups.map(({ _id, expense, balance, isPaid }) => {
+          const paidLabel = isPaid ? 'Paid' : 'Not Paid';
+          return (
+            <ListItem key={shortid.generate()}>
+              <div className="expense-group-form__expense-field">
+                <FormField
+                  name="expense"
+                  value={expense}
+                  placeholder="Expense (E.g. Electric Bill)"
+                  onChange={(e) => {
+                    return onExpenseUpdate(e, _id);
+                  }}
+                />
+              </div>
+              <div className="expense-group-form__balance-field">
+                <FormField
+                  name="balance"
+                  value={balance.toFixed(2)}
+                  placeholder="Balance"
+                  onChange={(e) => {
+                    return onExpenseUpdate(e, _id);
+                  }}
+                />
+              </div>
+              <div className="expense-group-form__status-field">
+                <CheckOption
+                  name="isPaid"
+                  label={paidLabel}
+                  checked={isPaid}
+                  onChange={(e) => {
+                    return onExpenseUpdate(e, _id);
+                  }}
+                />
+              </div>
+              {!isNewGroup && (
+                <div className="expense-group-form__delete-btn">
+                  <Button
+                    theme="tertiary"
+                    size="md"
+                    onClick={() => {
+                      return onExpenseDelete(_id);
                     }}
-                  />
+                  >
+                    Delete
+                  </Button>
                 </div>
-                <div className="expense-group-form__balance-field">
-                  <FormField
-                    name="balance"
-                    value={balance.toFixed(2)}
-                    placeholder="Balance"
-                    onChange={(e) => {
-                      return onExpenseUpdate(e, _id);
-                    }}
-                  />
-                </div>
-                <div className="expense-group-form__status-field">
-                  <CheckOption
-                    name="isPaid"
-                    label={paidLabel}
-                    checked={isPaid}
-                    onChange={(e) => {
-                      return onExpenseUpdate(e, _id);
-                    }}
-                  />
-                </div>
-                {!isNewGroup && (
-                  <div className="expense-group-form__delete-btn">
-                    <Button
-                      theme="tertiary"
-                      size="md"
-                      onClick={() => {
-                        return onExpenseDelete(_id);
-                      }}
-                    >
-                      Delete
-                    </Button>
-                  </div>
-                )}
-              </ListItem>
-            );
-          })}
+              )}
+            </ListItem>
+          );
+        })}
       </List>
       <>
         {isNewGroup && (

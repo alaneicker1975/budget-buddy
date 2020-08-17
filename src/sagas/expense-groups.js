@@ -18,7 +18,7 @@ function* fetchExpenseGroups() {
   });
 }
 
-function* updateExpenseGroup(data) {
+function* updateExpenseGroup({ data }) {
   // Do fetch to PUT updated data
 
   yield put({

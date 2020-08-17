@@ -8,6 +8,8 @@ const initialState = {
 
 const expenseReducer = (state = initialState, action) => {
   switch (action.type) {
+    case 'SET_ERROR':
+      return { ...state, error: action.error };
     case 'FETCH_EXPENSE':
       return {
         ...state,
@@ -23,22 +25,26 @@ const expenseReducer = (state = initialState, action) => {
     case 'UPDATE_EXPENSE_GROUP_SUCCESS':
       return {
         ...state,
-        expenses: state.expenses.map((group) => {
-          return action.data.id === group._id
-            ? {
-                ...group,
-                ...(action.data.type === 'checkbox' && {
-                  isPaid: action.data.checked,
-                }),
-                ...(action.data.type === 'text' && {
-                  [action.data.name]: action.data.value,
-                }),
-              }
-            : group;
-        }),
+        selectedExpense: {
+          ...state.selectedExpense,
+          expenses: state.selectedExpense.expenses.map((expense) => {
+            return expense._id === action.data.expenseId
+              ? {
+                  ...expense,
+                  ...(action.data.type === 'checkbox' && {
+                    isPaid: action.data.checked,
+                  }),
+                  ...(action.data.type === 'text' && {
+                    [action.data.name]:
+                      action.data.name === 'balance'
+                        ? +action.data.value
+                        : action.data.value,
+                  }),
+                }
+              : expense;
+          }),
+        },
       };
-    case 'SET_ERROR':
-      return { ...state, error: action.error };
     default:
       return state;
   }
