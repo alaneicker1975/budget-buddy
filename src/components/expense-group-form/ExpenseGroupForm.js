@@ -37,10 +37,10 @@ const ExpenseGroupForm = ({ expenses, isNewGroup, groupId }) => {
   return (
     <form className="expense-group-form">
       <List className="expense-group-form__list">
-        {expenseGroups.map(({ _id, expense, balance, isPaid }) => {
+        {expenseGroups.map(({ _id, expense, balance, isPaid }, i) => {
           const paidLabel = isPaid ? 'Paid' : 'Not Paid';
           return (
-            <ListItem key={shortid.generate()}>
+            <ListItem key={`expense-item-${i}`}>
               <div className="expense-group-form__expense-field">
                 <FormField
                   name="expense"
