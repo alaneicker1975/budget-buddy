@@ -107,8 +107,26 @@ import schemas from './schemas';
     }
   });
 
-  app.put('/api/expense-groups/:id', (req, res) => {
-    const { id } = req.params;
+  app.put('/api/expense-groups/:groupId', async (req, res) => {
+    try {
+      const { groupId } = req.params;
+      const {
+        body: { expenseId, name, value, checked },
+      } = req;
+
+      const expenseGroup = await ExpenseGroup.findById(groupId);
+      const expense = await expenseGroup.expenses.id(expenseId);
+
+      expense[name] = name === 'isPaid' ? checked : value;
+
+      await expenseGroup.save();
+
+      res.send({ updateId: expenseId });
+    } catch ({ name, message }) {
+      res.status(500).send({
+        err: { status: 500, name, message },
+      });
+    }
   });
 
   app.delete('/api/expense-groups/:id', (req, res) => {

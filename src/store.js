@@ -1,6 +1,6 @@
-import { applyMiddleware, createStore, combineReducers } from 'redux';
+import { applyMiddleware, createStore } from 'redux';
 import createSagaMiddleware from 'redux-saga';
-import { persistStore, persistReducer } from 'redux-persist';
+import { persistStore, persistCombineReducers } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import allReducers from './reducers';
 
@@ -9,10 +9,7 @@ const persistConfig = {
   storage,
 };
 
-const persistedReducer = persistReducer(
-  persistConfig,
-  combineReducers(allReducers),
-);
+const persistedReducer = persistCombineReducers(persistConfig, allReducers);
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(persistedReducer, applyMiddleware(sagaMiddleware));
 const persistor = persistStore(store);

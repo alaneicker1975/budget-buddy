@@ -84,7 +84,7 @@ const ExpenseGroupDetail = () => {
               </Button>
             </div>
             <hr />
-            <ExpenseGroupForm expenses={expenses} />
+            <ExpenseGroupForm expenses={expenses} groupId={_id} />
             <hr />
             <h4 className="text-size-20@medium text-weight-medium">
               Unpaid Balance:{' '}

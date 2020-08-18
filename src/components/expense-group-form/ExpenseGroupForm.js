@@ -12,7 +12,7 @@ import {
   CheckOption,
 } from '@alaneicker/atomik-ui';
 
-const ExpenseGroupForm = ({ expenses, isNewGroup }) => {
+const ExpenseGroupForm = ({ expenses, isNewGroup, groupId }) => {
   const dispatch = useDispatch();
 
   const [expenseGroups, setExpenseGroups] = useState([]);
@@ -22,7 +22,7 @@ const ExpenseGroupForm = ({ expenses, isNewGroup }) => {
 
     dispatch({
       type: 'UPDATE_EXPENSE_GROUP',
-      data: { expenseId, type, name, value, checked },
+      data: { groupId, expenseId, type, name, value, checked },
     });
   };
 
@@ -53,6 +53,7 @@ const ExpenseGroupForm = ({ expenses, isNewGroup }) => {
               </div>
               <div className="expense-group-form__balance-field">
                 <FormField
+                  pattern="^\d*(\.\d{0,2})?$"
                   name="balance"
                   value={balance.toFixed(2)}
                   placeholder="Balance"
@@ -129,6 +130,7 @@ ExpenseGroupForm.propTypes = {
     }),
   ),
   isNewGroup: PropTypes.bool,
+  groupId: PropTypes.string,
 };
 
 ExpenseGroupForm.defaultProps = {
@@ -140,6 +142,7 @@ ExpenseGroupForm.defaultProps = {
     },
   ],
   isNewGroup: false,
+  groupId: '',
 };
 
 export default ExpenseGroupForm;
