@@ -12,14 +12,14 @@ const App = () => {
   const dispatch = useDispatch();
 
   const {
-    expenses: { expenseGroups, selectedExpenseId },
+    expenses: { expenseGroups, selectedExpenseId, error },
     modals: { showExpenseFormModal },
-    error,
   } = useSelector((state) => {
     return state;
   });
 
   useEffect(() => {
+    dispatch({ type: 'SET_ERROR', error: null });
     dispatch({ type: 'FETCH_EXPENSE_GROUPS' });
   }, []);
 
