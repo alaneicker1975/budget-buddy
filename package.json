@@ -9,7 +9,7 @@
     "build": "parcel build src/index.html",
     "build:server": "NODE_ENV=production babel -d ./dist ./src/server -s",
     "start": "parcel src/index.html",
-    "start:server": "NODE_ENV=development nodemon --exec babel-node ./src/server/"
+    "start:server": "NODE_ENV=development nodemon --exec babel-node ./server/"
   },
   "keywords": [],
   "author": "",
