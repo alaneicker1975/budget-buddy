@@ -127,7 +127,7 @@ const ExpenseGroupDetail = () => {
           }}
           title="Add New Expense"
         >
-          <ExpenseGroupForm isNewGroup />
+          <ExpenseGroupForm isNewExpense />
         </Modal>
       </div>
     );

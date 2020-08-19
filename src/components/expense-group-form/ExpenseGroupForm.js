@@ -11,7 +11,7 @@ import {
   CheckOption,
 } from '@alaneicker/atomik-ui';
 
-const ExpenseGroupForm = ({ expenses, isNewGroup, groupId }) => {
+const ExpenseGroupForm = ({ expenses, isNewExpense, groupId }) => {
   const dispatch = useDispatch();
 
   const [newExpense, setNewExpense] = useState({});
@@ -19,7 +19,7 @@ const ExpenseGroupForm = ({ expenses, isNewGroup, groupId }) => {
   const onExpenseUpdate = (e, expenseId) => {
     const { type, name, value, checked } = e.target;
 
-    if (isNewGroup) {
+    if (isNewExpense) {
       setNewExpense((prevState) => {
         return {
           ...prevState,
@@ -53,7 +53,7 @@ const ExpenseGroupForm = ({ expenses, isNewGroup, groupId }) => {
               <div className="expense-group-form__expense-field">
                 <FormField
                   name="expense"
-                  value={isNewGroup ? newExpense.expense : expense}
+                  value={isNewExpense ? newExpense.expense : expense}
                   placeholder="Expense (E.g. Electric Bill)"
                   onChange={(e) => {
                     return onExpenseUpdate(e, _id);
@@ -64,7 +64,7 @@ const ExpenseGroupForm = ({ expenses, isNewGroup, groupId }) => {
                 <FormField
                   pattern="^\d*(\.\d{0,2})?$"
                   name="balance"
-                  value={isNewGroup ? newExpense.balance : balance.toFixed(2)}
+                  value={isNewExpense ? newExpense.balance : balance.toFixed(2)}
                   placeholder="Balance"
                   onChange={(e) => {
                     return onExpenseUpdate(e, _id);
@@ -75,13 +75,13 @@ const ExpenseGroupForm = ({ expenses, isNewGroup, groupId }) => {
                 <CheckOption
                   name="isPaid"
                   label={paidLabel}
-                  checked={isNewGroup ? newExpense.isPaid : isPaid}
+                  checked={isNewExpense ? newExpense.isPaid : isPaid}
                   onChange={(e) => {
                     return onExpenseUpdate(e, _id);
                   }}
                 />
               </div>
-              {!isNewGroup && (
+              {!isNewExpense && (
                 <div className="expense-group-form__delete-btn">
                   <Button
                     theme="tertiary"
@@ -98,7 +98,7 @@ const ExpenseGroupForm = ({ expenses, isNewGroup, groupId }) => {
           );
         })}
       </List>
-      {isNewGroup && (
+      {isNewExpense && (
         <Button
           type="submit"
           theme="primary"
@@ -119,7 +119,7 @@ ExpenseGroupForm.propTypes = {
       isPaid: PropTypes.bool,
     }),
   ),
-  isNewGroup: PropTypes.bool,
+  isNewExpense: PropTypes.bool,
   groupId: PropTypes.string,
 };
 
@@ -131,7 +131,7 @@ ExpenseGroupForm.defaultProps = {
       isPaid: false,
     },
   ],
-  isNewGroup: false,
+  isNewExpense: false,
   groupId: '',
 };
 
