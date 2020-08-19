@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react';
-import shortid from 'shortid';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import * as yup from 'yup';
@@ -15,36 +14,46 @@ import {
 const ExpenseGroupForm = ({ expenses, isNewGroup, groupId }) => {
   const dispatch = useDispatch();
 
-  const [expenseGroups, setExpenseGroups] = useState([]);
+  const [newExpense, setNewExpense] = useState({});
 
   const onExpenseUpdate = (e, expenseId) => {
     const { type, name, value, checked } = e.target;
 
-    dispatch({
-      type: 'UPDATE_EXPENSE_GROUP',
-      data: { groupId, expenseId, type, name, value, checked },
-    });
+    if (isNewGroup) {
+      setNewExpense((prevState) => {
+        return {
+          ...prevState,
+          [name]: type === 'checkbox' ? checked : value,
+        };
+      });
+    } else {
+      dispatch({
+        type: 'UPDATE_EXPENSE_GROUP',
+        data: { groupId, expenseId, type, name, value, checked },
+      });
+    }
+  };
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    dispatch({ type: 'ADD_NEW_EXPENSE', data: newExpense });
   };
 
   const onExpenseDelete = (_id) => {
     // dispatch action to delete expense from group
   };
 
-  useEffect(() => {
-    setExpenseGroups(expenses);
-  }, [expenses]);
-
   return (
-    <form className="expense-group-form">
+    <form className="expense-group-form" onSubmit={onSubmit} noValidate>
       <List className="expense-group-form__list">
-        {expenseGroups.map(({ _id, expense, balance, isPaid }, i) => {
+        {expenses.map(({ _id, expense, balance, isPaid }, i) => {
           const paidLabel = isPaid ? 'Paid' : 'Not Paid';
           return (
             <ListItem key={`expense-item-${i}`}>
               <div className="expense-group-form__expense-field">
                 <FormField
                   name="expense"
-                  value={expense}
+                  value={isNewGroup ? newExpense.expense : expense}
                   placeholder="Expense (E.g. Electric Bill)"
                   onChange={(e) => {
                     return onExpenseUpdate(e, _id);
@@ -55,7 +64,7 @@ const ExpenseGroupForm = ({ expenses, isNewGroup, groupId }) => {
                 <FormField
                   pattern="^\d*(\.\d{0,2})?$"
                   name="balance"
-                  value={balance.toFixed(2)}
+                  value={isNewGroup ? newExpense.balance : balance.toFixed(2)}
                   placeholder="Balance"
                   onChange={(e) => {
                     return onExpenseUpdate(e, _id);
@@ -66,7 +75,7 @@ const ExpenseGroupForm = ({ expenses, isNewGroup, groupId }) => {
                 <CheckOption
                   name="isPaid"
                   label={paidLabel}
-                  checked={isPaid}
+                  checked={isNewGroup ? newExpense.isPaid : isPaid}
                   onChange={(e) => {
                     return onExpenseUpdate(e, _id);
                   }}
@@ -89,34 +98,15 @@ const ExpenseGroupForm = ({ expenses, isNewGroup, groupId }) => {
           );
         })}
       </List>
-      <>
-        {isNewGroup && (
-          <div>
-            <Button
-              theme="link"
-              onClick={() => {
-                return setExpenseGroups((prevState) => {
-                  return [
-                    ...prevState,
-                    {
-                      expense: '',
-                      balance: 0,
-                      isPaid: false,
-                    },
-                  ];
-                });
-              }}
-            >
-              + Add Expense
-            </Button>
-          </div>
-        )}
-        {isNewGroup && (
-          <Button theme="primary" className="margin-top-8 margin-bottom-16">
-            Submit
-          </Button>
-        )}
-      </>
+      {isNewGroup && (
+        <Button
+          type="submit"
+          theme="primary"
+          className="margin-top-8 margin-bottom-16"
+        >
+          Submit
+        </Button>
+      )}
     </form>
   );
 };
