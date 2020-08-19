@@ -8,7 +8,7 @@ import { List, ListItem, Button } from '@alaneicker/atomik-ui';
 const SideNav = ({ data, selectedExpenseId }) => {
   return (
     <div className="side-nav">
-      <Button>+ New Group</Button>
+      <Button shape="square">+ New Group</Button>
       <List className="side-nav__menu">
         {data.map(({ _id, startDate, endDate }) => {
           return (
