@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
+import Chart from 'react-apexcharts';
 import { Statistic, Modal, Button } from '@alaneicker/atomik-ui';
 import ExpenseGroupForm from '../expense-group-form';
-import BudgetVisualizationChart from '../budget-visualization-chart';
 
 const ExpenseGroupDetail = () => {
   const { id } = useParams();
@@ -43,6 +43,16 @@ const ExpenseGroupDetail = () => {
 
     const remainingBalnace = budgetAmount - totalBalance;
 
+    const chartOptions = {
+      labels: expenses.map(({ expense }) => {
+        return expense;
+      }),
+    };
+
+    const chartSeries = expenses.map(({ balance }) => {
+      return balance;
+    });
+
     return (
       <div className="expense-group-detail">
         <div className="expense-group-detail__hd">
@@ -72,7 +82,9 @@ const ExpenseGroupDetail = () => {
         <div className="expense-group-detail__bd">
           <div>
             <div className="flex flex--align-middle flex--space-between">
-              <h3 className="text-size-20@medium text-weight-bold">Expenses</h3>
+              <h3 className="text-size-20@medium text-weight-semibold">
+                Expenses
+              </h3>
               <Button
                 theme="link"
                 size="md"
@@ -98,11 +110,30 @@ const ExpenseGroupDetail = () => {
           </div>
           <div>
             <div className="margin-top-32 margin-collapse@medium" />
-            <BudgetVisualizationChart
-              expenses={expenses}
-              totalBalance={totalBalance}
-            />
-            <h4 className="margin-top-16 margin-bottom-8 text-weight-bold">
+            <div className="savings-goal-chart">
+              <div className="flex flex--align-middle flex--space-between">
+                <h3 className="text-size-20@medium text-weight-semibold">
+                  Budget Visualization
+                </h3>
+                <span>
+                  <span className="text-weight-semibold">Expenses Total:</span>{' '}
+                  $
+                  {totalBalance.toLocaleString('en', {
+                    minimumFractionDigits: 2,
+                  })}
+                </span>
+              </div>
+              <hr />
+              <div>
+                <Chart
+                  type="donut"
+                  options={chartOptions}
+                  series={chartSeries}
+                />
+              </div>
+            </div>
+
+            <h4 className="margin-top-16 margin-bottom-8 text-weight-semibold">
               End of Month Projection
             </h4>
             <p>
