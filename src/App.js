@@ -6,20 +6,20 @@ import ExpenseGroupDetail from './components/expense-group-detail';
 import SideNav from './components/side-nav';
 import Header from './components/header';
 import ExpenseGroupForm from './components/expense-group-form';
+import NewExpenseGroupModal from './components/new-expense-group-modal';
 
 const App = () => {
   const dispatch = useDispatch();
 
   const {
-    expenses: { expenses, expenseGroups, selectedExpenseId },
-    modals: { showExpenseFormModal, showExpenseGroupFormModal },
+    expenses: { expenseGroups, selectedExpenseId },
+    modals: { showExpenseFormModal },
     error,
   } = useSelector((state) => {
     return state;
   });
 
   useEffect(() => {
-    dispatch({ type: 'FETCH_EXPENSE_OPTIONS' });
     dispatch({ type: 'FETCH_EXPENSE_GROUPS' });
   }, []);
 
@@ -55,17 +55,7 @@ const App = () => {
       >
         <ExpenseGroupForm isNewExpense />
       </Modal>
-      <Modal
-        disableEscapKey
-        disableOverlayclick
-        onClose={() => {
-          dispatch({ type: 'TOGGLE_EXPENSE_GROUP_FORM_MODAL' });
-        }}
-        title="Add New Expense Group"
-        isOpen={true}
-      >
-        {JSON.stringify(expenses)}
-      </Modal>
+      <NewExpenseGroupModal />
     </main>
   );
 };
