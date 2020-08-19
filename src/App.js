@@ -25,10 +25,7 @@ const App = () => {
   return (
     <main className="layout">
       <div className="layout__header">
-        <Header
-          logo={<Icon icon={faPiggyBank} size="lg" color="white" />}
-          logoText="Budget Buddy"
-        />
+        <Header logoText="Budget Buddy" />
       </div>
       {error && (
         <Alert theme="error">

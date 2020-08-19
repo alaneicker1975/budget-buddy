@@ -6,8 +6,8 @@ const Header = ({ logo, logoText }) => {
   return (
     <div className="header">
       <Link className="header__logo" to="/">
-        <div className="header__logo__icon">{logo}</div>
-        <div className="header__logo__text">{logoText}</div>
+        {logo && <div className="header__logo__icon">{logo}</div>}
+        {logoText && <div className="header__logo__text">{logoText}</div>}
       </Link>
     </div>
   );
@@ -19,7 +19,7 @@ Header.propTypes = {
 };
 
 Header.defaultProps = {
-  logo: <></>,
+  logo: null,
   logoText: '',
 };
 
