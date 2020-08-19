@@ -1,20 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
 import Chart from 'react-apexcharts';
-import { Statistic, Modal, Button } from '@alaneicker/atomik-ui';
+import { Statistic, Button } from '@alaneicker/atomik-ui';
 import ExpenseGroupForm from '../expense-group-form';
+import EndOfMonthSummary from '../end-of-month-summary';
 
 const ExpenseGroupDetail = () => {
   const { id } = useParams();
 
   const dispatch = useDispatch();
 
-  const [showAddModal, setShowAddModal] = useState(false);
-
   useEffect(() => {
-    dispatch({ type: 'FETCH_EXPENSE', id });
+    dispatch({ type: 'SET_SELECTED_EXPENSE', id });
   }, [id]);
 
   const {
@@ -41,7 +40,7 @@ const ExpenseGroupDetail = () => {
       return !b.isPaid ? a + b.balance : a;
     }, 0);
 
-    const remainingBalnace = budgetAmount - totalBalance;
+    const remainingBalance = budgetAmount - totalBalance;
 
     const chartOptions = {
       labels: expenses.map(({ expense }) => {
@@ -89,7 +88,7 @@ const ExpenseGroupDetail = () => {
                 theme="link"
                 size="md"
                 onClick={() => {
-                  return setShowAddModal(true);
+                  return dispatch({ type: 'TOGGLE_EXPENSE_FORM_MODAL' });
                 }}
               >
                 <span className="text-weight-semibold">+ Add Expense</span>
@@ -136,40 +135,14 @@ const ExpenseGroupDetail = () => {
             <h4 className="margin-top-16 margin-bottom-8 text-weight-semibold">
               End of Month Projection
             </h4>
-            <p>
-              Base on your current budget of $
-              <b>
-                {budgetAmount.toLocaleString('en', {
-                  minimumFractionDigits: 2,
-                })}
-              </b>{' '}
-              and a total balance of $
-              <b>
-                {totalBalance.toLocaleString('en', {
-                  minimumFractionDigits: 2,
-                })}
-              </b>{' '}
-              in expenses due, you should have a remaning balance of $
-              <b>
-                {remainingBalnace.toLocaleString('en', {
-                  minimumFractionDigits: 2,
-                })}
-              </b>{' '}
-              on {moment(endDate).format('L')}.
-            </p>
+            <EndOfMonthSummary
+              budgetAmount={budgetAmount}
+              totalBalance={totalBalance}
+              remainingBalance={remainingBalance}
+              endDate={endDate}
+            />
           </div>
         </div>
-        <Modal
-          disableEscapKey
-          disableOverlayclick
-          isOpen={showAddModal}
-          onClose={() => {
-            return setShowAddModal(false);
-          }}
-          title="Add New Expense"
-        >
-          <ExpenseGroupForm isNewExpense />
-        </Modal>
       </div>
     );
   }

@@ -1,24 +1,25 @@
 import React, { useEffect } from 'react';
 import { Route } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { Alert } from '@alaneicker/atomik-ui';
-import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
-import { faPiggyBank } from '@fortawesome/free-solid-svg-icons';
+import { Alert, Modal } from '@alaneicker/atomik-ui';
 import ExpenseGroupDetail from './components/expense-group-detail';
 import SideNav from './components/side-nav';
 import Header from './components/header';
+import ExpenseGroupForm from './components/expense-group-form';
 
 const App = () => {
   const dispatch = useDispatch();
 
   const {
-    expenses: { expenseGroups, selectedExpenseId },
+    expenses: { expenses, expenseGroups, selectedExpenseId },
+    modals: { showExpenseFormModal, showExpenseGroupFormModal },
     error,
   } = useSelector((state) => {
     return state;
   });
 
   useEffect(() => {
+    dispatch({ type: 'FETCH_EXPENSE_OPTIONS' });
     dispatch({ type: 'FETCH_EXPENSE_GROUPS' });
   }, []);
 
@@ -43,6 +44,28 @@ const App = () => {
           <Route path="/expense-group/:id" component={ExpenseGroupDetail} />
         </div>
       </div>
+      <Modal
+        disableEscapKey
+        disableOverlayclick
+        onClose={() => {
+          dispatch({ type: 'TOGGLE_EXPENSE_FORM_MODAL' });
+        }}
+        title="Add New Expense"
+        isOpen={showExpenseFormModal}
+      >
+        <ExpenseGroupForm isNewExpense />
+      </Modal>
+      <Modal
+        disableEscapKey
+        disableOverlayclick
+        onClose={() => {
+          dispatch({ type: 'TOGGLE_EXPENSE_GROUP_FORM_MODAL' });
+        }}
+        title="Add New Expense Group"
+        isOpen={true}
+      >
+        {JSON.stringify(expenses)}
+      </Modal>
     </main>
   );
 };

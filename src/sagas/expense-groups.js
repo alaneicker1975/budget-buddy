@@ -13,7 +13,7 @@ function* fetchExpenseGroups() {
   }
 
   yield put({
-    type: 'FETCH_EXPENSE_GROUP_SUCCESS',
+    type: 'SET_EXPENSE_GROUPS',
     data,
   });
 }
@@ -51,7 +51,7 @@ function* updateExpenseGroup({ data }) {
   });
 }
 
-export default function* watchExpenseGroupChange() {
+export default function* watchExpenseGroups() {
   yield takeLatest('FETCH_EXPENSE_GROUPS', fetchExpenseGroups);
   yield takeLatest('UPDATE_EXPENSE_GROUP', updateExpenseGroup);
 }

@@ -1,14 +1,24 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import moment from 'moment';
 import { List, ListItem, Button } from '@alaneicker/atomik-ui';
 
 const SideNav = ({ data, selectedExpenseId }) => {
+  const dispatch = useDispatch();
+
   return (
     <div className="side-nav">
-      <Button shape="square">+ New Group</Button>
+      <Button
+        shape="square"
+        onClick={() => {
+          dispatch({ type: 'TOGGLE_EXPENSE_GROUP_FORM_MODAL' });
+        }}
+      >
+        + New Group
+      </Button>
       <List className="side-nav__menu">
         {data.map(({ _id, startDate, endDate }) => {
           return (

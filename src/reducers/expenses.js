@@ -10,7 +10,18 @@ const expenseReducer = (state = initialState, action) => {
   switch (action.type) {
     case 'SET_ERROR':
       return { ...state, error: action.error };
-    case 'FETCH_EXPENSE':
+    case 'SET_EXPENSE_OPTIONS':
+      return { ...state, expenses: action.data };
+    case 'SET_EXPENSE_GROUPS':
+      return { ...state, expenseGroups: action.data };
+    case 'UPDATE_EXPENSE_GROUPS':
+      return {
+        ...state,
+        expenseGroups: state.expenseGroups.map((group) => {
+          return group._id === action.groupId ? state.selectedExpense : group;
+        }),
+      };
+    case 'SET_SELECTED_EXPENSE':
       return {
         ...state,
         selectedExpenseId: action.id,
@@ -22,10 +33,6 @@ const expenseReducer = (state = initialState, action) => {
           return expense._id === action.id;
         })[0],
       };
-    case 'FETCH_EXPENSES':
-      return { ...state, expenses: action.data };
-    case 'FETCH_EXPENSE_GROUP_SUCCESS':
-      return { ...state, expenseGroups: action.data };
     case 'UPDATE_SELECTED_EXPENSE':
       return {
         ...state,
@@ -48,13 +55,6 @@ const expenseReducer = (state = initialState, action) => {
               : expense;
           }),
         },
-      };
-    case 'UPDATE_EXPENSE_GROUPS':
-      return {
-        ...state,
-        expenseGroups: state.expenseGroups.map((group) => {
-          return group._id === action.groupId ? state.selectedExpense : group;
-        }),
       };
     default:
       return state;
