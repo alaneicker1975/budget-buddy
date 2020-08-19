@@ -138,13 +138,23 @@ const ExpenseGroupDetail = () => {
             </h4>
             <p>
               Base on your current budget of $
-              {budgetAmount.toLocaleString('en', { minimumFractionDigits: 2 })}{' '}
+              <b>
+                {budgetAmount.toLocaleString('en', {
+                  minimumFractionDigits: 2,
+                })}
+              </b>{' '}
               and a total balance of $
-              {totalBalance.toLocaleString('en', { minimumFractionDigits: 2 })}{' '}
+              <b>
+                {totalBalance.toLocaleString('en', {
+                  minimumFractionDigits: 2,
+                })}
+              </b>{' '}
               in expenses due, you should have a remaning balance of $
-              {remainingBalnace.toLocaleString('en', {
-                minimumFractionDigits: 2,
-              })}{' '}
+              <b>
+                {remainingBalnace.toLocaleString('en', {
+                  minimumFractionDigits: 2,
+                })}
+              </b>{' '}
               on {moment(endDate).format('L')}.
             </p>
           </div>
