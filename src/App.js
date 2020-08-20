@@ -6,7 +6,7 @@ import ExpenseGroupDetail from './components/expense-group-detail';
 import SideNav from './components/side-nav';
 import Header from './components/header';
 import ExpenseGroupForm from './components/expense-group-form';
-import NewExpenseGroupModal from './components/new-expense-group-modal';
+import NewExpenseGroup from './components/new-expense-group';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -32,6 +32,7 @@ const App = () => {
           <SideNav data={expenseGroups} selectedExpenseId={selectedExpenseId} />
         </div>
         <div className="layout__content">
+          <Route path="/new-expense-group" component={NewExpenseGroup} />
           <Route path="/expense-group/:id" component={ExpenseGroupDetail} />
         </div>
       </div>
@@ -46,7 +47,6 @@ const App = () => {
       >
         <ExpenseGroupForm isNewExpense />
       </Modal>
-      <NewExpenseGroupModal />
     </main>
   );
 };

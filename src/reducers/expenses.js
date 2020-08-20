@@ -1,7 +1,7 @@
 const initialState = {
   selectedExpense: null,
   selectedExpenseId: null,
-  expenses: [],
+  expenseOptions: [],
   expenseGroups: [],
   error: null,
 };
@@ -11,7 +11,7 @@ const expenseReducer = (state = initialState, action) => {
     // Expense Options
     // ----------------------------------------------------
     case 'SET_EXPENSE_OPTIONS':
-      return { ...state, expenses: action.data };
+      return { ...state, expenseOptions: action.data };
     // Expense Groups
     // ----------------------------------------------------
     case 'SET_EXPENSE_GROUPS':
