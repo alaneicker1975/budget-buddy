@@ -64,7 +64,9 @@ import schemas from './schemas';
   app.get('/api/expense-options/:id?', async (req, res) => {
     try {
       const { id } = req.params;
-      const data = id ? await Expense.findById(id) : await Expense.find({});
+      const data = id
+        ? await Expense.findById(id)
+        : await Expense.find({}, null, { sort: { expense: 1 } });
       res.status(200).send({ data });
     } catch ({ name, message }) {
       res.status(500).send({

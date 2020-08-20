@@ -127,7 +127,7 @@ const NewExpenseGroup = () => {
                     <Col
                       key={`expense-${i}`}
                       md={6}
-                      className="margin-bottom-8"
+                      className="margin-bottom-16"
                     >
                       <CheckOption
                         label={expense}
