@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import mongoose from 'mongoose';
 import { Grid, Row, Col } from 'react-flexbox-grid';
 import * as yup from 'yup';
 import { useFormik } from 'formik';
@@ -16,46 +17,67 @@ import {
 const NewExpenseGroup = () => {
   const dispatch = useDispatch();
 
-  const [expenseInfo, setExpenseInfo] = useState({});
-  const [expenses, setExpenses] = useState([]);
-  const [step, setStep] = useState(1);
+  const validationSchema = yup.object().shape({
+    expenseGroupTitle: yup.string().required('Expense group title is required'),
+    startDate: yup.string().required('Start Date is required'),
+    endDate: yup.string().required('End date is required'),
+    budgetAmount: yup.number().required('Budget Amount is required'),
+    expenses: yup.array().min(1).required('At least one expense is required'),
+  });
 
-  const onExpenseOptionSelect = (expense) => {
-    setExpenses((prevState) => {
-      const index = expenses.indexOf(expense) !== -1;
-
-      if (index) {
-        return prevState.filter((item) => {
-          return item !== expense;
-        });
-      }
-
-      return [...prevState, expense];
-    });
+  const initialValues = {
+    expenseGroupTitle: '',
+    startDate: '',
+    endDate: '',
+    budgetAmount: '',
+    expenses: [],
   };
 
-  const onExpenseInfoChange = (nextState) => {
-    setExpenseInfo((prevState) => {
-      return {
-        ...prevState,
-        ...nextState,
-      };
-    });
+  const onSubmit = (formData) => {
+    console.log(formData);
+  };
+
+  const {
+    handleSubmit,
+    handleChange,
+    values,
+    errors,
+    touched,
+    setFieldValue,
+  } = useFormik({
+    initialValues,
+    validationSchema,
+    onSubmit: () => {
+      return onSubmit(values);
+    },
+  });
+
+  const onExpenseOptionSelect = (expense) => {
+    const { expenses } = values;
+    const index = expenses.indexOf(expense) !== -1;
+
+    const updatedExpenses = index
+      ? expenses.filter((item) => {
+          return item !== expense;
+        })
+      : [...expenses, expense];
+
+    setFieldValue('expenses', updatedExpenses);
   };
 
   const {
     expenses: { expenseOptions },
-    modals: { showExpenseGroupFormModal },
   } = useSelector((state) => {
     return state;
   });
 
   useEffect(() => {
+    dispatch({ type: 'SET_SELECTED_EXPENSE', id: null });
     dispatch({ type: 'FETCH_EXPENSE_OPTIONS' });
   }, []);
 
   return (
-    <form>
+    <form onSubmit={handleSubmit} noValidate>
       <h1 className="margin-bottom-24 text-weight-semibold text-size-30">
         New Expense Group
       </h1>
@@ -63,7 +85,6 @@ const NewExpenseGroup = () => {
       <div className="margin-bottom-28">
         <hr />
       </div>
-
       <Grid>
         <Row>
           <Col md={6}>
@@ -73,42 +94,40 @@ const NewExpenseGroup = () => {
             <List loose>
               <ListItem>
                 <FormField
-                  label="Expense Name"
-                  value={expenseInfo.expense}
-                  onChange={(e) => {
-                    return onExpenseInfoChange({ expense: e.target.value });
-                  }}
+                  name="expenseGroupTitle"
+                  label="Expense Group Title"
+                  value={values.expenseGroupTitle}
+                  onChange={handleChange}
                 />
               </ListItem>
               <ListItem>
                 <FormField
+                  name="budgetAmount"
                   type="number"
                   label="Budget Amount"
-                  value={expenseInfo.budgetAmount}
-                  onChange={(e) => {
-                    return onExpenseInfoChange({
-                      budgetAmount: e.target.value,
-                    });
-                  }}
+                  value={values.budgetAmount}
+                  onChange={handleChange}
                 />
               </ListItem>
               <ListItem>
                 <DatePicker
+                  name="startDate"
                   label="Start Date"
                   helpText="Expected Format: MM/DD/YYYY"
-                  value={expenseInfo.startDate}
+                  value={values.startDate}
                   onChange={(date) => {
-                    return onExpenseInfoChange({ startDate: date });
+                    return setFieldValue('startDate', date);
                   }}
                 />
               </ListItem>
               <ListItem>
                 <DatePicker
+                  name="endDate"
                   label="End Date"
                   helpText="Expected Format: MM/DD/YYYY"
-                  value={expenseInfo.endDate}
+                  value={values.endDate}
                   onChange={(date) => {
-                    return onExpenseInfoChange({ endDate: date });
+                    return setFieldValue('endDate', date);
                   }}
                 />
               </ListItem>
@@ -131,7 +150,7 @@ const NewExpenseGroup = () => {
                     >
                       <CheckOption
                         label={expense}
-                        checked={expenses.includes(expense)}
+                        checked={values.expenses.includes(expense)}
                         onChange={() => {
                           return onExpenseOptionSelect(expense);
                         }}
@@ -149,14 +168,7 @@ const NewExpenseGroup = () => {
         <hr />
       </div>
 
-      <Button
-        className="margin-top-24"
-        type="submit"
-        theme="primary"
-        onClick={() => {
-          return setStep(3);
-        }}
-      >
+      <Button className="margin-top-24" type="submit" theme="primary">
         Create Expense Group
       </Button>
     </form>
