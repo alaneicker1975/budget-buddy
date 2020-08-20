@@ -8,8 +8,12 @@ const initialState = {
 
 const expenseReducer = (state = initialState, action) => {
   switch (action.type) {
+    // Expense Options
+    // ----------------------------------------------------
     case 'SET_EXPENSE_OPTIONS':
       return { ...state, expenses: action.data };
+    // Expense Groups
+    // ----------------------------------------------------
     case 'SET_EXPENSE_GROUPS':
       return { ...state, expenseGroups: action.data };
     case 'UPDATE_EXPENSE_GROUPS':
@@ -19,15 +23,13 @@ const expenseReducer = (state = initialState, action) => {
           return group._id === action.groupId ? state.selectedExpense : group;
         }),
       };
+    // Selected Expense
+    // ----------------------------------------------------
     case 'SET_SELECTED_EXPENSE':
       return {
         ...state,
         selectedExpenseId: action.id,
         selectedExpense: state.expenseGroups.filter((expense) => {
-          // TODO: sort expenses in descending order
-          // .sort((a, b) => {
-          //   return b.balance - a.balance;
-          // })
           return expense._id === action.id;
         })[0],
       };

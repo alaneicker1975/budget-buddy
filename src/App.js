@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Route } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { Alert, Modal } from '@alaneicker/atomik-ui';
+import { Modal } from '@alaneicker/atomik-ui';
 import ExpenseGroupDetail from './components/expense-group-detail';
 import SideNav from './components/side-nav';
 import Header from './components/header';

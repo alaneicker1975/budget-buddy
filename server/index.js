@@ -78,7 +78,7 @@ import schemas from './schemas';
       const { id } = req.params;
       const data = id
         ? await ExpenseGroup.findById(id)
-        : await ExpenseGroup.find({}, [], { sort: { startDate: -1 } });
+        : await ExpenseGroup.find({}).sort({ startDate: -1 });
       res.status(200).send({ data });
     } catch ({ name, message }) {
       res.status(500).send({
