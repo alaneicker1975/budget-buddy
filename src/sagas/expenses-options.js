@@ -2,7 +2,10 @@ import { takeLatest, put, call } from 'redux-saga/effects';
 
 function* fetchExpenses() {
   try {
-    const response = yield call(fetch, 'http://localhost:9000/api/expenses');
+    const response = yield call(
+      fetch,
+      'http://localhost:9000/api/expense-options',
+    );
     const { err, data } = yield response.json();
 
     if (err) {

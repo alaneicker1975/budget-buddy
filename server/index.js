@@ -61,7 +61,7 @@ import schemas from './schemas';
     console.log('Connected to database');
   });
 
-  app.get('/api/expenses/:id?', async (req, res) => {
+  app.get('/api/expense-options/:id?', async (req, res) => {
     try {
       const { id } = req.params;
       const data = id ? await Expense.findById(id) : await Expense.find({});
