@@ -19,7 +19,6 @@ const App = () => {
   });
 
   useEffect(() => {
-    dispatch({ type: 'SET_ERROR', error: null });
     dispatch({ type: 'FETCH_EXPENSE_GROUPS' });
   }, []);
 
