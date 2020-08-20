@@ -10,11 +10,7 @@ function* fetchExpenseGroups() {
     const { err, data } = yield response.json();
 
     if (err) {
-      yield put({
-        type: 'SET_ERROR',
-        error: { status: err.status, name: err.name, message: err.message },
-      });
-
+      console.error(err);
       return;
     }
 
@@ -23,10 +19,7 @@ function* fetchExpenseGroups() {
       data,
     });
   } catch (err) {
-    yield put({
-      type: 'SET_ERROR',
-      error: { status: err.status, name: err.name, message: err.message },
-    });
+    console.log(err);
   }
 }
 
@@ -47,11 +40,7 @@ function* updateExpenseGroup({ data }) {
     const { err } = yield response.json();
 
     if (err) {
-      yield put({
-        type: 'SET_ERROR',
-        error: { status: err.status, name: err.name, message: err.message },
-      });
-
+      console.error(err);
       return;
     }
 
@@ -66,10 +55,7 @@ function* updateExpenseGroup({ data }) {
       expenseId: data.expenseId,
     });
   } catch (err) {
-    yield put({
-      type: 'SET_ERROR',
-      error: { status: err.status, name: err.name, message: err.message },
-    });
+    console.error(err);
   }
 }
 

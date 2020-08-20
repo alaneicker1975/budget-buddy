@@ -8,8 +8,6 @@ const initialState = {
 
 const expenseReducer = (state = initialState, action) => {
   switch (action.type) {
-    case 'SET_ERROR':
-      return { ...state, error: action.error };
     case 'SET_EXPENSE_OPTIONS':
       return { ...state, expenses: action.data };
     case 'SET_EXPENSE_GROUPS':

@@ -6,11 +6,7 @@ function* fetchExpenses() {
     const { err, data } = yield response.json();
 
     if (err) {
-      yield put({
-        type: 'SET_ERROR',
-        error: { status: err.status, name: err.name, message: err.message },
-      });
-
+      console.error(err);
       return;
     }
 
@@ -19,10 +15,7 @@ function* fetchExpenses() {
       data,
     });
   } catch (err) {
-    yield put({
-      type: 'SET_ERROR',
-      error: { status: err.status, name: err.name, message: err.message },
-    });
+    console.error(err);
   }
 }
 export default function* watchExpenses() {

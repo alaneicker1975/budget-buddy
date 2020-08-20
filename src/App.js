@@ -12,7 +12,7 @@ const App = () => {
   const dispatch = useDispatch();
 
   const {
-    expenses: { expenseGroups, selectedExpenseId, error },
+    expenses: { expenseGroups, selectedExpenseId },
     modals: { showExpenseFormModal },
   } = useSelector((state) => {
     return state;
@@ -28,14 +28,6 @@ const App = () => {
       <div className="layout__header">
         <Header logoText="Budget Buddy" />
       </div>
-      {error && (
-        <Alert theme="error">
-          <h4>
-            {error.status}: {error.name}
-          </h4>
-          <p>{error.message}</p>
-        </Alert>
-      )}
       <div className="layout__main">
         <div className="layout__sidebar">
           <SideNav data={expenseGroups} selectedExpenseId={selectedExpenseId} />
