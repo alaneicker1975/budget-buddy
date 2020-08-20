@@ -60,72 +60,94 @@ const NewExpenseGroup = () => {
         New Expense Group
       </h1>
 
-      <h3 className="margin-bottom-16 text-weight-semibold text-size-20">
-        Expense Info
-      </h3>
-      <List loose>
-        <ListItem>
-          <FormField
-            label="Expense Name"
-            value={expenseInfo.expense}
-            onChange={(e) => {
-              return onExpenseInfoChange({ expense: e.target.value });
-            }}
-          />
-        </ListItem>
-        <ListItem>
-          <FormField
-            type="number"
-            label="Budget Amount"
-            value={expenseInfo.budgetAmount}
-            onChange={(e) => {
-              return onExpenseInfoChange({ budgetAmount: e.target.value });
-            }}
-          />
-        </ListItem>
-        <ListItem>
-          <DatePicker
-            label="Start Date"
-            helpText="Expected Format: MM/DD/YYYY"
-            value={expenseInfo.startDate}
-            onChange={(date) => {
-              return onExpenseInfoChange({ startDate: date });
-            }}
-          />
-        </ListItem>
-        <ListItem>
-          <DatePicker
-            label="End Date"
-            helpText="Expected Format: MM/DD/YYYY"
-            value={expenseInfo.endDate}
-            onChange={(date) => {
-              return onExpenseInfoChange({ endDate: date });
-            }}
-          />
-        </ListItem>
-      </List>
-
-      <h3 className="margin-bottom-16 margin-top-30 text-weight-semibold text-size-20">
-        Select Expenses
-      </h3>
+      <div className="margin-bottom-28">
+        <hr />
+      </div>
 
       <Grid>
         <Row>
-          {expenseOptions.map(({ expense }, i) => {
-            return (
-              <Col key={`expense-${i}`} md={4} className="margin-bottom-8">
-                <CheckOption
-                  label={expense}
-                  checked={expenses.includes(expense)}
-                  onChange={() => {
-                    return onExpenseOptionSelect(expense);
+          <Col md={6}>
+            <h3 className="margin-bottom-16 text-weight-semibold text-size-20">
+              Expense Info
+            </h3>
+            <List loose>
+              <ListItem>
+                <FormField
+                  label="Expense Name"
+                  value={expenseInfo.expense}
+                  onChange={(e) => {
+                    return onExpenseInfoChange({ expense: e.target.value });
                   }}
                 />
-              </Col>
-            );
-          })}
+              </ListItem>
+              <ListItem>
+                <FormField
+                  type="number"
+                  label="Budget Amount"
+                  value={expenseInfo.budgetAmount}
+                  onChange={(e) => {
+                    return onExpenseInfoChange({
+                      budgetAmount: e.target.value,
+                    });
+                  }}
+                />
+              </ListItem>
+              <ListItem>
+                <DatePicker
+                  label="Start Date"
+                  helpText="Expected Format: MM/DD/YYYY"
+                  value={expenseInfo.startDate}
+                  onChange={(date) => {
+                    return onExpenseInfoChange({ startDate: date });
+                  }}
+                />
+              </ListItem>
+              <ListItem>
+                <DatePicker
+                  label="End Date"
+                  helpText="Expected Format: MM/DD/YYYY"
+                  value={expenseInfo.endDate}
+                  onChange={(date) => {
+                    return onExpenseInfoChange({ endDate: date });
+                  }}
+                />
+              </ListItem>
+            </List>
+          </Col>
+          <Col md={1}></Col>
+          <Col md={5}>
+            <h3 className="margin-bottom-16 margin-top-30 margin-top-collapse@medium text-weight-semibold text-size-20">
+              Select Expenses
+            </h3>
+
+            <Grid>
+              <Row>
+                {expenseOptions.map(({ expense }, i) => {
+                  return (
+                    <Col
+                      key={`expense-${i}`}
+                      md={6}
+                      className="margin-bottom-8"
+                    >
+                      <CheckOption
+                        label={expense}
+                        checked={expenses.includes(expense)}
+                        onChange={() => {
+                          return onExpenseOptionSelect(expense);
+                        }}
+                      />
+                    </Col>
+                  );
+                })}
+              </Row>
+            </Grid>
+          </Col>
         </Row>
       </Grid>
+
+      <div className="margin-top-32">
+        <hr />
+      </div>
 
       <Button
         className="margin-top-24"
@@ -135,7 +157,7 @@ const NewExpenseGroup = () => {
           return setStep(3);
         }}
       >
-        Submit
+        Create Expense Group
       </Button>
     </form>
   );
