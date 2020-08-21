@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import mongoose from 'mongoose';
 import { Grid, Row, Col } from 'react-flexbox-grid';
 import * as yup from 'yup';
 import { useFormik } from 'formik';
@@ -52,15 +51,21 @@ const NewExpenseGroup = () => {
     },
   });
 
+  const checkIfExpenseIsSelected = (expense) => {
+    return values.expenses.find((exp) => {
+      return exp.expense === expense;
+    });
+  };
+
   const onExpenseOptionSelect = (expense) => {
     const { expenses } = values;
-    const index = expenses.indexOf(expense) !== -1;
+    const exists = checkIfExpenseIsSelected(expense);
 
-    const updatedExpenses = index
-      ? expenses.filter((item) => {
-          return item !== expense;
+    const updatedExpenses = exists
+      ? expenses.filter((exp) => {
+          return exp.expense !== expense;
         })
-      : [...expenses, expense];
+      : [...expenses, { expense }];
 
     setFieldValue('expenses', updatedExpenses);
   };
@@ -78,6 +83,7 @@ const NewExpenseGroup = () => {
 
   return (
     <form onSubmit={handleSubmit} noValidate>
+      {JSON.stringify(values.expenses)}
       <h1 className="margin-bottom-24 text-weight-semibold text-size-30">
         New Expense Group
       </h1>
@@ -97,15 +103,6 @@ const NewExpenseGroup = () => {
                   name="expenseGroupTitle"
                   label="Expense Group Title"
                   value={values.expenseGroupTitle}
-                  onChange={handleChange}
-                />
-              </ListItem>
-              <ListItem>
-                <FormField
-                  name="budgetAmount"
-                  type="number"
-                  label="Budget Amount"
-                  value={values.budgetAmount}
                   onChange={handleChange}
                 />
               </ListItem>
@@ -131,6 +128,15 @@ const NewExpenseGroup = () => {
                   }}
                 />
               </ListItem>
+              <ListItem>
+                <FormField
+                  name="budgetAmount"
+                  type="number"
+                  label="Budget Amount"
+                  value={values.budgetAmount}
+                  onChange={handleChange}
+                />
+              </ListItem>
             </List>
           </Col>
           <Col md={1}></Col>
@@ -150,7 +156,7 @@ const NewExpenseGroup = () => {
                     >
                       <CheckOption
                         label={expense}
-                        checked={values.expenses.includes(expense)}
+                        checked={checkIfExpenseIsSelected(expense)}
                         onChange={() => {
                           return onExpenseOptionSelect(expense);
                         }}
