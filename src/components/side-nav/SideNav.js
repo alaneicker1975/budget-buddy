@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import moment from 'moment';
-import { List, ListItem, Button } from '@alaneicker/atomik-ui';
+import { List, ListItem } from '@alaneicker/atomik-ui';
 
 const SideNav = ({ data, selectedExpenseId }) => {
   return (

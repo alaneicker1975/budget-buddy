@@ -17,7 +17,7 @@ const NewExpenseGroup = () => {
   const dispatch = useDispatch();
 
   const validationSchema = yup.object().shape({
-    expenseGroupTitle: yup.string().required('Expense group title is required'),
+    title: yup.string().required('Expense group title is required'),
     startDate: yup.string().required('Start Date is required'),
     endDate: yup.string().required('End date is required'),
     budgetAmount: yup.number().required('Budget Amount is required'),
@@ -25,15 +25,15 @@ const NewExpenseGroup = () => {
   });
 
   const initialValues = {
-    expenseGroupTitle: '',
+    title: '',
     startDate: '',
     endDate: '',
     budgetAmount: '',
     expenses: [],
   };
 
-  const onSubmit = (formData) => {
-    console.log(formData);
+  const onSubmit = (data) => {
+    dispatch({ type: 'INSERT_NEW_EXPENSE_GROUP', data });
   };
 
   const {
@@ -65,7 +65,7 @@ const NewExpenseGroup = () => {
       ? expenses.filter((exp) => {
           return exp.expense !== expense;
         })
-      : [...expenses, { expense }];
+      : [...expenses, { expense, balance: 0 }];
 
     setFieldValue('expenses', updatedExpenses);
   };
@@ -77,13 +77,12 @@ const NewExpenseGroup = () => {
   });
 
   useEffect(() => {
-    dispatch({ type: 'SET_SELECTED_EXPENSE', id: null });
+    dispatch({ type: 'SET_SELECTED_EXPENSE_GROUP', id: null });
     dispatch({ type: 'FETCH_EXPENSE_OPTIONS' });
   }, []);
 
   return (
     <form onSubmit={handleSubmit} noValidate>
-      {JSON.stringify(values.expenses)}
       <h1 className="margin-bottom-24 text-weight-semibold text-size-30">
         New Expense Group
       </h1>
@@ -100,9 +99,9 @@ const NewExpenseGroup = () => {
             <List loose>
               <ListItem>
                 <FormField
-                  name="expenseGroupTitle"
+                  name="title"
                   label="Expense Group Title"
-                  value={values.expenseGroupTitle}
+                  value={values.title}
                   onChange={handleChange}
                 />
               </ListItem>

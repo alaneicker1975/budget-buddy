@@ -13,7 +13,7 @@ const ExpenseGroupDetail = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch({ type: 'SET_SELECTED_EXPENSE', id });
+    dispatch({ type: 'SET_SELECTED_EXPENSE_GROUP', id });
   }, [id]);
 
   const {

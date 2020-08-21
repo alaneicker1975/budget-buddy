@@ -20,37 +20,6 @@ import schemas from './schemas';
 
   const { Expense, ExpenseGroup } = schemas;
 
-  // async function addExpenseGroups() {
-  //   try {
-  //     await ExpenseGroup.insertMany([
-  //       {
-  //         title: 'October 2020',
-  //         startDate: new Date('10/01/2020'),
-  //         endDate: new Date('10/31/2020'),
-  //         budgetAmount: 9000,
-  //         budgetEndGoal: 1500,
-  //         expenses: [
-  //           { expense: 'Mortgage', balance: 1941.65, isPaid: false },
-  //           { expense: 'Day Care', balance: 880.0, isPaid: false },
-  //           { expense: '529B', balance: 300.0, isPaid: false },
-  //           { expense: 'Ford Car Payment', balance: 359.15, isPaid: false },
-  //           { expense: 'Groceries', balance: 400.0, isPaid: false },
-  //           { expense: 'ComEd', balance: 120.9, isPaid: false },
-  //           { expense: 'Nicor', balance: 34.72, isPaid: false },
-  //           { expense: 'TruGreen', balance: 61.78, isPaid: false },
-  //           { expense: 'Gym', balance: 400.0, isPaid: false },
-  //         ],
-  //       },
-  //     ]);
-
-  //     console.log('Expense group successfully added!');
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // }
-
-  // addExpenseGroups();
-
   app.use(bodyParser.json());
   app.use(compression());
   app.use(cors());
@@ -90,6 +59,7 @@ import schemas from './schemas';
   });
 
   app.post('/api/expense-groups', async (req, res) => {
+    console.log(req.body);
     try {
       const {
         body: { startDate, endDate, ...rest },

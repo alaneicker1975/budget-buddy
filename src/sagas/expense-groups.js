@@ -23,6 +23,36 @@ function* fetchExpenseGroups() {
   }
 }
 
+function* postNewExpenseGroup({ data }) {
+  try {
+    const response = yield call(
+      fetch,
+      `http://localhost:9000/api/expense-groups`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-type': 'application/json; charset=UTF-8',
+        },
+        body: JSON.stringify(data),
+      },
+    );
+
+    const { err } = yield response.json();
+
+    if (err) {
+      console.error(err);
+      return;
+    }
+
+    yield put({
+      type: 'SET_NEW_EXPENSE_GROUP',
+      data,
+    });
+  } catch (err) {
+    console.log(err);
+  }
+}
+
 function* updateExpenseGroup({ data }) {
   try {
     const response = yield call(
@@ -45,7 +75,7 @@ function* updateExpenseGroup({ data }) {
     }
 
     yield put({
-      type: 'UPDATE_SELECTED_EXPENSE',
+      type: 'UPDATE_SELECTED_EXPENSE_GROUP',
       data,
     });
 
@@ -61,5 +91,6 @@ function* updateExpenseGroup({ data }) {
 
 export default function* watchExpenseGroups() {
   yield takeLatest('FETCH_EXPENSE_GROUPS', fetchExpenseGroups);
+  yield takeLatest('INSERT_NEW_EXPENSE_GROUP', postNewExpenseGroup);
   yield takeLatest('UPDATE_EXPENSE_GROUP', updateExpenseGroup);
 }

@@ -8,14 +8,13 @@ const initialState = {
 
 const expenseReducer = (state = initialState, action) => {
   switch (action.type) {
-    // Expense Options
-    // ----------------------------------------------------
+    // Sets expense options
     case 'SET_EXPENSE_OPTIONS':
       return { ...state, expenseOptions: action.data };
-    // Expense Groups
-    // ----------------------------------------------------
+    // Sets expense groups
     case 'SET_EXPENSE_GROUPS':
       return { ...state, expenseGroups: action.data };
+    // Updates expenseGroups array with updates expense object
     case 'UPDATE_EXPENSE_GROUPS':
       return {
         ...state,
@@ -23,9 +22,8 @@ const expenseReducer = (state = initialState, action) => {
           return group._id === action.groupId ? state.selectedExpense : group;
         }),
       };
-    // Selected Expense
-    // ----------------------------------------------------
-    case 'SET_SELECTED_EXPENSE':
+    // Sets the selected expense group based on _id
+    case 'SET_SELECTED_EXPENSE_GROUP':
       return {
         ...state,
         selectedExpenseId: action.id,
@@ -33,7 +31,11 @@ const expenseReducer = (state = initialState, action) => {
           return expense._id === action.id;
         })[0],
       };
-    case 'UPDATE_SELECTED_EXPENSE':
+    // Updates expenseGroups array with new expense object
+    case 'SET_NEW_EXPENSE_GROUP':
+      return { ...state, expenseGroups: [...state.expenseGroups, action.data] };
+    // Updates the selected expense group after update
+    case 'UPDATE_SELECTED_EXPENSE_GROUP':
       return {
         ...state,
         selectedExpense: {
