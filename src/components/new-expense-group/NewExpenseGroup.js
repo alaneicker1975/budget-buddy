@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import mongoose from 'mongoose';
 import { Grid, Row, Col } from 'react-flexbox-grid';
 import * as yup from 'yup';
 import { useFormik } from 'formik';
@@ -47,7 +48,7 @@ const NewExpenseGroup = () => {
     initialValues,
     validationSchema,
     onSubmit: () => {
-      return onSubmit(values);
+      return onSubmit({ _id: mongoose.Types.ObjectId(), ...values });
     },
   });
 
@@ -65,7 +66,15 @@ const NewExpenseGroup = () => {
       ? expenses.filter((exp) => {
           return exp.expense !== expense;
         })
-      : [...expenses, { expense, balance: 0 }];
+      : [
+          ...expenses,
+          {
+            _id: mongoose.Types.ObjectId(),
+            balance: 0,
+            isPaid: false,
+            expense,
+          },
+        ];
 
     setFieldValue('expenses', updatedExpenses);
   };

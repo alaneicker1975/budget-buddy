@@ -59,7 +59,6 @@ import schemas from './schemas';
   });
 
   app.post('/api/expense-groups', async (req, res) => {
-    console.log(req.body);
     try {
       const {
         body: { startDate, endDate, ...rest },
