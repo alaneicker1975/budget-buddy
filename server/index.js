@@ -70,7 +70,7 @@ import schemas from './schemas';
         ...rest,
       }).save();
 
-      res.status(201).send({ insertId: expenseGroup._id });
+      res.status(201).send({ expenseGroup });
     } catch ({ name, message }) {
       res.status(500).send({
         err: { status: 500, name, message },

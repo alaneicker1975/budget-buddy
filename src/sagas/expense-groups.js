@@ -37,7 +37,7 @@ function* postNewExpenseGroup({ data }) {
       },
     );
 
-    const { err } = yield response.json();
+    const { err, expenseGroup } = yield response.json();
 
     if (err) {
       console.error(err);
@@ -46,7 +46,7 @@ function* postNewExpenseGroup({ data }) {
 
     yield put({
       type: 'SET_NEW_EXPENSE_GROUP',
-      data,
+      expenseGroup,
     });
   } catch (err) {
     console.log(err);

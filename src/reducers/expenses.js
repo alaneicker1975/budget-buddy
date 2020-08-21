@@ -33,7 +33,10 @@ const expenseReducer = (state = initialState, action) => {
       };
     // Updates expenseGroups array with new expense object
     case 'SET_NEW_EXPENSE_GROUP':
-      return { ...state, expenseGroups: [...state.expenseGroups, action.data] };
+      return {
+        ...state,
+        expenseGroups: [...state.expenseGroups, action.expenseGroup],
+      };
     // Updates the selected expense group after update
     case 'UPDATE_SELECTED_EXPENSE_GROUP':
       return {
