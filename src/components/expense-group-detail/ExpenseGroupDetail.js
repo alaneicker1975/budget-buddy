@@ -55,7 +55,7 @@ const ExpenseGroupDetail = () => {
     return (
       <div className="expense-group-detail">
         <div className="expense-group-detail__hd">
-          <div className="text-align-center text-align-left@medium">
+          <div className="text-align-center text-align-left@large">
             <FormField
               className="expense-group-detail__date"
               value={`${moment(startDate).format('L')} - ${moment(
@@ -63,15 +63,15 @@ const ExpenseGroupDetail = () => {
               ).format('L')}`}
             />
             <FormField
-              className="expense-group-detail__title text-align-center text-align-left@medium"
+              className="expense-group-detail__title text-align-center text-align-left@large"
               value={title}
             />
           </div>
-          <div className="text-align-center text-align-right@medium">
-            <span className="text-size-20@medium">
+          <div className="text-align-center text-align-right@large">
+            <span className="text-size-20@large">
               <FormField
                 label="Budget Amount"
-                className="expense-group-detail__budget-amount text-align-center text-align-right@medium"
+                className="expense-group-detail__budget-amount text-align-center text-align-right@large"
                 value={budgetAmount}
               />
             </span>
@@ -98,7 +98,7 @@ const ExpenseGroupDetail = () => {
               isExpenseGroupDetail
             />
             <hr />
-            <h4 className="text-size-20@medium text-weight-medium">
+            <h4 className="text-size-20@large text-weight-medium">
               Unpaid Balance:{' '}
               <span className="text-color-red-100">
                 $
@@ -109,10 +109,10 @@ const ExpenseGroupDetail = () => {
             </h4>
           </div>
           <div>
-            <div className="margin-top-32 margin-collapse@medium" />
+            <div className="margin-top-32 margin-collapse@large" />
             <div className="savings-goal-chart">
               <div className="flex flex--align-middle flex--space-between">
-                <h3 className="text-size-20@medium text-weight-semibold">
+                <h3 className="text-size-20@large text-weight-semibold">
                   Budget Visualization
                 </h3>
                 <span>

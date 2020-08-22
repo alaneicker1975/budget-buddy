@@ -24,7 +24,8 @@
     text-transform: uppercase;
 
     & > input {
-      width: auto;
+      width: 100%;
+      text-align: center;
     }
   }
 
@@ -38,11 +39,11 @@
 
     & > input {
       color: $green-100;
-      width: rem(180);
+      width: rem(85);
     }
   }
 
-  @media (min-width: $breakpoint-medium) {
+  @media (min-width: $breakpoint-large) {
     &__hd {
       align-items: center;
       display: flex;
@@ -65,6 +66,15 @@
 
       & > * + * {
         margin-left: rem(32);
+      }
+    }
+
+    .expense-group-detail__title,
+    .expense-group-detail__date,
+    .expense-group-detail__budget-amount {
+      & > input {
+        width: auto;
+        text-align: inherit;
       }
     }
   }

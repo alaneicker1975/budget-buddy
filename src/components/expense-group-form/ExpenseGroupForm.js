@@ -53,13 +53,21 @@ const ExpenseGroupForm = ({
     <form className="expense-group-form" onSubmit={onSubmit} noValidate>
       <List className="expense-group-form__list">
         {expenses.map(({ _id, expense, balance, isPaid }, i) => {
-          const paidLabel = isPaid ? 'Paid' : 'Not Paid';
           return (
             <ListItem key={`expense-item-${i}`}>
+              <div className="expense-group-form__status-field">
+                <CheckOption
+                  name="isPaid"
+                  checked={isNewExpense ? newExpense.isPaid : isPaid}
+                  onChange={(e) => {
+                    return onExpenseUpdate(e, _id);
+                  }}
+                />
+              </div>
               <div className="expense-group-form__expense-field">
                 <FormField
                   className={classnames({
-                    'expense-group-form__text-input': isExpenseGroupDetail,
+                    'expense-group-form__text-input text-weight-semibold': isExpenseGroupDetail,
                   })}
                   name="expense"
                   value={isNewExpense ? newExpense.expense : expense}
@@ -81,16 +89,6 @@ const ExpenseGroupForm = ({
                   value={isNewExpense ? newExpense.balance : balance}
                   placeholder="Balance"
                   aria-label="balance"
-                  onChange={(e) => {
-                    return onExpenseUpdate(e, _id);
-                  }}
-                />
-              </div>
-              <div className="expense-group-form__status-field">
-                <CheckOption
-                  name="isPaid"
-                  label={paidLabel}
-                  checked={isNewExpense ? newExpense.isPaid : isPaid}
                   onChange={(e) => {
                     return onExpenseUpdate(e, _id);
                   }}

@@ -1,11 +1,21 @@
 .expense-group-form {
   &__list {
     & > * {
+      align-items: center;
+      display: flex;
       padding: rem(8 0);
       white-space: nowrap;
 
       & > * {
         margin-bottom: rem(8);
+      }
+
+      & > * + * {
+        margin-left: rem(20);
+      }
+
+      & > :last-child {
+        text-align: right;
       }
     }
   }
@@ -14,45 +24,18 @@
     flex: 1;
   }
 
+  &__balance-field {
+    input {
+      width: rem(80);
+    }
+  }
+
   .expense-group-form__text-input {
     border: 0;
     display: inline-block;
 
     & > input {
       padding-left: rem(1);
-    }
-  }
-
-  @media (min-width: $breakpoint-medium) {
-    &__list {
-      & > * {
-        align-items: center;
-        display: flex;
-
-        & > * {
-          margin-bottom: rem(0);
-        }
-
-        & > * + * {
-          margin-left: rem(20);
-        }
-      }
-    }
-
-    &__balance-field {
-      input {
-        width: rem(90);
-      }
-    }
-
-    &__expense-field {
-      input {
-        min-width: rem(150);
-      }
-    }
-
-    &__status-field {
-      flex: rem(100) 0 0;
     }
   }
 }
