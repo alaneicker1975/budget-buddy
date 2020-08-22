@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import classnames from 'classnames';
 import { useDispatch } from 'react-redux';
 import * as yup from 'yup';
 import { useFormik } from 'formik';
@@ -11,7 +12,12 @@ import {
   CheckOption,
 } from '@alaneicker/atomik-ui';
 
-const ExpenseGroupForm = ({ expenses, isNewExpense, groupId }) => {
+const ExpenseGroupForm = ({
+  expenses,
+  isNewExpense,
+  groupId,
+  isExpenseGroupDetail,
+}) => {
   const dispatch = useDispatch();
 
   const [newExpense, setNewExpense] = useState({});
@@ -52,6 +58,9 @@ const ExpenseGroupForm = ({ expenses, isNewExpense, groupId }) => {
             <ListItem key={`expense-item-${i}`}>
               <div className="expense-group-form__expense-field">
                 <FormField
+                  className={classnames({
+                    'expense-group-form__text-input': isExpenseGroupDetail,
+                  })}
                   name="expense"
                   value={isNewExpense ? newExpense.expense : expense}
                   placeholder="Expense (E.g. Electric Bill)"
@@ -62,7 +71,9 @@ const ExpenseGroupForm = ({ expenses, isNewExpense, groupId }) => {
               </div>
               <div className="expense-group-form__balance-field">
                 <FormField
-                  pattern="^\d*(\.\d{0,2})?$"
+                  className={classnames({
+                    'expense-group-form__text-input': isExpenseGroupDetail,
+                  })}
                   name="balance"
                   value={isNewExpense ? newExpense.balance : balance.toFixed(2)}
                   placeholder="Balance"
@@ -121,6 +132,7 @@ ExpenseGroupForm.propTypes = {
   ),
   isNewExpense: PropTypes.bool,
   groupId: PropTypes.string,
+  isExpenseGroupDetail: PropTypes.bool,
 };
 
 ExpenseGroupForm.defaultProps = {
@@ -133,6 +145,7 @@ ExpenseGroupForm.defaultProps = {
   ],
   isNewExpense: false,
   groupId: '',
+  isExpenseGroupDetail: false,
 };
 
 export default ExpenseGroupForm;

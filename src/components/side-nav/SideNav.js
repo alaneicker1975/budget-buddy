@@ -9,7 +9,7 @@ const SideNav = ({ data, selectedExpenseId }) => {
   return (
     <div className="side-nav">
       <Link
-        className="atomikui-btn atomikui-btn--square"
+        className="atomikui-btn atomikui-btn--primary atomikui-btn--square"
         to="/new-expense-group"
       >
         + New Group
