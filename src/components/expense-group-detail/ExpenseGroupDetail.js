@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
 import Chart from 'react-apexcharts';
-import { Statistic, Button } from '@alaneicker/atomik-ui';
+import { Statistic, Button, FormField } from '@alaneicker/atomik-ui';
 import ExpenseGroupForm from '../expense-group-form';
 import EndOfMonthSummary from '../end-of-month-summary';
 
@@ -56,13 +56,13 @@ const ExpenseGroupDetail = () => {
       <div className="expense-group-detail">
         <div className="expense-group-detail__hd">
           <div className="text-align-center text-align-left@medium">
-            <Statistic
-              value={title}
-              label={`${moment(startDate).format('L')} - ${moment(
+            <FormField
+              className="expense-group-detail__date"
+              value={`${moment(startDate).format('L')} - ${moment(
                 endDate,
               ).format('L')}`}
-              topLabel
             />
+            <FormField className="expense-group-detail__title" value={title} />
           </div>
           <div className="text-align-center text-align-right@medium">
             <span className="text-size-20@medium">
