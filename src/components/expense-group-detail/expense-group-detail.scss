@@ -14,7 +14,8 @@
   }
 
   .expense-group-detail__title,
-  .expense-group-detail__date {
+  .expense-group-detail__date,
+  .expense-group-detail__budget-amount {
     border: 0;
     font-family: $base-font-family;
     font-weight: $font-semibold;
@@ -27,8 +28,18 @@
     }
   }
 
-  .expense-group-detail__title {
+  .expense-group-detail__title,
+  .expense-group-detail__budget-amount {
     font-size: rem(36);
+  }
+
+  .expense-group-detail__budget-amount {
+    line-height: 0.5;
+
+    & > input {
+      color: $green-100;
+      width: rem(180);
+    }
   }
 
   @media (min-width: $breakpoint-medium) {

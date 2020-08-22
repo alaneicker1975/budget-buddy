@@ -62,18 +62,17 @@ const ExpenseGroupDetail = () => {
                 endDate,
               ).format('L')}`}
             />
-            <FormField className="expense-group-detail__title" value={title} />
+            <FormField
+              className="expense-group-detail__title text-align-center text-align-left@medium"
+              value={title}
+            />
           </div>
           <div className="text-align-center text-align-right@medium">
             <span className="text-size-20@medium">
-              <Statistic
-                value={`$${budgetAmount.toLocaleString('en', {
-                  minimumFractionDigits: 2,
-                })}`}
+              <FormField
                 label="Budget Amount"
-                theme="green"
-                size="md"
-                topLabel
+                className="expense-group-detail__budget-amount text-align-center text-align-right@medium"
+                value={budgetAmount}
               />
             </span>
           </div>
@@ -81,9 +80,7 @@ const ExpenseGroupDetail = () => {
         <div className="expense-group-detail__bd">
           <div>
             <div className="flex flex--align-middle flex--space-between">
-              <h3 className="text-size-20@medium text-weight-semibold">
-                Expenses
-              </h3>
+              <h3 className="text-size-20 text-weight-semibold">Expenses</h3>
               <Button
                 theme="link"
                 size="md"
