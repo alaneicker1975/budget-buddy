@@ -64,6 +64,7 @@ const ExpenseGroupForm = ({
                   name="expense"
                   value={isNewExpense ? newExpense.expense : expense}
                   placeholder="Expense (E.g. Electric Bill)"
+                  aria-label="expense title"
                   onChange={(e) => {
                     return onExpenseUpdate(e, _id);
                   }}
@@ -75,8 +76,10 @@ const ExpenseGroupForm = ({
                     'expense-group-form__text-input': isExpenseGroupDetail,
                   })}
                   name="balance"
-                  value={isNewExpense ? newExpense.balance : balance.toFixed(2)}
+                  type="number"
+                  value={isNewExpense ? newExpense.balance : balance}
                   placeholder="Balance"
+                  aria-label="balance"
                   onChange={(e) => {
                     return onExpenseUpdate(e, _id);
                   }}
@@ -126,7 +129,7 @@ ExpenseGroupForm.propTypes = {
   expenses: PropTypes.arrayOf(
     PropTypes.shape({
       expense: PropTypes.string,
-      balance: PropTypes.number,
+      balance: PropTypes.string,
       isPaid: PropTypes.bool,
     }),
   ),
@@ -139,7 +142,7 @@ ExpenseGroupForm.defaultProps = {
   expenses: [
     {
       expense: '',
-      balance: 0,
+      balance: '0',
       isPaid: false,
     },
   ],

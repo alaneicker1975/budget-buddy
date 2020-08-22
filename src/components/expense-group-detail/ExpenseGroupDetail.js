@@ -33,11 +33,11 @@ const ExpenseGroupDetail = () => {
     } = selectedExpense;
 
     const totalBalance = expenses.reduce((a, b) => {
-      return a + b.balance;
+      return a + +b.balance;
     }, 0);
 
     const unpaidBalance = expenses.reduce((a, b) => {
-      return !b.isPaid ? a + b.balance : a;
+      return !b.isPaid ? a + +b.balance : a;
     }, 0);
 
     const remainingBalance = budgetAmount - totalBalance;
@@ -49,7 +49,7 @@ const ExpenseGroupDetail = () => {
     };
 
     const chartSeries = expenses.map(({ balance }) => {
-      return balance;
+      return +balance;
     });
 
     return (

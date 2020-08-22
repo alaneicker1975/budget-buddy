@@ -18,7 +18,7 @@ const ExpenseGroup = mongoose.model(
     endDate: Date, // When budget period ends
     budgetAmount: Number, // Budget for period
     budgetEndGoal: Number, // The amount to have left over at the end of a budget period
-    expenses: [{ expense: String, balance: Number, isPaid: Boolean }], // Expenses for a budget period
+    expenses: [{ expense: String, balance: String, isPaid: Boolean }], // Expenses for a budget period
   }),
 );
 

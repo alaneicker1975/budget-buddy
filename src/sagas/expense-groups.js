@@ -67,7 +67,7 @@ function* updateExpenseGroup({ data }) {
       },
     );
 
-    const { err } = yield response.json();
+    const { err, expenseGroup } = yield response.json();
 
     if (err) {
       console.error(err);
@@ -76,7 +76,7 @@ function* updateExpenseGroup({ data }) {
 
     yield put({
       type: 'UPDATE_SELECTED_EXPENSE_GROUP',
-      data,
+      expenseGroup,
     });
 
     yield put({

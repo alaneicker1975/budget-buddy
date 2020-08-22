@@ -92,7 +92,7 @@ import schemas from './schemas';
 
       await expenseGroup.save();
 
-      res.send({ updateId: expenseId });
+      res.send({ expenseGroup });
     } catch ({ name, message }) {
       res.status(500).send({
         err: { status: 500, name, message },

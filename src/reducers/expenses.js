@@ -39,27 +39,10 @@ const expenseReducer = (state = initialState, action) => {
       };
     // Updates the selected expense group after update
     case 'UPDATE_SELECTED_EXPENSE_GROUP':
+      console.log(action.expenseGroup);
       return {
         ...state,
-        selectedExpense: {
-          ...state.selectedExpense,
-          expenses: state.selectedExpense.expenses.map((expense) => {
-            return expense._id === action.data.expenseId
-              ? {
-                  ...expense,
-                  ...(action.data.type === 'checkbox' && {
-                    isPaid: action.data.checked,
-                  }),
-                  ...(action.data.type === 'text' && {
-                    [action.data.name]:
-                      action.data.name === 'balance'
-                        ? +action.data.value
-                        : action.data.value,
-                  }),
-                }
-              : expense;
-          }),
-        },
+        selectedExpense: action.expenseGroup,
       };
     default:
       return state;
