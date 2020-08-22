@@ -44,7 +44,7 @@ const ExpenseGroupDetail = () => {
 
     const chartOptions = {
       labels: expenses.map(({ expense }) => {
-        return expense;
+        return expense === '' ? 0 : expense;
       }),
     };
 

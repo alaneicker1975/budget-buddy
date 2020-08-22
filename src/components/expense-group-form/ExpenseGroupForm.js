@@ -71,6 +71,7 @@ const ExpenseGroupForm = ({
                 />
               </div>
               <div className="expense-group-form__balance-field">
+                $
                 <FormField
                   className={classnames({
                     'expense-group-form__text-input': isExpenseGroupDetail,
@@ -142,7 +143,7 @@ ExpenseGroupForm.defaultProps = {
   expenses: [
     {
       expense: '',
-      balance: '0',
+      balance: '',
       isPaid: false,
     },
   ],

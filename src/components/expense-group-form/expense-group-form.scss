@@ -16,6 +16,11 @@
 
   .expense-group-form__text-input {
     border: 0;
+    display: inline-block;
+
+    & > input {
+      padding-left: rem(1);
+    }
   }
 
   @media (min-width: $breakpoint-medium) {

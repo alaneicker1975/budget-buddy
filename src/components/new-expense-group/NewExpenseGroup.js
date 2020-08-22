@@ -68,7 +68,7 @@ const NewExpenseGroup = () => {
       : [
           ...expenses,
           {
-            balance: 0,
+            balance: '',
             isPaid: false,
             expense,
           },
