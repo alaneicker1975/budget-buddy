@@ -1,23 +1,29 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
 import Chart from 'react-apexcharts';
-import { Statistic, Button, FormField } from '@alaneicker/atomik-ui';
+import { Button, FormField } from '@alaneicker/atomik-ui';
 import ExpenseGroupForm from '../expense-group-form';
 import EndOfMonthSummary from '../end-of-month-summary';
 
 const ExpenseGroupDetail = () => {
   const { id } = useParams();
-
   const dispatch = useDispatch();
+  const newExpenseForm = useRef();
+  const [contentHeight, setContentHeight] = useState('0px');
 
   useEffect(() => {
     dispatch({ type: 'SET_SELECTED_EXPENSE_GROUP', id });
   }, [id]);
 
+  useEffect(() => {
+    dispatch({ type: 'TOGGLE_NEW_EXPENSE_FORM', payload: false });
+    setContentHeight(`${newExpenseForm.current.scrollHeight}px`);
+  }, []);
+
   const {
-    expenses: { selectedExpense },
+    expenses: { selectedExpense, showExpenseNewForm },
   } = useSelector((state) => {
     return state;
   });
@@ -85,11 +91,18 @@ const ExpenseGroupDetail = () => {
                 theme="link"
                 size="md"
                 onClick={() => {
-                  return dispatch({ type: 'TOGGLE_EXPENSE_FORM_MODAL' });
+                  return dispatch({ type: 'TOGGLE_NEW_EXPENSE_FORM' });
                 }}
               >
                 <span className="text-weight-semibold">+ Add Expense</span>
               </Button>
+            </div>
+            <div
+              ref={newExpenseForm}
+              className="expense-group-detail__new-expense-form"
+              style={{ height: showExpenseNewForm ? contentHeight : '0px' }}
+            >
+              <ExpenseGroupForm isNewExpense />
             </div>
             <hr />
             <ExpenseGroupForm expenses={expenses} groupId={_id} />

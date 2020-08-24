@@ -13,6 +13,12 @@
     border-top: rem(1) solid $gray-100;
   }
 
+  &__new-expense-form {
+    overflow: hidden;
+    transition: height 0.4s cubic-bezier(0.65, 0.05, 0.36, 1);
+    will-change: height;
+  }
+
   .expense-group-detail__title,
   .expense-group-detail__date,
   .expense-group-detail__budget-amount {
@@ -24,8 +30,8 @@
     text-transform: uppercase;
 
     & > input {
-      width: 100%;
       text-align: center;
+      width: 100%;
     }
   }
 
@@ -73,8 +79,8 @@
     .expense-group-detail__date,
     .expense-group-detail__budget-amount {
       & > input {
-        width: auto;
         text-align: inherit;
+        width: auto;
       }
     }
   }

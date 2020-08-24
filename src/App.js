@@ -1,19 +1,16 @@
 import React, { useEffect } from 'react';
 import { Route } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { Modal } from '@alaneicker/atomik-ui';
 import ExpenseGroupDetail from './components/expense-group-detail';
 import SideNav from './components/side-nav';
 import Header from './components/header';
-import ExpenseGroupForm from './components/expense-group-form';
 import NewExpenseGroup from './components/new-expense-group';
 
 const App = () => {
   const dispatch = useDispatch();
 
   const {
-    expenses: { expenseGroups, selectedExpenseId },
-    modals: { showExpenseFormModal },
+    expenses: { expenseGroups, selectedExpenseId, showExpenseNewForm },
   } = useSelector((state) => {
     return state;
   });
@@ -36,17 +33,6 @@ const App = () => {
           <Route path="/expense-group/:id" component={ExpenseGroupDetail} />
         </div>
       </div>
-      <Modal
-        disableEscapKey
-        disableOverlayclick
-        onClose={() => {
-          dispatch({ type: 'TOGGLE_EXPENSE_FORM_MODAL' });
-        }}
-        title="Add New Expense"
-        isOpen={showExpenseFormModal}
-      >
-        <ExpenseGroupForm isNewExpense />
-      </Modal>
     </main>
   );
 };

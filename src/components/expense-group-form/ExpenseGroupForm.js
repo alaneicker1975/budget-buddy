@@ -116,13 +116,22 @@ const ExpenseGroupForm = ({ expenses, isNewExpense, groupId }) => {
         );
       })}
       {isNewExpense && (
-        <Button
-          type="submit"
-          theme="primary"
-          className="margin-top-8 margin-bottom-16"
-        >
-          Submit
-        </Button>
+        <List type="horizontal">
+          <ListItem>
+            <Button type="submit" theme="primary">
+              Submit
+            </Button>
+          </ListItem>
+          <ListItem>
+            <Button
+              onClick={() => {
+                return dispatch({ type: 'TOGGLE_NEW_EXPENSE_FORM' });
+              }}
+            >
+              Cancel
+            </Button>
+          </ListItem>
+        </List>
       )}
     </form>
   );

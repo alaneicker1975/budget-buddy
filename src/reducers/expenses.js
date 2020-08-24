@@ -1,6 +1,7 @@
 const initialState = {
   selectedExpense: null,
   selectedExpenseId: null,
+  showExpenseNewForm: false,
   expenseOptions: [],
   expenseGroups: [],
   error: null,
@@ -8,6 +9,12 @@ const initialState = {
 
 const expenseReducer = (state = initialState, action) => {
   switch (action.type) {
+    // Toggles the new expense form
+    case 'TOGGLE_NEW_EXPENSE_FORM':
+      return {
+        ...state,
+        showExpenseNewForm: action.payload || !state.showExpenseNewForm,
+      };
     // Sets expense options
     case 'SET_EXPENSE_OPTIONS':
       return { ...state, expenseOptions: action.data };

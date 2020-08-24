@@ -45,6 +45,8 @@
   }
 
   &--is-new-expense {
+    margin-bottom: rem(8);
+
     .expense-group-form__item {
       display: flex;
       flex-direction: column;
