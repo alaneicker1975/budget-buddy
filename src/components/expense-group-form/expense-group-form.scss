@@ -5,10 +5,6 @@
     padding: rem(8 0);
     white-space: nowrap;
 
-    & > * {
-      margin-bottom: rem(8);
-    }
-
     & > * + * {
       margin-left: rem(20);
     }
@@ -35,10 +31,13 @@
   }
 
   .expense-group-form__item__text-input {
+    background: transparent;
     border: 0;
     display: inline-block;
     height: auto;
     line-height: 1.4;
+    text-overflow: ellipsis;
+    width: 100%;
 
     & > input {
       padding-left: rem(1);
@@ -51,9 +50,23 @@
       flex-direction: column;
 
       & > * {
-        width: 100%;
         margin-left: 0;
         text-align: left;
+        text-transform: inherit;
+        width: 100%;
+        margin-bottom: rem(8);
+      }
+    }
+
+    .expense-group-form__item__info-fields {
+      & > * {
+        margin-bottom: rem(8);
+      }
+    }
+
+    .expense-group-form__item__expense-field {
+      input {
+        text-transform: inherit;
       }
     }
 
