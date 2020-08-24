@@ -12,12 +12,7 @@ import {
   CheckOption,
 } from '@alaneicker/atomik-ui';
 
-const ExpenseGroupForm = ({
-  expenses,
-  isNewExpense,
-  groupId,
-  isExpenseGroupDetail,
-}) => {
+const ExpenseGroupForm = ({ expenses, isNewExpense, groupId }) => {
   const dispatch = useDispatch();
 
   const [newExpense, setNewExpense] = useState({});
@@ -50,69 +45,76 @@ const ExpenseGroupForm = ({
   };
 
   return (
-    <form className="expense-group-form" onSubmit={onSubmit} noValidate>
-      <List className="expense-group-form__list">
-        {expenses.map(({ _id, expense, balance, isPaid }, i) => {
-          return (
-            <ListItem key={`expense-item-${i}`}>
-              <div className="expense-group-form__status-field">
-                <CheckOption
-                  name="isPaid"
-                  checked={isNewExpense ? newExpense.isPaid : isPaid}
+    <form
+      className={classnames('expense-group-form', {
+        'expense-group-form--is-new-expense': isNewExpense,
+      })}
+      onSubmit={onSubmit}
+      noValidate
+    >
+      {expenses.map(({ _id, expense, balance, isPaid }, i) => {
+        return (
+          <div className="expense-group-form__item" key={`expense-item-${i}`}>
+            <div className="expense-group-form__item__status-field">
+              <CheckOption
+                {...(isNewExpense && { label: 'Is Paid' })}
+                name="isPaid"
+                checked={isNewExpense ? newExpense.isPaid : isPaid}
+                onChange={(e) => {
+                  return onExpenseUpdate(e, _id);
+                }}
+              />
+            </div>
+            <div className="expense-group-form__item__info-fields">
+              <div className="expense-group-form__item__expense-field">
+                <FormField
+                  className={classnames({
+                    'expense-group-form__item__text-input text-weight-bold': !isNewExpense,
+                  })}
+                  name="expense"
+                  value={isNewExpense ? newExpense.expense : expense}
+                  {...{
+                    [isNewExpense ? 'label' : 'placeholder']: 'Expense Title',
+                  }}
+                  aria-label="expense title"
                   onChange={(e) => {
                     return onExpenseUpdate(e, _id);
                   }}
                 />
               </div>
-              <div className="expense-group-form__info">
-                <div className="expense-group-form__expense-field">
-                  <FormField
-                    className={classnames({
-                      'expense-group-form__text-input text-weight-bold': isExpenseGroupDetail,
-                    })}
-                    name="expense"
-                    value={isNewExpense ? newExpense.expense : expense}
-                    placeholder="Expense (E.g. Electric Bill)"
-                    aria-label="expense title"
-                    onChange={(e) => {
-                      return onExpenseUpdate(e, _id);
-                    }}
-                  />
-                </div>
-                <div className="expense-group-form__balance-field">
-                  $
-                  <FormField
-                    className={classnames({
-                      'expense-group-form__text-input': isExpenseGroupDetail,
-                    })}
-                    name="balance"
-                    type="number"
-                    value={isNewExpense ? newExpense.balance : balance}
-                    placeholder="Balance"
-                    aria-label="balance"
-                    onChange={(e) => {
-                      return onExpenseUpdate(e, _id);
-                    }}
-                  />
-                </div>
+              <div className="expense-group-form__item__balance-field">
+                {!isNewExpense && '$'}
+                <FormField
+                  className={classnames({
+                    'expense-group-form__item__text-input': !isNewExpense,
+                  })}
+                  name="balance"
+                  type="number"
+                  {...{ [isNewExpense ? 'label' : 'placeholder']: 'Balance' }}
+                  value={isNewExpense ? newExpense.balance : balance}
+                  aria-label="balance"
+                  onChange={(e) => {
+                    return onExpenseUpdate(e, _id);
+                  }}
+                />
               </div>
-              {!isNewExpense && (
-                <div className="expense-group-form__delete-btn">
-                  <Button
-                    theme="tertiary"
-                    size="md"
-                    onClick={() => {
-                      return onExpenseDelete(_id);
-                    }}
-                  >
-                    Delete
-                  </Button>
-                </div>
-              )}
-            </ListItem>
-          );
-        })}
-      </List>
+            </div>
+            {!isNewExpense && (
+              <div className="expense-group-form__item__delete-btn">
+                <Button
+                  theme="tertiary"
+                  size="md"
+                  onClick={() => {
+                    return onExpenseDelete(_id);
+                  }}
+                >
+                  Delete
+                </Button>
+              </div>
+            )}
+          </div>
+        );
+      })}
       {isNewExpense && (
         <Button
           type="submit"
@@ -136,7 +138,6 @@ ExpenseGroupForm.propTypes = {
   ),
   isNewExpense: PropTypes.bool,
   groupId: PropTypes.string,
-  isExpenseGroupDetail: PropTypes.bool,
 };
 
 ExpenseGroupForm.defaultProps = {
@@ -149,7 +150,6 @@ ExpenseGroupForm.defaultProps = {
   ],
   isNewExpense: false,
   groupId: '',
-  isExpenseGroupDetail: false,
 };
 
 export default ExpenseGroupForm;
