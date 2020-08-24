@@ -20,8 +20,14 @@
     }
   }
 
-  &__expense-field {
+  &__info {
     flex: 1;
+  }
+
+  &__expense-field {
+    input {
+      text-transform: uppercase;
+    }
   }
 
   &__balance-field {
@@ -33,6 +39,8 @@
   .expense-group-form__text-input {
     border: 0;
     display: inline-block;
+    height: auto;
+    line-height: 1.4;
 
     & > input {
       padding-left: rem(1);

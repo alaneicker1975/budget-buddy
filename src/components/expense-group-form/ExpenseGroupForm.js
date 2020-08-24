@@ -64,35 +64,37 @@ const ExpenseGroupForm = ({
                   }}
                 />
               </div>
-              <div className="expense-group-form__expense-field">
-                <FormField
-                  className={classnames({
-                    'expense-group-form__text-input text-weight-semibold': isExpenseGroupDetail,
-                  })}
-                  name="expense"
-                  value={isNewExpense ? newExpense.expense : expense}
-                  placeholder="Expense (E.g. Electric Bill)"
-                  aria-label="expense title"
-                  onChange={(e) => {
-                    return onExpenseUpdate(e, _id);
-                  }}
-                />
-              </div>
-              <div className="expense-group-form__balance-field">
-                $
-                <FormField
-                  className={classnames({
-                    'expense-group-form__text-input': isExpenseGroupDetail,
-                  })}
-                  name="balance"
-                  type="number"
-                  value={isNewExpense ? newExpense.balance : balance}
-                  placeholder="Balance"
-                  aria-label="balance"
-                  onChange={(e) => {
-                    return onExpenseUpdate(e, _id);
-                  }}
-                />
+              <div className="expense-group-form__info">
+                <div className="expense-group-form__expense-field">
+                  <FormField
+                    className={classnames({
+                      'expense-group-form__text-input text-weight-bold': isExpenseGroupDetail,
+                    })}
+                    name="expense"
+                    value={isNewExpense ? newExpense.expense : expense}
+                    placeholder="Expense (E.g. Electric Bill)"
+                    aria-label="expense title"
+                    onChange={(e) => {
+                      return onExpenseUpdate(e, _id);
+                    }}
+                  />
+                </div>
+                <div className="expense-group-form__balance-field">
+                  $
+                  <FormField
+                    className={classnames({
+                      'expense-group-form__text-input': isExpenseGroupDetail,
+                    })}
+                    name="balance"
+                    type="number"
+                    value={isNewExpense ? newExpense.balance : balance}
+                    placeholder="Balance"
+                    aria-label="balance"
+                    onChange={(e) => {
+                      return onExpenseUpdate(e, _id);
+                    }}
+                  />
+                </div>
               </div>
               {!isNewExpense && (
                 <div className="expense-group-form__delete-btn">
