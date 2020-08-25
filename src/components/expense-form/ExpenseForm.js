@@ -12,7 +12,7 @@ import {
   CheckOption,
 } from '@alaneicker/atomik-ui';
 
-const ExpenseGroupForm = ({ expenses, isNewExpense, groupId }) => {
+const ExpenseForm = ({ expenses, isNewExpense, groupId }) => {
   const dispatch = useDispatch();
 
   const [newExpense, setNewExpense] = useState({});
@@ -46,16 +46,16 @@ const ExpenseGroupForm = ({ expenses, isNewExpense, groupId }) => {
 
   return (
     <form
-      className={classnames('expense-group-form', {
-        'expense-group-form--is-new-expense': isNewExpense,
+      className={classnames('expense-form', {
+        'expense-form--is-new-expense': isNewExpense,
       })}
       onSubmit={onSubmit}
       noValidate
     >
       {expenses.map(({ _id, expense, balance, isPaid }, i) => {
         return (
-          <div className="expense-group-form__item" key={`expense-item-${i}`}>
-            <div className="expense-group-form__item__status-field">
+          <div className="expense-form__item" key={`expense-item-${i}`}>
+            <div className="expense-form__item__status-field">
               <CheckOption
                 {...(isNewExpense && { label: 'Is Paid' })}
                 name="isPaid"
@@ -65,11 +65,11 @@ const ExpenseGroupForm = ({ expenses, isNewExpense, groupId }) => {
                 }}
               />
             </div>
-            <div className="expense-group-form__item__info-fields">
-              <div className="expense-group-form__item__expense-field">
+            <div className="expense-form__item__info-fields">
+              <div className="expense-form__item__expense-field">
                 <FormField
                   className={classnames({
-                    'expense-group-form__item__text-input text-weight-bold': !isNewExpense,
+                    'expense-form__item__text-input text-weight-bold': !isNewExpense,
                   })}
                   name="expense"
                   value={isNewExpense ? newExpense.expense : expense}
@@ -82,11 +82,11 @@ const ExpenseGroupForm = ({ expenses, isNewExpense, groupId }) => {
                   }}
                 />
               </div>
-              <div className="expense-group-form__item__balance-field">
+              <div className="expense-form__item__balance-field">
                 {!isNewExpense && '$'}
                 <FormField
                   className={classnames({
-                    'expense-group-form__item__text-input': !isNewExpense,
+                    'expense-form__item__text-input': !isNewExpense,
                   })}
                   name="balance"
                   type="number"
@@ -100,7 +100,7 @@ const ExpenseGroupForm = ({ expenses, isNewExpense, groupId }) => {
               </div>
             </div>
             {!isNewExpense && (
-              <div className="expense-group-form__item__delete-btn">
+              <div className="expense-form__item__delete-btn">
                 <Button
                   theme="tertiary"
                   size="md"
@@ -125,7 +125,10 @@ const ExpenseGroupForm = ({ expenses, isNewExpense, groupId }) => {
           <ListItem>
             <Button
               onClick={() => {
-                return dispatch({ type: 'TOGGLE_NEW_EXPENSE_FORM' });
+                return dispatch({
+                  type: 'TOGGLE_NEW_EXPENSE_FORM',
+                  showExpenseNewForm: false,
+                });
               }}
             >
               Cancel
@@ -137,7 +140,7 @@ const ExpenseGroupForm = ({ expenses, isNewExpense, groupId }) => {
   );
 };
 
-ExpenseGroupForm.propTypes = {
+ExpenseForm.propTypes = {
   expenses: PropTypes.arrayOf(
     PropTypes.shape({
       expense: PropTypes.string,
@@ -149,7 +152,7 @@ ExpenseGroupForm.propTypes = {
   groupId: PropTypes.string,
 };
 
-ExpenseGroupForm.defaultProps = {
+ExpenseForm.defaultProps = {
   expenses: [
     {
       expense: '',
@@ -161,4 +164,4 @@ ExpenseGroupForm.defaultProps = {
   groupId: '',
 };
 
-export default ExpenseGroupForm;
+export default ExpenseForm;

@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
 import Chart from 'react-apexcharts';
 import { Button, FormField } from '@alaneicker/atomik-ui';
-import ExpenseGroupForm from '../expense-group-form';
+import ExpenseForm from '../expense-form';
 import EndOfMonthSummary from '../end-of-month-summary';
 
 const ExpenseGroupDetail = () => {
@@ -30,7 +30,7 @@ const ExpenseGroupDetail = () => {
   }, [selectedExpense]);
 
   useEffect(() => {
-    dispatch({ type: 'TOGGLE_NEW_EXPENSE_FORM', payload: false });
+    dispatch({ type: 'TOGGLE_NEW_EXPENSE_FORM', showExpenseNewForm: false });
   }, []);
 
   if (selectedExpense) {
@@ -65,6 +65,7 @@ const ExpenseGroupDetail = () => {
 
     return (
       <div className="expense-group-detail">
+        {JSON.stringify(showExpenseNewForm)}
         <div className="expense-group-detail__hd">
           <div className="text-align-center text-align-left@large">
             <FormField
@@ -96,7 +97,10 @@ const ExpenseGroupDetail = () => {
                 theme="link"
                 size="md"
                 onClick={() => {
-                  return dispatch({ type: 'TOGGLE_NEW_EXPENSE_FORM' });
+                  return dispatch({
+                    type: 'TOGGLE_NEW_EXPENSE_FORM',
+                    showExpenseNewForm: true,
+                  });
                 }}
               >
                 <span className="text-weight-semibold">+ Add Expense</span>
@@ -107,10 +111,10 @@ const ExpenseGroupDetail = () => {
               className="expense-group-detail__new-expense-form"
               style={{ height: showExpenseNewForm ? contentHeight : '0px' }}
             >
-              <ExpenseGroupForm isNewExpense />
+              <ExpenseForm isNewExpense />
             </div>
             <hr />
-            <ExpenseGroupForm expenses={expenses} groupId={_id} />
+            <ExpenseForm expenses={expenses} groupId={_id} />
             <hr />
             <h4 className="text-size-20@large text-weight-medium">
               Unpaid Balance:{' '}

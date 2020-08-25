@@ -13,7 +13,7 @@ const expenseReducer = (state = initialState, action) => {
     case 'TOGGLE_NEW_EXPENSE_FORM':
       return {
         ...state,
-        showExpenseNewForm: action.payload || !state.showExpenseNewForm,
+        showExpenseNewForm: action.showExpenseNewForm,
       };
     // Sets expense options
     case 'SET_EXPENSE_OPTIONS':
