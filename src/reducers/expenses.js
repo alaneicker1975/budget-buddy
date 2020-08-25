@@ -5,10 +5,13 @@ const initialState = {
   expenseOptions: [],
   expenseGroups: [],
   error: null,
+  redirectTo: null,
 };
 
 const expenseReducer = (state = initialState, action) => {
   switch (action.type) {
+    case 'REDIRECT':
+      return { ...state, redirectTo: action.redirectTo };
     // Toggles the new expense form
     case 'TOGGLE_NEW_EXPENSE_FORM':
       return {

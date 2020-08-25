@@ -46,6 +46,11 @@ function* postNewExpenseGroup({ data }) {
       type: 'SET_NEW_EXPENSE_GROUP',
       expenseGroup,
     });
+
+    yield put({
+      type: 'REDIRECT',
+      redirectTo: `/expense-group/${expenseGroup._id}`,
+    });
   } catch (err) {
     console.log(err);
   }

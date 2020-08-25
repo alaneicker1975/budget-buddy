@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { Redirect } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { Grid, Row, Col } from 'react-flexbox-grid';
 import * as yup from 'yup';
@@ -32,10 +33,6 @@ const NewExpenseGroup = () => {
     expenses: [],
   };
 
-  const onSubmit = (data) => {
-    dispatch({ type: 'INSERT_NEW_EXPENSE_GROUP', data });
-  };
-
   const {
     handleSubmit,
     handleChange,
@@ -47,7 +44,10 @@ const NewExpenseGroup = () => {
     initialValues,
     validationSchema,
     onSubmit: () => {
-      return onSubmit({ ...values });
+      return dispatch({
+        type: 'INSERT_NEW_EXPENSE_GROUP',
+        data: { ...values },
+      });
     },
   });
 
@@ -78,7 +78,7 @@ const NewExpenseGroup = () => {
   };
 
   const {
-    expenses: { expenseOptions },
+    expenses: { expenseOptions, redirectTo },
   } = useSelector((state) => {
     return state;
   });
@@ -88,8 +88,12 @@ const NewExpenseGroup = () => {
     dispatch({ type: 'FETCH_EXPENSE_OPTIONS' });
   }, []);
 
+  if (redirectTo) {
+    return <Redirect to={redirectTo} />;
+  }
+
   return (
-    <form onSubmit={handleSubmit} noValidate>
+    <form onSubmit={handleSubmit} autoComplete="off" noValidate>
       <h1 className="margin-bottom-24 text-weight-semibold text-size-30">
         New Expense Group
       </h1>
@@ -181,7 +185,9 @@ const NewExpenseGroup = () => {
                 })}
               </Row>
             </Grid>
-            {errors.expenses && <Hint type="error">{errors.expenses}</Hint>}
+            {errors.expenses && touched.expenses && (
+              <Hint type="error">{errors.expenses}</Hint>
+            )}
           </Col>
         </Row>
       </Grid>
