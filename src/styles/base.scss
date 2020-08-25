@@ -23,7 +23,9 @@ h6 {
 }
 
 hr {
-  border-top: 1px solid $gray-100;
+  height: rem(1);
+  border: none;
+  background-color: darken($gray-100, 5%);
 }
 
 b,

@@ -13,20 +13,25 @@ const ExpenseGroupDetail = () => {
   const newExpenseForm = useRef();
   const [contentHeight, setContentHeight] = useState('0px');
 
-  useEffect(() => {
-    dispatch({ type: 'SET_SELECTED_EXPENSE_GROUP', id });
-  }, [id]);
-
-  useEffect(() => {
-    dispatch({ type: 'TOGGLE_NEW_EXPENSE_FORM', payload: false });
-    setContentHeight(`${newExpenseForm.current.scrollHeight}px`);
-  }, []);
-
   const {
     expenses: { selectedExpense, showExpenseNewForm },
   } = useSelector((state) => {
     return state;
   });
+
+  useEffect(() => {
+    dispatch({ type: 'SET_SELECTED_EXPENSE_GROUP', id });
+  }, [id]);
+
+  useEffect(() => {
+    if (selectedExpense) {
+      setContentHeight(`${newExpenseForm.current.scrollHeight}px`);
+    }
+  }, [selectedExpense]);
+
+  useEffect(() => {
+    dispatch({ type: 'TOGGLE_NEW_EXPENSE_FORM', payload: false });
+  }, []);
 
   if (selectedExpense) {
     const {
