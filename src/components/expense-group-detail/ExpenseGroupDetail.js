@@ -20,7 +20,7 @@ const ExpenseGroupDetail = () => {
   });
 
   useEffect(() => {
-    dispatch({ type: 'SET_SELECTED_EXPENSE_GROUP', id });
+    dispatch({ type: 'SET_SELECTED_EXPENSE_GROUP', groupId: id });
   }, [id]);
 
   useEffect(() => {

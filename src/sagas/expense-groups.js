@@ -30,9 +30,7 @@ function* postNewExpenseGroup({ data }) {
       `http://localhost:9000/api/expense-groups`,
       {
         method: 'POST',
-        headers: {
-          'Content-type': 'application/json; charset=UTF-8',
-        },
+        headers: { 'Content-type': 'application/json; charset=UTF-8' },
         body: JSON.stringify(data),
       },
     );
@@ -62,9 +60,7 @@ function* updateExpenseGroup({ data }) {
       `http://localhost:9000/api/expense-groups/${groupId}`,
       {
         method: 'PUT',
-        headers: {
-          'Content-type': 'application/json; charset=UTF-8',
-        },
+        headers: { 'Content-type': 'application/json; charset=UTF-8' },
         body: JSON.stringify(body),
       },
     );
@@ -100,9 +96,7 @@ function* postNewExpense({ data }) {
       `http://localhost:9000/api/expense-groups/${groupId}`,
       {
         method: 'POST',
-        headers: {
-          'Content-type': 'application/json; charset=UTF-8',
-        },
+        headers: { 'Content-type': 'application/json; charset=UTF-8' },
         body: JSON.stringify(body),
       },
     );
@@ -114,13 +108,39 @@ function* postNewExpense({ data }) {
       return;
     }
 
+    yield put({ type: 'SET_NEW_EXPENSE', expense, groupId });
+    yield put({ type: 'SET_SELECTED_EXPENSE_GROUP', groupId });
+    yield put({ type: 'TOGGLE_NEW_EXPENSE_FORM', showExpenseNewForm: false });
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+function* deleteExpense({ groupId, expenseId }) {
+  try {
+    const response = yield call(
+      fetch,
+      `http://localhost:9000/api/expense-groups/${groupId}/${expenseId}`,
+      {
+        method: 'DELETE',
+        headers: { 'Content-type': 'application/json; charset=UTF-8' },
+      },
+    );
+
+    const { err } = yield response.json();
+
+    if (err) {
+      console.error(err);
+      return;
+    }
+
     yield put({
-      type: 'SET_NEW_EXPENSE',
-      expense,
+      type: 'DELETE_EXPENSE_FROM_EXPENSE_GROUP',
       groupId,
+      expenseId,
     });
 
-    yield put({ type: 'SET_SELECTED_EXPENSE_GROUP', id: groupId });
+    yield put({ type: 'SET_SELECTED_EXPENSE_GROUP', groupId });
   } catch (err) {
     console.error(err);
   }
@@ -131,4 +151,5 @@ export default function* watchExpenseGroups() {
   yield takeLatest('INSERT_NEW_EXPENSE', postNewExpense);
   yield takeLatest('INSERT_NEW_EXPENSE_GROUP', postNewExpenseGroup);
   yield takeLatest('UPDATE_EXPENSE_GROUP', updateExpenseGroup);
+  yield takeLatest('DELETE_EXPENSE', deleteExpense);
 }

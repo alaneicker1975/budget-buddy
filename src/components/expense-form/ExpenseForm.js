@@ -25,14 +25,6 @@ const ExpenseForm = ({ expenses, isNewExpense, groupId }) => {
     });
   };
 
-  const onSubmit = (data) => {
-    dispatch({ type: 'INSERT_NEW_EXPENSE', data });
-  };
-
-  const onExpenseDelete = (_id) => {
-    // dispatch action to delete expense from group
-  };
-
   const validationSchema = yup.object().shape({
     expense: yup.string().required('Expense title is required'),
     balance: yup.number().required('Balance is required'),
@@ -49,7 +41,7 @@ const ExpenseForm = ({ expenses, isNewExpense, groupId }) => {
     initialValues,
     validationSchema,
     onSubmit: () => {
-      return onSubmit({ ...values });
+      return dispatch({ type: 'INSERT_NEW_EXPENSE', data: { ...values } });
     },
   });
 
@@ -86,8 +78,11 @@ const ExpenseForm = ({ expenses, isNewExpense, groupId }) => {
                     'expense-form__item__text-input text-weight-bold': !isNewExpense,
                   })}
                   name="expense"
-                  aria-label="expense title"
                   value={isNewExpense ? values.expense : expense}
+                  {...(!isNewExpense && {
+                    placeholder: 'Expense Title',
+                    'aria-label': 'expense title',
+                  })}
                   {...(isNewExpense && {
                     label: (
                       <>
@@ -100,7 +95,6 @@ const ExpenseForm = ({ expenses, isNewExpense, groupId }) => {
                       </>
                     ),
                   })}
-                  {...(!isNewExpense && { placeholder: 'Expense Title' })}
                   hasError={!!(errors.expense && touched.expense)}
                   onChange={
                     isNewExpense
@@ -120,6 +114,10 @@ const ExpenseForm = ({ expenses, isNewExpense, groupId }) => {
                   name="balance"
                   type="number"
                   aria-label="balance"
+                  {...(!isNewExpense && {
+                    placeholder: 'Expense Balance',
+                    'aria-label': 'expense balance',
+                  })}
                   {...(isNewExpense && {
                     label: (
                       <>
@@ -150,7 +148,11 @@ const ExpenseForm = ({ expenses, isNewExpense, groupId }) => {
                   theme="tertiary"
                   size="md"
                   onClick={() => {
-                    return onExpenseDelete(_id);
+                    return dispatch({
+                      type: 'DELETE_EXPENSE',
+                      groupId,
+                      expenseId: _id,
+                    });
                   }}
                 >
                   Delete

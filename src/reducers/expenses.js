@@ -39,13 +39,28 @@ const expenseReducer = (state = initialState, action) => {
           return group._id === action.groupId ? state.selectedExpense : group;
         }),
       };
+    // Deletes an expense from an expense group
+    case 'DELETE_EXPENSE_FROM_EXPENSE_GROUP':
+      return {
+        ...state,
+        expenseGroups: state.expenseGroups.map((group) => {
+          return group._id === action.groupId
+            ? {
+                ...group,
+                expenses: group.expenses.filter((expense) => {
+                  return expense._id !== action.expenseId;
+                }),
+              }
+            : group;
+        }),
+      };
     // Sets the selected expense group based on _id
     case 'SET_SELECTED_EXPENSE_GROUP':
       return {
         ...state,
-        selectedExpenseId: action.id,
+        selectedExpenseId: action.groupId,
         selectedExpense: state.expenseGroups.filter((expense) => {
-          return expense._id === action.id;
+          return expense._id === action.groupId;
         })[0],
       };
     // Updates expenseGroups array with new expense object

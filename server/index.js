@@ -44,11 +44,11 @@ import schemas from './schemas';
     }
   });
 
-  app.get('/api/expense-groups/:id?', async (req, res) => {
+  app.get('/api/expense-groups/:groupId?', async (req, res) => {
     try {
-      const { id } = req.params;
-      const data = id
-        ? await ExpenseGroup.findById(id)
+      const { groupId } = req.params;
+      const data = groupId
+        ? await ExpenseGroup.findById(groupId)
         : await ExpenseGroup.find({}).sort({ startDate: -1 });
       res.status(200).send({ data });
     } catch ({ name, message }) {
@@ -121,8 +121,23 @@ import schemas from './schemas';
     }
   });
 
-  app.delete('/api/expense-groups/:id', (req, res) => {
-    const { id } = req.params;
+  app.delete('/api/expense-groups/:groupId/:expenseId', async (req, res) => {
+    try {
+      const { groupId, expenseId } = req.params;
+      const expenseGroup = await ExpenseGroup.findById(groupId);
+
+      expenseGroup.expenses = expenseGroup.expenses.filter((expense) => {
+        return String(expense._id) !== expenseId;
+      });
+
+      await expenseGroup.save();
+
+      res.send({});
+    } catch ({ name, message }) {
+      res.status(500).send({
+        err: { status: 500, name, message },
+      });
+    }
   });
 
   app.listen(port, () => {
