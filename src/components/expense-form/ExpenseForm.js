@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { useDispatch } from 'react-redux';
 import * as yup from 'yup';
 import { useFormik } from 'formik';
 import {
+  Hint,
   List,
   ListItem,
   FormField,
@@ -15,41 +16,48 @@ import {
 const ExpenseForm = ({ expenses, isNewExpense, groupId }) => {
   const dispatch = useDispatch();
 
-  const [newExpense, setNewExpense] = useState({});
-
   const onExpenseUpdate = (e, expenseId) => {
     const { type, name, value, checked } = e.target;
 
-    if (isNewExpense) {
-      setNewExpense((prevState) => {
-        return {
-          ...prevState,
-          [name]: type === 'checkbox' ? checked : value,
-        };
-      });
-    } else {
-      dispatch({
-        type: 'UPDATE_EXPENSE_GROUP',
-        data: { groupId, expenseId, type, name, value, checked },
-      });
-    }
+    dispatch({
+      type: 'UPDATE_EXPENSE_GROUP',
+      data: { groupId, expenseId, type, name, value, checked },
+    });
   };
 
-  const onSubmit = (e) => {
-    e.preventDefault();
-    dispatch({ type: 'ADD_NEW_EXPENSE', data: newExpense });
+  const onSubmit = (data) => {
+    dispatch({ type: 'ADD_NEW_EXPENSE', data });
   };
 
   const onExpenseDelete = (_id) => {
     // dispatch action to delete expense from group
   };
 
+  const validationSchema = yup.object().shape({
+    expense: yup.string().required('Expense title is required'),
+    balance: yup.number().required('Balance is required'),
+  });
+
+  const initialValues = {
+    expense: '',
+    balance: '',
+    isPaid: false,
+  };
+
+  const { handleSubmit, handleChange, values, errors, touched } = useFormik({
+    initialValues,
+    validationSchema,
+    onSubmit: () => {
+      return onSubmit({ ...values });
+    },
+  });
+
   return (
     <form
       className={classnames('expense-form', {
         'expense-form--is-new-expense': isNewExpense,
       })}
-      onSubmit={onSubmit}
+      onSubmit={handleSubmit}
       noValidate
     >
       {expenses.map(({ _id, expense, balance, isPaid }, i) => {
@@ -59,10 +67,14 @@ const ExpenseForm = ({ expenses, isNewExpense, groupId }) => {
               <CheckOption
                 {...(isNewExpense && { label: 'Is Paid' })}
                 name="isPaid"
-                checked={isNewExpense ? newExpense.isPaid : isPaid}
-                onChange={(e) => {
-                  return onExpenseUpdate(e, _id);
-                }}
+                checked={isNewExpense ? values.isPaid : isPaid}
+                onChange={
+                  isNewExpense
+                    ? handleChange
+                    : (e) => {
+                        return onExpenseUpdate(e, _id);
+                      }
+                }
               />
             </div>
             <div className="expense-form__item__info-fields">
@@ -72,14 +84,29 @@ const ExpenseForm = ({ expenses, isNewExpense, groupId }) => {
                     'expense-form__item__text-input text-weight-bold': !isNewExpense,
                   })}
                   name="expense"
-                  value={isNewExpense ? newExpense.expense : expense}
-                  {...{
-                    [isNewExpense ? 'label' : 'placeholder']: 'Expense Title',
-                  }}
                   aria-label="expense title"
-                  onChange={(e) => {
-                    return onExpenseUpdate(e, _id);
-                  }}
+                  value={isNewExpense ? values.expense : expense}
+                  {...(isNewExpense && {
+                    label: (
+                      <>
+                        Expense Title{' '}
+                        {errors.expense && (
+                          <Hint type="error" className="display-inline">
+                            ({errors.expense})
+                          </Hint>
+                        )}
+                      </>
+                    ),
+                  })}
+                  {...(!isNewExpense && { placeholder: 'Expense Title' })}
+                  hasError={!!(errors.expense && touched.expense)}
+                  onChange={
+                    isNewExpense
+                      ? handleChange
+                      : (e) => {
+                          return onExpenseUpdate(e, _id);
+                        }
+                  }
                 />
               </div>
               <div className="expense-form__item__balance-field">
@@ -90,12 +117,28 @@ const ExpenseForm = ({ expenses, isNewExpense, groupId }) => {
                   })}
                   name="balance"
                   type="number"
-                  {...{ [isNewExpense ? 'label' : 'placeholder']: 'Balance' }}
-                  value={isNewExpense ? newExpense.balance : balance}
                   aria-label="balance"
-                  onChange={(e) => {
-                    return onExpenseUpdate(e, _id);
-                  }}
+                  {...(isNewExpense && {
+                    label: (
+                      <>
+                        Expense Balance{' '}
+                        {errors.balance && (
+                          <Hint type="error" className="display-inline">
+                            ({errors.balance})
+                          </Hint>
+                        )}
+                      </>
+                    ),
+                  })}
+                  value={isNewExpense ? values.balance : balance}
+                  hasError={!!(errors.balance && touched.balance)}
+                  onChange={
+                    isNewExpense
+                      ? handleChange
+                      : (e) => {
+                          return onExpenseUpdate(e, _id);
+                        }
+                  }
                 />
               </div>
             </div>
