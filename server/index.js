@@ -78,9 +78,25 @@ import schemas from './schemas';
     }
   });
 
-  app.post('/api/expense-groups/:groupId', (req, res) => {
-    const { groupId } = req.params;
-    const { body } = req;
+  app.post('/api/expense-groups/:groupId', async (req, res) => {
+    try {
+      const { groupId } = req.params;
+      const { body } = req;
+
+      const expenseGroup = await ExpenseGroup.findById(groupId);
+
+      expenseGroup.expenses = [body, ...expenseGroup.expenses];
+
+      await expenseGroup.save();
+
+      const expense = expenseGroup.expenses[0];
+
+      res.send({ expense });
+    } catch ({ name, message }) {
+      res.status(500).send({
+        err: { status: 500, name, message },
+      });
+    }
   });
 
   app.put('/api/expense-groups/:groupId', async (req, res) => {

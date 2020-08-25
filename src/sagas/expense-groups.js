@@ -95,28 +95,28 @@ function* postNewExpense({ data }) {
   try {
     const { groupId, ...body } = data;
 
-    // const response = yield call(
-    //   fetch,
-    //   `http://localhost:9000/api/expense-groups/${groupId}`,
-    //   {
-    //     method: 'POST',
-    //     headers: {
-    //       'Content-type': 'application/json; charset=UTF-8',
-    //     },
-    //     body: JSON.stringify(body),
-    //   },
-    // );
+    const response = yield call(
+      fetch,
+      `http://localhost:9000/api/expense-groups/${groupId}`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-type': 'application/json; charset=UTF-8',
+        },
+        body: JSON.stringify(body),
+      },
+    );
 
-    // const { err, expense } = yield response.json();
+    const { err, expense } = yield response.json();
 
-    // if (err) {
-    //   console.error(err);
-    //   return;
-    // }
+    if (err) {
+      console.error(err);
+      return;
+    }
 
     yield put({
       type: 'SET_NEW_EXPENSE',
-      expense: body,
+      expense,
       groupId,
     });
 
