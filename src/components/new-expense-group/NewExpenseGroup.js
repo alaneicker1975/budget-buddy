@@ -5,7 +5,7 @@ import * as yup from 'yup';
 import { useFormik } from 'formik';
 import {
   Button,
-  Modal,
+  Hint,
   FormField,
   DatePicker,
   CheckOption,
@@ -21,7 +21,7 @@ const NewExpenseGroup = () => {
     startDate: yup.string().required('Start Date is required'),
     endDate: yup.string().required('End date is required'),
     budgetAmount: yup.number().required('Budget Amount is required'),
-    expenses: yup.array().min(1).required('At least one expense is required'),
+    expenses: yup.array().min(1, 'At least one expense is required').required(),
   });
 
   const initialValues = {
@@ -110,6 +110,8 @@ const NewExpenseGroup = () => {
                   label="Expense Group Title"
                   value={values.title}
                   onChange={handleChange}
+                  hasError={!!(errors.title && touched.title)}
+                  errorText={errors.title}
                 />
               </ListItem>
               <ListItem>
@@ -118,6 +120,8 @@ const NewExpenseGroup = () => {
                   label="Start Date"
                   helpText="Expected Format: MM/DD/YYYY"
                   value={values.startDate}
+                  hasError={!!(errors.startDate && touched.startDate)}
+                  errorText={errors.startDate}
                   onChange={(date) => {
                     return setFieldValue('startDate', date);
                   }}
@@ -129,6 +133,8 @@ const NewExpenseGroup = () => {
                   label="End Date"
                   helpText="Expected Format: MM/DD/YYYY"
                   value={values.endDate}
+                  hasError={!!(errors.endDate && touched.endDate)}
+                  errorText={errors.endDate}
                   onChange={(date) => {
                     return setFieldValue('endDate', date);
                   }}
@@ -141,6 +147,8 @@ const NewExpenseGroup = () => {
                   label="Budget Amount"
                   value={values.budgetAmount}
                   onChange={handleChange}
+                  hasError={!!(errors.budgetAmount && touched.budgetAmount)}
+                  errorText={errors.budgetAmount}
                 />
               </ListItem>
             </List>
@@ -163,6 +171,7 @@ const NewExpenseGroup = () => {
                       <CheckOption
                         label={expense}
                         checked={checkIfExpenseIsSelected(expense)}
+                        hasError={!!(errors.expenses && touched.expenses)}
                         onChange={() => {
                           return onExpenseOptionSelect(expense);
                         }}
@@ -172,6 +181,7 @@ const NewExpenseGroup = () => {
                 })}
               </Row>
             </Grid>
+            {errors.expenses && <Hint type="error">{errors.expenses}</Hint>}
           </Col>
         </Row>
       </Grid>
