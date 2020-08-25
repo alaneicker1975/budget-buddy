@@ -21,6 +21,16 @@ const expenseReducer = (state = initialState, action) => {
     // Sets expense groups
     case 'SET_EXPENSE_GROUPS':
       return { ...state, expenseGroups: action.data };
+    // Adds the new expense to the expense group
+    case 'SET_NEW_EXPENSE':
+      return {
+        ...state,
+        expenseGroups: state.expenseGroups.map((group) => {
+          return group._id === action.groupId
+            ? { ...group, expenses: [action.expense, ...group.expenses] }
+            : group;
+        }),
+      };
     // Updates expenseGroups array with updates expense object
     case 'UPDATE_EXPENSE_GROUPS':
       return {
@@ -46,7 +56,6 @@ const expenseReducer = (state = initialState, action) => {
       };
     // Updates the selected expense group after update
     case 'UPDATE_SELECTED_EXPENSE_GROUP':
-      console.log(action.expenseGroup);
       return {
         ...state,
         selectedExpense: action.expenseGroup,

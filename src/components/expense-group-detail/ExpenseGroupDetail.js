@@ -65,7 +65,6 @@ const ExpenseGroupDetail = () => {
 
     return (
       <div className="expense-group-detail">
-        {JSON.stringify(showExpenseNewForm)}
         <div className="expense-group-detail__hd">
           <div className="text-align-center text-align-left@large">
             <FormField
@@ -111,7 +110,7 @@ const ExpenseGroupDetail = () => {
               className="expense-group-detail__new-expense-form"
               style={{ height: showExpenseNewForm ? contentHeight : '0px' }}
             >
-              <ExpenseForm isNewExpense />
+              <ExpenseForm groupId={_id} isNewExpense />
             </div>
             <hr />
             <ExpenseForm expenses={expenses} groupId={_id} />

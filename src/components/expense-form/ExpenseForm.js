@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { useDispatch } from 'react-redux';
@@ -26,7 +26,7 @@ const ExpenseForm = ({ expenses, isNewExpense, groupId }) => {
   };
 
   const onSubmit = (data) => {
-    dispatch({ type: 'ADD_NEW_EXPENSE', data });
+    dispatch({ type: 'INSERT_NEW_EXPENSE', data });
   };
 
   const onExpenseDelete = (_id) => {
@@ -39,6 +39,7 @@ const ExpenseForm = ({ expenses, isNewExpense, groupId }) => {
   });
 
   const initialValues = {
+    groupId,
     expense: '',
     balance: '',
     isPaid: false,
@@ -58,6 +59,7 @@ const ExpenseForm = ({ expenses, isNewExpense, groupId }) => {
         'expense-form--is-new-expense': isNewExpense,
       })}
       onSubmit={handleSubmit}
+      autoComplete="off"
       noValidate
     >
       {expenses.map(({ _id, expense, balance, isPaid }, i) => {
@@ -90,7 +92,7 @@ const ExpenseForm = ({ expenses, isNewExpense, groupId }) => {
                     label: (
                       <>
                         Expense Title{' '}
-                        {errors.expense && (
+                        {errors.expense && touched.expense && (
                           <Hint type="error" className="display-inline">
                             ({errors.expense})
                           </Hint>
@@ -122,7 +124,7 @@ const ExpenseForm = ({ expenses, isNewExpense, groupId }) => {
                     label: (
                       <>
                         Expense Balance{' '}
-                        {errors.balance && (
+                        {errors.balance && touched.balance && (
                           <Hint type="error" className="display-inline">
                             ({errors.balance})
                           </Hint>

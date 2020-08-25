@@ -78,6 +78,11 @@ import schemas from './schemas';
     }
   });
 
+  app.post('/api/expense-groups/:groupId', (req, res) => {
+    const { groupId } = req.params;
+    const { body } = req;
+  });
+
   app.put('/api/expense-groups/:groupId', async (req, res) => {
     try {
       const { groupId } = req.params;
