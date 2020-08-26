@@ -14,7 +14,7 @@ const ExpenseGroupDetail = () => {
   const [contentHeight, setContentHeight] = useState('0px');
 
   const {
-    expenses: { selectedExpense, showNewExpenseForm },
+    expenses: { selectedExpense, showNewExpenseForm, redirectTo },
   } = useSelector((state) => {
     return state;
   });
@@ -31,6 +31,7 @@ const ExpenseGroupDetail = () => {
 
   useEffect(() => {
     dispatch({ type: 'TOGGLE_NEW_EXPENSE_FORM', showNewExpenseForm: false });
+    dispatch({ type: 'REDIRECT', redirectTo: null });
   }, []);
 
   if (selectedExpense) {

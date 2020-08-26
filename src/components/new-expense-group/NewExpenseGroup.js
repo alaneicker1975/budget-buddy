@@ -86,7 +86,6 @@ const NewExpenseGroup = () => {
   useEffect(() => {
     dispatch({ type: 'SET_SELECTED_EXPENSE_GROUP', groupId: null });
     dispatch({ type: 'FETCH_EXPENSE_OPTIONS' });
-    dispatch({ type: 'REDIRECT', redirectTo: null });
   }, []);
 
   if (redirectTo) {
