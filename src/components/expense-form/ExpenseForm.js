@@ -12,7 +12,9 @@ import {
   Button,
   CheckOption,
 } from '@alaneicker/atomik-ui';
-import { toggleNewExpenseForm } from '../../actions';
+import actionCreators from '../../actions';
+
+const { toggleNewExpenseForm } = actionCreators;
 
 const ExpenseForm = ({ expenses, isNewExpense, groupId }) => {
   const dispatch = useDispatch();

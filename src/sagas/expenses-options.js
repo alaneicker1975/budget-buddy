@@ -1,4 +1,7 @@
 import { takeLatest, put, call } from 'redux-saga/effects';
+import actionCreators from '../actions';
+
+const { setRecurringExpenses } = actionCreators;
 
 function* fetchExpenses() {
   try {
@@ -13,10 +16,7 @@ function* fetchExpenses() {
       return;
     }
 
-    yield put({
-      type: 'SET_RECURRING_EXPENSES',
-      data,
-    });
+    yield put(setRecurringExpenses(data));
   } catch (err) {
     console.error(err);
   }

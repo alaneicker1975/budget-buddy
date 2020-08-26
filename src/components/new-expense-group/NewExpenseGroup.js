@@ -13,6 +13,9 @@ import {
   List,
   ListItem,
 } from '@alaneicker/atomik-ui';
+import actionCreators from '../../actions';
+
+const { setSelectedExpenseGroup } = actionCreators;
 
 const NewExpenseGroup = () => {
   const dispatch = useDispatch();
@@ -85,7 +88,7 @@ const NewExpenseGroup = () => {
   });
 
   useEffect(() => {
-    dispatch({ type: 'SET_SELECTED_EXPENSE_GROUP', groupId: null });
+    dispatch(setSelectedExpenseGroup({ groupId: null }));
     dispatch({ type: 'FETCH_EXPENSE_OPTIONS' });
   }, []);
 

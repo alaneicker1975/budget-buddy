@@ -1,4 +1,14 @@
-import { TOGGLE_NEW_EXPENSE_FORM } from '../actions';
+import {
+  TOGGLE_NEW_EXPENSE_FORM,
+  SET_RECURRING_EXPENSES,
+  SET_EXPENSE_GROUPS,
+  SET_NEW_EXPENSE,
+  UPDATE_EXPENSE_GROUPS,
+  DELETE_EXPENSE_FROM_EXPENSE_GROUP,
+  SET_SELECTED_EXPENSE_GROUP,
+  SET_NEW_EXPENSE_GROUP,
+  UPDATE_SELECTED_EXPENSE_GROUP,
+} from '../actions';
 
 const initialState = {
   selectedExpense: null,
@@ -17,64 +27,69 @@ const expenseReducer = (state = initialState, action) => {
         showNewExpenseForm: action.payload,
       };
     // Sets expense options
-    case 'SET_RECURRING_EXPENSES':
-      return { ...state, recurringExpenses: action.data };
+    case SET_RECURRING_EXPENSES:
+      return { ...state, recurringExpenses: action.payload };
     // Sets expense groups
-    case 'SET_EXPENSE_GROUPS':
-      return { ...state, expenseGroups: action.data };
+    case SET_EXPENSE_GROUPS:
+      return { ...state, expenseGroups: action.payload };
     // Adds the new expense to the expense group
-    case 'SET_NEW_EXPENSE':
+    case SET_NEW_EXPENSE:
       return {
         ...state,
         expenseGroups: state.expenseGroups.map((group) => {
-          return group._id === action.groupId
-            ? { ...group, expenses: [action.expense, ...group.expenses] }
+          return group._id === action.payload.groupId
+            ? {
+                ...group,
+                expenses: [action.payload.expense, ...group.expenses],
+              }
             : group;
         }),
       };
     // Updates expenseGroups array with updates expense object
-    case 'UPDATE_EXPENSE_GROUPS':
+    case UPDATE_EXPENSE_GROUPS:
       return {
         ...state,
         expenseGroups: state.expenseGroups.map((group) => {
-          return group._id === action.groupId ? state.selectedExpense : group;
+          return group._id === action.payload.groupId
+            ? state.selectedExpense
+            : group;
         }),
       };
     // Deletes an expense from an expense group
-    case 'DELETE_EXPENSE_FROM_EXPENSE_GROUP':
+    case DELETE_EXPENSE_FROM_EXPENSE_GROUP:
       return {
         ...state,
         expenseGroups: state.expenseGroups.map((group) => {
-          return group._id === action.groupId
+          return group._id === action.payload.groupId
             ? {
                 ...group,
                 expenses: group.expenses.filter((expense) => {
-                  return expense._id !== action.expenseId;
+                  return expense._id !== action.payload.expenseId;
                 }),
               }
             : group;
         }),
       };
     // Sets the selected expense group based on _id
-    case 'SET_SELECTED_EXPENSE_GROUP':
+    case SET_SELECTED_EXPENSE_GROUP:
       return {
         ...state,
-        selectedExpenseId: action.groupId,
+        selectedExpenseId: action.payload.groupId,
         selectedExpense: state.expenseGroups.filter((expense) => {
-          return expense._id === action.groupId;
+          return expense._id === action.payload.groupId;
         })[0],
       };
     // Updates expenseGroups array with new expense object
-    case 'SET_NEW_EXPENSE_GROUP':
+    case SET_NEW_EXPENSE_GROUP:
       return {
         ...state,
-        expenseGroups: [...state.expenseGroups, action.expenseGroup],
+        expenseGroups: [...state.expenseGroups, action.payload.expenseGroup],
       };
     // Updates the selected expense group after update
-    case 'UPDATE_SELECTED_EXPENSE_GROUP':
+    case UPDATE_SELECTED_EXPENSE_GROUP:
       return {
         ...state,
-        selectedExpense: action.expenseGroup,
+        selectedExpense: action.payload.expenseGroup,
       };
     default:
       return state;

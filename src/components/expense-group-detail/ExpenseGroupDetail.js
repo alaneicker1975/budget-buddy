@@ -6,7 +6,13 @@ import Chart from 'react-apexcharts';
 import { Button, FormField } from '@alaneicker/atomik-ui';
 import ExpenseForm from '../expense-form';
 import EndOfMonthSummary from '../end-of-month-summary';
-import { redirect, toggleNewExpenseForm } from '../../actions';
+import actionCreators from '../../actions';
+
+const {
+  toggleNewExpenseForm,
+  redirect,
+  setSelectedExpenseGroup,
+} = actionCreators;
 
 const ExpenseGroupDetail = () => {
   const { id } = useParams();
@@ -21,7 +27,7 @@ const ExpenseGroupDetail = () => {
   });
 
   useEffect(() => {
-    dispatch({ type: 'SET_SELECTED_EXPENSE_GROUP', groupId: id });
+    dispatch(setSelectedExpenseGroup({ groupId: id }));
   }, [id]);
 
   useEffect(() => {

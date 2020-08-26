@@ -1,5 +1,17 @@
 import { takeLatest, put, call } from 'redux-saga/effects';
-import { redirect, toggleNewExpenseForm } from '../actions';
+import actionCreators from '../actions';
+
+const {
+  redirect,
+  toggleNewExpenseForm,
+  setExpenseGroups,
+  setNewExpense,
+  updateExpenseGroups,
+  deleteExpenseFromExpenseGroup,
+  setSelectedExpenseGroup,
+  setNewExpenseGroup,
+  updateSelectedExpenseGroup,
+} = actionCreators;
 
 function* fetchExpenseGroups() {
   try {
@@ -15,10 +27,7 @@ function* fetchExpenseGroups() {
       return;
     }
 
-    yield put({
-      type: 'SET_EXPENSE_GROUPS',
-      data,
-    });
+    yield put(setExpenseGroups(data));
   } catch (err) {
     console.log(err);
   }
@@ -43,10 +52,7 @@ function* postNewExpenseGroup({ data }) {
       return;
     }
 
-    yield put({
-      type: 'SET_NEW_EXPENSE_GROUP',
-      expenseGroup,
-    });
+    yield put(setNewExpenseGroup({ expenseGroup }));
 
     yield put(redirect(`/expense-group/${expenseGroup._id}`));
   } catch (err) {
@@ -75,16 +81,11 @@ function* updateExpenseGroup({ data }) {
       return;
     }
 
-    yield put({
-      type: 'UPDATE_SELECTED_EXPENSE_GROUP',
-      expenseGroup,
-    });
+    yield put(updateSelectedExpenseGroup({ expenseGroup }));
 
-    yield put({
-      type: 'UPDATE_EXPENSE_GROUPS',
-      groupId: data.groupId,
-      expenseId: data.expenseId,
-    });
+    yield put(
+      updateExpenseGroups({ groupId: data.groupId, expenseId: data.expenseId }),
+    );
   } catch (err) {
     console.error(err);
   }
@@ -111,8 +112,8 @@ function* postNewExpense({ data }) {
       return;
     }
 
-    yield put({ type: 'SET_NEW_EXPENSE', expense, groupId });
-    yield put({ type: 'SET_SELECTED_EXPENSE_GROUP', groupId });
+    yield put(setNewExpense({ expense, groupId }));
+    yield put(setSelectedExpenseGroup({ groupId }));
     yield put(toggleNewExpenseForm(false));
   } catch (err) {
     console.error(err);
@@ -137,13 +138,9 @@ function* deleteExpense({ groupId, expenseId }) {
       return;
     }
 
-    yield put({
-      type: 'DELETE_EXPENSE_FROM_EXPENSE_GROUP',
-      groupId,
-      expenseId,
-    });
+    yield put(deleteExpenseFromExpenseGroup({ groupId, expenseId }));
 
-    yield put({ type: 'SET_SELECTED_EXPENSE_GROUP', groupId });
+    yield put(setSelectedExpenseGroup({ groupId }));
   } catch (err) {
     console.error(err);
   }
