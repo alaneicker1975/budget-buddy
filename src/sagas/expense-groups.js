@@ -1,4 +1,5 @@
 import { takeLatest, put, call } from 'redux-saga/effects';
+import { redirect, toggleNewExpenseForm } from '../actions';
 
 function* fetchExpenseGroups() {
   try {
@@ -47,10 +48,7 @@ function* postNewExpenseGroup({ data }) {
       expenseGroup,
     });
 
-    yield put({
-      type: 'REDIRECT',
-      redirectTo: `/expense-group/${expenseGroup._id}`,
-    });
+    yield put(redirect(`/expense-group/${expenseGroup._id}`));
   } catch (err) {
     console.log(err);
   }
@@ -115,7 +113,7 @@ function* postNewExpense({ data }) {
 
     yield put({ type: 'SET_NEW_EXPENSE', expense, groupId });
     yield put({ type: 'SET_SELECTED_EXPENSE_GROUP', groupId });
-    yield put({ type: 'TOGGLE_NEW_EXPENSE_FORM', showNewExpenseForm: false });
+    yield put(toggleNewExpenseForm(false));
   } catch (err) {
     console.error(err);
   }

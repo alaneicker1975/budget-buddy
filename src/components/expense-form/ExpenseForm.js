@@ -12,6 +12,7 @@ import {
   Button,
   CheckOption,
 } from '@alaneicker/atomik-ui';
+import { toggleNewExpenseForm } from '../../actions';
 
 const ExpenseForm = ({ expenses, isNewExpense, groupId }) => {
   const dispatch = useDispatch();
@@ -172,10 +173,7 @@ const ExpenseForm = ({ expenses, isNewExpense, groupId }) => {
           <ListItem>
             <Button
               onClick={() => {
-                return dispatch({
-                  type: 'TOGGLE_NEW_EXPENSE_FORM',
-                  showNewExpenseForm: false,
-                });
+                return dispatch(toggleNewExpenseForm(false));
               }}
             >
               Cancel

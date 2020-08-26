@@ -6,6 +6,7 @@ import Chart from 'react-apexcharts';
 import { Button, FormField } from '@alaneicker/atomik-ui';
 import ExpenseForm from '../expense-form';
 import EndOfMonthSummary from '../end-of-month-summary';
+import { redirect, toggleNewExpenseForm } from '../../actions';
 
 const ExpenseGroupDetail = () => {
   const { id } = useParams();
@@ -30,8 +31,8 @@ const ExpenseGroupDetail = () => {
   }, [selectedExpense]);
 
   useEffect(() => {
-    dispatch({ type: 'TOGGLE_NEW_EXPENSE_FORM', showNewExpenseForm: false });
-    dispatch({ type: 'REDIRECT', redirectTo: null });
+    dispatch(toggleNewExpenseForm(false));
+    dispatch(redirect(null));
   }, []);
 
   if (selectedExpense) {
@@ -97,10 +98,7 @@ const ExpenseGroupDetail = () => {
                 theme="link"
                 size="md"
                 onClick={() => {
-                  return dispatch({
-                    type: 'TOGGLE_NEW_EXPENSE_FORM',
-                    showNewExpenseForm: true,
-                  });
+                  return dispatch(toggleNewExpenseForm(true));
                 }}
               >
                 <span className="text-weight-semibold">+ Add Expense</span>

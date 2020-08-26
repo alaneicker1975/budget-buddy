@@ -1,3 +1,5 @@
+import { TOGGLE_NEW_EXPENSE_FORM } from '../actions';
+
 const initialState = {
   selectedExpense: null,
   selectedExpenseId: null,
@@ -9,10 +11,10 @@ const initialState = {
 const expenseReducer = (state = initialState, action) => {
   switch (action.type) {
     // Toggles the new expense form
-    case 'TOGGLE_NEW_EXPENSE_FORM':
+    case TOGGLE_NEW_EXPENSE_FORM:
       return {
         ...state,
-        showNewExpenseForm: action.showNewExpenseForm,
+        showNewExpenseForm: action.payload,
       };
     // Sets expense options
     case 'SET_RECURRING_EXPENSES':
