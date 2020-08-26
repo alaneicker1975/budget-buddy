@@ -10,7 +10,7 @@ const App = () => {
   const dispatch = useDispatch();
 
   const {
-    expenses: { expenseGroups, selectedExpenseId, showExpenseNewForm },
+    expenses: { expenseGroups, selectedExpenseId, showNewExpenseForm },
   } = useSelector((state) => {
     return state;
   });

@@ -78,7 +78,7 @@ const NewExpenseGroup = () => {
   };
 
   const {
-    expenses: { expenseOptions, redirectTo },
+    expenses: { recurringExpenses, redirectTo },
   } = useSelector((state) => {
     return state;
   });
@@ -86,6 +86,7 @@ const NewExpenseGroup = () => {
   useEffect(() => {
     dispatch({ type: 'SET_SELECTED_EXPENSE_GROUP', groupId: null });
     dispatch({ type: 'FETCH_EXPENSE_OPTIONS' });
+    dispatch({ type: 'REDIRECT', redirectTo: null });
   }, []);
 
   if (redirectTo) {
@@ -165,7 +166,7 @@ const NewExpenseGroup = () => {
 
             <Grid>
               <Row>
-                {expenseOptions.map(({ expense }, i) => {
+                {recurringExpenses.map(({ expense }, i) => {
                   return (
                     <Col
                       key={`expense-${i}`}

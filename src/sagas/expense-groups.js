@@ -115,7 +115,7 @@ function* postNewExpense({ data }) {
 
     yield put({ type: 'SET_NEW_EXPENSE', expense, groupId });
     yield put({ type: 'SET_SELECTED_EXPENSE_GROUP', groupId });
-    yield put({ type: 'TOGGLE_NEW_EXPENSE_FORM', showExpenseNewForm: false });
+    yield put({ type: 'TOGGLE_NEW_EXPENSE_FORM', showNewExpenseForm: false });
   } catch (err) {
     console.error(err);
   }

@@ -174,7 +174,7 @@ const ExpenseForm = ({ expenses, isNewExpense, groupId }) => {
               onClick={() => {
                 return dispatch({
                   type: 'TOGGLE_NEW_EXPENSE_FORM',
-                  showExpenseNewForm: false,
+                  showNewExpenseForm: false,
                 });
               }}
             >

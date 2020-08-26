@@ -1,10 +1,9 @@
 const initialState = {
   selectedExpense: null,
   selectedExpenseId: null,
-  showExpenseNewForm: false,
-  expenseOptions: [],
+  showNewExpenseForm: false,
+  recurringExpenses: [],
   expenseGroups: [],
-  error: null,
   redirectTo: null,
 };
 
@@ -16,11 +15,11 @@ const expenseReducer = (state = initialState, action) => {
     case 'TOGGLE_NEW_EXPENSE_FORM':
       return {
         ...state,
-        showExpenseNewForm: action.showExpenseNewForm,
+        showNewExpenseForm: action.showNewExpenseForm,
       };
     // Sets expense options
-    case 'SET_EXPENSE_OPTIONS':
-      return { ...state, expenseOptions: action.data };
+    case 'SET_RECURRING_EXPENSES':
+      return { ...state, recurringExpenses: action.data };
     // Sets expense groups
     case 'SET_EXPENSE_GROUPS':
       return { ...state, expenseGroups: action.data };

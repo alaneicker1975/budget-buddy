@@ -14,7 +14,7 @@ const ExpenseGroupDetail = () => {
   const [contentHeight, setContentHeight] = useState('0px');
 
   const {
-    expenses: { selectedExpense, showExpenseNewForm },
+    expenses: { selectedExpense, showNewExpenseForm },
   } = useSelector((state) => {
     return state;
   });
@@ -30,7 +30,7 @@ const ExpenseGroupDetail = () => {
   }, [selectedExpense]);
 
   useEffect(() => {
-    dispatch({ type: 'TOGGLE_NEW_EXPENSE_FORM', showExpenseNewForm: false });
+    dispatch({ type: 'TOGGLE_NEW_EXPENSE_FORM', showNewExpenseForm: false });
   }, []);
 
   if (selectedExpense) {
@@ -98,7 +98,7 @@ const ExpenseGroupDetail = () => {
                 onClick={() => {
                   return dispatch({
                     type: 'TOGGLE_NEW_EXPENSE_FORM',
-                    showExpenseNewForm: true,
+                    showNewExpenseForm: true,
                   });
                 }}
               >
@@ -108,7 +108,7 @@ const ExpenseGroupDetail = () => {
             <div
               ref={newExpenseForm}
               className="expense-group-detail__new-expense-form"
-              style={{ height: showExpenseNewForm ? contentHeight : '0px' }}
+              style={{ height: showNewExpenseForm ? contentHeight : '0px' }}
             >
               <ExpenseForm groupId={_id} isNewExpense />
             </div>

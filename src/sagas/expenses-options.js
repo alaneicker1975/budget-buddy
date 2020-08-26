@@ -14,7 +14,7 @@ function* fetchExpenses() {
     }
 
     yield put({
-      type: 'SET_EXPENSE_OPTIONS',
+      type: 'SET_RECURRING_EXPENSES',
       data,
     });
   } catch (err) {
