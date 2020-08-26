@@ -14,7 +14,7 @@ const ExpenseGroupDetail = () => {
   const [contentHeight, setContentHeight] = useState('0px');
 
   const {
-    expenses: { selectedExpense, showNewExpenseForm, redirectTo },
+    expenses: { selectedExpense, showNewExpenseForm },
   } = useSelector((state) => {
     return state;
   });

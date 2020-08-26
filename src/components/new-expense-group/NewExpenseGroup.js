@@ -78,7 +78,8 @@ const NewExpenseGroup = () => {
   };
 
   const {
-    expenses: { recurringExpenses, redirectTo },
+    expenses: { recurringExpenses },
+    app: { redirectTo },
   } = useSelector((state) => {
     return state;
   });
