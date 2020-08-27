@@ -22,9 +22,7 @@ export const DELETE_EXPENSE = 'DELETE_EXPENSE';
 // Action creators
 const actionCreators = {};
 
-// Generate action creators
 [
-  // Reducer Actions
   'redirect',
   'toggleNewExpenseForm',
   'setRecurringExpenses',
@@ -35,29 +33,17 @@ const actionCreators = {};
   'setSelectedExpenseGroup',
   'setNewExpenseGroup',
   'updateSelectedExpenseGroup',
-  // Saga watcher actions
   'deleteExpense',
 ].forEach((action) => {
-  const actionName = action.replace(/([a-z])([A-Z])/g, '$1_$2').toUpperCase();
+  // converts the function name to the corresponding action type
+  const actionType = action.replace(/([a-z])([A-Z])/g, '$1_$2').toUpperCase();
+
   actionCreators[action] = (payload) => {
     return {
-      type: actionName,
+      type: actionType,
       payload,
     };
   };
 });
 
 export default actionCreators;
-
-// Action creators
-// export const redirect = (route) => {
-//   return { type: REDIRECT, payload: route };
-// };
-
-// export const toggleNewExpenseForm = (toggle) => {
-//   return { type: TOGGLE_NEW_EXPENSE_FORM, payload: toggle };
-// };
-
-// export const setRecurringExpenses = (payload) => {
-//   return { type: SET_RECURRING_EXPENSES, payload };
-// };
