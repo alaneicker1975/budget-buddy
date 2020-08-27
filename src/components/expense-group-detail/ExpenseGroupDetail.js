@@ -95,6 +95,11 @@ const ExpenseGroupDetail = () => {
               />
             </span>
           </div>
+          <div className="text-align-center text-align-right@large">
+            <Button theme="tertiary" size="md">
+              Delete Group
+            </Button>
+          </div>
         </div>
         <div className="expense-group-detail__bd">
           <div>

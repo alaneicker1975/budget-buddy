@@ -54,12 +54,23 @@
       align-items: center;
       display: flex;
 
-      & > * {
+      & > :first-child {
         flex: 1;
       }
 
+      & > :last-child {
+        border-left: rem(1) solid darken($gray-100, 7%);
+        padding-left: rem(20);
+        align-self: stretch;
+        position: relative;
+
+        & > * {
+          transform: translateY(50%);
+        }
+      }
+
       & > * + * {
-        margin-top: 0;
+        margin: rem(0 0 0 20);
       }
     }
 
