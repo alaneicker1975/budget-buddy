@@ -11,11 +11,20 @@ export const UPDATE_SELECTED_EXPENSE_GROUP = 'UPDATE_SELECTED_EXPENSE_GROUP';
 export const DELETE_EXPENSE_FROM_EXPENSE_GROUP =
   'DELETE_EXPENSE_FROM_EXPENSE_GROUP';
 
+// Saga action types
+export const FETCH_EXPENSE_OPTIONS = 'FETCH_EXPENSE_OPTIONS';
+export const FETCH_EXPENSE_GROUPS = 'FETCH_EXPENSE_GROUPS';
+export const INSERT_NEW_EXPENSE = 'INSERT_NEW_EXPENSE';
+export const INSERT_NEW_EXPENSE_GROUP = 'INSERT_NEW_EXPENSE_GROUP';
+export const UPDATE_EXPENSE_GROUP = 'UPDATE_EXPENSE_GROUP';
+export const DELETE_EXPENSE = 'DELETE_EXPENSE';
+
 // Action creators
 const actionCreators = {};
 
 // Generate action creators
 [
+  // Reducer Actions
   'redirect',
   'toggleNewExpenseForm',
   'setRecurringExpenses',
@@ -26,6 +35,8 @@ const actionCreators = {};
   'setSelectedExpenseGroup',
   'setNewExpenseGroup',
   'updateSelectedExpenseGroup',
+  // Saga watcher actions
+  'deleteExpense',
 ].forEach((action) => {
   const actionName = action.replace(/([a-z])([A-Z])/g, '$1_$2').toUpperCase();
   actionCreators[action] = (payload) => {

@@ -1,5 +1,5 @@
 import { takeLatest, put, call } from 'redux-saga/effects';
-import actionCreators from '../actions';
+import actionCreators, { DELETE_EXPENSE } from '../actions';
 
 const {
   redirect,
@@ -120,8 +120,10 @@ function* postNewExpense({ data }) {
   }
 }
 
-function* deleteExpense({ groupId, expenseId }) {
+function* deleteExpense({ payload }) {
   try {
+    const { groupId, expenseId } = payload;
+
     const response = yield call(
       fetch,
       `http://localhost:9000/api/expense-groups/${groupId}/${expenseId}`,
@@ -151,5 +153,5 @@ export default function* watchExpenseGroups() {
   yield takeLatest('INSERT_NEW_EXPENSE', postNewExpense);
   yield takeLatest('INSERT_NEW_EXPENSE_GROUP', postNewExpenseGroup);
   yield takeLatest('UPDATE_EXPENSE_GROUP', updateExpenseGroup);
-  yield takeLatest('DELETE_EXPENSE', deleteExpense);
+  yield takeLatest(DELETE_EXPENSE, deleteExpense);
 }

@@ -14,7 +14,7 @@ import {
 } from '@alaneicker/atomik-ui';
 import actionCreators from '../../actions';
 
-const { toggleNewExpenseForm } = actionCreators;
+const { toggleNewExpenseForm, deleteExpense } = actionCreators;
 
 const ExpenseForm = ({ expenses, isNewExpense, groupId }) => {
   const dispatch = useDispatch();
@@ -151,11 +151,7 @@ const ExpenseForm = ({ expenses, isNewExpense, groupId }) => {
                   theme="tertiary"
                   size="md"
                   onClick={() => {
-                    return dispatch({
-                      type: 'DELETE_EXPENSE',
-                      groupId,
-                      expenseId: _id,
-                    });
+                    return dispatch(deleteExpense({ groupId, expenseId: _id }));
                   }}
                 >
                   Delete
