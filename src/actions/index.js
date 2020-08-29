@@ -11,6 +11,8 @@ export const UPDATE_SELECTED_EXPENSE_GROUP = 'UPDATE_SELECTED_EXPENSE_GROUP';
 export const REMOVE_EXPENSE_FROM_EXPENSE_GROUP =
   'REMOVE_EXPENSE_FROM_EXPENSE_GROUP';
 export const REMOVE_EXPENSE_GROUP = 'REMOVE_EXPENSE_GROUP';
+export const SHOW_CONFIRM_DELETE_DIALOG = 'SHOW_CONFIRM_DELETE_DIALOG';
+export const HIDE_CONFIRM_DELETE_DIALOG = 'HIDE_CONFIRM_DELETE_DIALOG';
 
 // Saga action types
 export const GET_EXPENSE_OPTIONS = 'GET_EXPENSE_OPTIONS';
@@ -37,6 +39,8 @@ const actionCreators = {};
   'setSelectedExpenseGroup',
   'setNewExpenseGroup',
   'updateSelectedExpenseGroup',
+  'showConfirmDeleteDialog',
+  'hideConfirmDeleteDialog',
   // Saga watcher actions
   'deleteExpense',
 ].forEach((action) => {

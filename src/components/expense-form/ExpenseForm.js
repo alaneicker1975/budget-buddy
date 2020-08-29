@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { useDispatch } from 'react-redux';
@@ -12,12 +12,34 @@ import {
   Button,
   CheckOption,
 } from '@alaneicker/atomik-ui';
+import ConfirmDelete from '../confirm-delete';
 import actionCreators from '../../actions';
 
 const { toggleNewExpenseForm, deleteExpense } = actionCreators;
 
 const ExpenseForm = ({ expenses, isNewExpense, groupId }) => {
   const dispatch = useDispatch();
+
+  const [confirmDelete, setConfirmDelete] = useState({});
+
+  const hideConfirmDelete = () => {
+    setConfirmDelete((prevState) => {
+      return {
+        ...prevState,
+        isActive: false,
+      };
+    });
+  };
+
+  const dispatchDelete = () => {
+    hideConfirmDelete();
+    dispatch(
+      deleteExpense({
+        groupId: confirmDelete.groupId,
+        expenseId: confirmDelete.expenseId,
+      }),
+    );
+  };
 
   const onExpenseUpdate = (e, expenseId) => {
     const { type, name, value, checked } = e.target;
@@ -49,56 +71,23 @@ const ExpenseForm = ({ expenses, isNewExpense, groupId }) => {
   });
 
   return (
-    <form
-      className={classnames('expense-form', {
-        'expense-form--is-new-expense': isNewExpense,
-      })}
-      onSubmit={handleSubmit}
-      autoComplete="off"
-      noValidate
-    >
-      {expenses.map(({ _id, expense, balance, isPaid }, i) => {
-        return (
-          <div className="expense-form__item" key={`expense-item-${i}`}>
-            <div className="expense-form__item__status-field">
-              <CheckOption
-                {...(isNewExpense && { label: 'Is Paid' })}
-                name="isPaid"
-                checked={isNewExpense ? values.isPaid : isPaid}
-                onChange={
-                  isNewExpense
-                    ? handleChange
-                    : (e) => {
-                        return onExpenseUpdate(e, _id);
-                      }
-                }
-              />
-            </div>
-            <div className="expense-form__item__info-fields">
-              <div className="expense-form__item__expense-field">
-                <FormField
-                  className={classnames({
-                    'expense-form__item__text-input text-weight-bold': !isNewExpense,
-                  })}
-                  name="expense"
-                  value={isNewExpense ? values.expense : expense}
-                  {...(!isNewExpense && {
-                    placeholder: 'Expense Title',
-                    'aria-label': 'expense title',
-                  })}
-                  {...(isNewExpense && {
-                    label: (
-                      <>
-                        Expense Title{' '}
-                        {errors.expense && touched.expense && (
-                          <Hint type="error" className="display-inline">
-                            ({errors.expense})
-                          </Hint>
-                        )}
-                      </>
-                    ),
-                  })}
-                  hasError={!!(errors.expense && touched.expense)}
+    <>
+      <form
+        className={classnames('expense-form', {
+          'expense-form--is-new-expense': isNewExpense,
+        })}
+        onSubmit={handleSubmit}
+        autoComplete="off"
+        noValidate
+      >
+        {expenses.map(({ _id, expense, balance, isPaid }, i) => {
+          return (
+            <div className="expense-form__item" key={`expense-item-${i}`}>
+              <div className="expense-form__item__status-field">
+                <CheckOption
+                  {...(isNewExpense && { label: 'Is Paid' })}
+                  name="isPaid"
+                  checked={isNewExpense ? values.isPaid : isPaid}
                   onChange={
                     isNewExpense
                       ? handleChange
@@ -108,78 +97,127 @@ const ExpenseForm = ({ expenses, isNewExpense, groupId }) => {
                   }
                 />
               </div>
-              <div className="expense-form__item__balance-field">
-                {!isNewExpense && '$'}
-                <FormField
-                  className={classnames({
-                    'expense-form__item__text-input': !isNewExpense,
-                  })}
-                  name="balance"
-                  type="number"
-                  aria-label="balance"
-                  {...(!isNewExpense && {
-                    placeholder: 'Expense Balance',
-                    'aria-label': 'expense balance',
-                  })}
-                  {...(isNewExpense && {
-                    label: (
-                      <>
-                        Expense Balance{' '}
-                        {errors.balance && touched.balance && (
-                          <Hint type="error" className="display-inline">
-                            ({errors.balance})
-                          </Hint>
-                        )}
-                      </>
-                    ),
-                  })}
-                  value={isNewExpense ? values.balance : balance}
-                  hasError={!!(errors.balance && touched.balance)}
-                  onChange={
-                    isNewExpense
-                      ? handleChange
-                      : (e) => {
-                          return onExpenseUpdate(e, _id);
-                        }
-                  }
-                />
+              <div className="expense-form__item__info-fields">
+                <div className="expense-form__item__expense-field">
+                  <FormField
+                    className={classnames({
+                      'expense-form__item__text-input text-weight-bold': !isNewExpense,
+                    })}
+                    name="expense"
+                    value={isNewExpense ? values.expense : expense}
+                    {...(!isNewExpense && {
+                      placeholder: 'Expense Title',
+                      'aria-label': 'expense title',
+                    })}
+                    {...(isNewExpense && {
+                      label: (
+                        <>
+                          Expense Title{' '}
+                          {errors.expense && touched.expense && (
+                            <Hint type="error" className="display-inline">
+                              ({errors.expense})
+                            </Hint>
+                          )}
+                        </>
+                      ),
+                    })}
+                    hasError={!!(errors.expense && touched.expense)}
+                    onChange={
+                      isNewExpense
+                        ? handleChange
+                        : (e) => {
+                            return onExpenseUpdate(e, _id);
+                          }
+                    }
+                  />
+                </div>
+                <div className="expense-form__item__balance-field">
+                  {!isNewExpense && '$'}
+                  <FormField
+                    className={classnames({
+                      'expense-form__item__text-input': !isNewExpense,
+                    })}
+                    name="balance"
+                    type="number"
+                    aria-label="balance"
+                    {...(!isNewExpense && {
+                      placeholder: 'Expense Balance',
+                      'aria-label': 'expense balance',
+                    })}
+                    {...(isNewExpense && {
+                      label: (
+                        <>
+                          Expense Balance{' '}
+                          {errors.balance && touched.balance && (
+                            <Hint type="error" className="display-inline">
+                              ({errors.balance})
+                            </Hint>
+                          )}
+                        </>
+                      ),
+                    })}
+                    value={isNewExpense ? values.balance : balance}
+                    hasError={!!(errors.balance && touched.balance)}
+                    onChange={
+                      isNewExpense
+                        ? handleChange
+                        : (e) => {
+                            return onExpenseUpdate(e, _id);
+                          }
+                    }
+                  />
+                </div>
               </div>
+              {!isNewExpense && (
+                <div className="expense-form__item__delete-btn">
+                  <Button
+                    theme="tertiary"
+                    size="md"
+                    onClick={() => {
+                      return setConfirmDelete({
+                        isActive: true,
+                        groupId,
+                        expenseId: _id,
+                        expense,
+                      });
+                    }}
+                  >
+                    Delete
+                  </Button>
+                </div>
+              )}
             </div>
-            {!isNewExpense && (
-              <div className="expense-form__item__delete-btn">
-                <Button
-                  theme="tertiary"
-                  size="md"
-                  onClick={() => {
-                    return dispatch(deleteExpense({ groupId, expenseId: _id }));
-                  }}
-                >
-                  Delete
-                </Button>
-              </div>
-            )}
-          </div>
-        );
-      })}
-      {isNewExpense && (
-        <List type="horizontal">
-          <ListItem>
-            <Button type="submit" theme="primary">
-              Submit
-            </Button>
-          </ListItem>
-          <ListItem>
-            <Button
-              onClick={() => {
-                return dispatch(toggleNewExpenseForm(false));
-              }}
-            >
-              Cancel
-            </Button>
-          </ListItem>
-        </List>
+          );
+        })}
+        {isNewExpense && (
+          <List type="horizontal">
+            <ListItem>
+              <Button type="submit" theme="primary">
+                Submit
+              </Button>
+            </ListItem>
+            <ListItem>
+              <Button
+                onClick={() => {
+                  return dispatch(toggleNewExpenseForm(false));
+                }}
+              >
+                Cancel
+              </Button>
+            </ListItem>
+          </List>
+        )}
+      </form>
+      {!isNewExpense && (
+        <ConfirmDelete
+          isActive={confirmDelete.isActive}
+          onConfirm={dispatchDelete}
+          onCancel={hideConfirmDelete}
+        >
+          {confirmDelete.expense}
+        </ConfirmDelete>
       )}
-    </form>
+    </>
   );
 };
 
