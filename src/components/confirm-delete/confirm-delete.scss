@@ -1,0 +1,20 @@
+.confirm-delete-alert {
+  margin: rem(0 16);
+  max-width: rem(500);
+  text-align: center;
+
+  &__title {
+    font-size: rem(20);
+  }
+
+  &__subtitle {
+    font-size: rem(28);
+    font-weight: $font-semibold;
+    margin-bottom: rem(16);
+    text-transform: uppercase;
+  }
+
+  button {
+    background: $white;
+  }
+}

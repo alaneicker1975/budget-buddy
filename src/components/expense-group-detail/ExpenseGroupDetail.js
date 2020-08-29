@@ -6,6 +6,7 @@ import Chart from 'react-apexcharts';
 import { Button, FormField } from '@alaneicker/atomik-ui';
 import ExpenseForm from '../expense-form';
 import EndOfMonthSummary from '../end-of-month-summary';
+import ConfirmDelete from '../confirm-delete';
 import actionCreators from '../../actions';
 
 const {
@@ -169,6 +170,7 @@ const ExpenseGroupDetail = () => {
             />
           </div>
         </div>
+        <ConfirmDelete expense="Water Bill" isActive={true} />
       </div>
     );
   }
