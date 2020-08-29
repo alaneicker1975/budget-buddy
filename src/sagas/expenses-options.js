@@ -22,5 +22,5 @@ function* fetchExpenses() {
   }
 }
 export default function* watchExpenses() {
-  yield takeLatest('FETCH_EXPENSE_OPTIONS', fetchExpenses);
+  yield takeLatest('GET_EXPENSE_OPTIONS', fetchExpenses);
 }

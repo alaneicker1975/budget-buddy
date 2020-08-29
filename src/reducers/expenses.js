@@ -4,7 +4,8 @@ import {
   SET_EXPENSE_GROUPS,
   SET_NEW_EXPENSE,
   UPDATE_EXPENSE_GROUPS,
-  DELETE_EXPENSE_FROM_EXPENSE_GROUP,
+  REMOVE_EXPENSE_FROM_EXPENSE_GROUP,
+  REMOVE_EXPENSE_GROUP,
   SET_SELECTED_EXPENSE_GROUP,
   SET_NEW_EXPENSE_GROUP,
   UPDATE_SELECTED_EXPENSE_GROUP,
@@ -56,7 +57,7 @@ const expenseReducer = (state = initialState, action) => {
         }),
       };
     // Deletes an expense from an expense group
-    case DELETE_EXPENSE_FROM_EXPENSE_GROUP:
+    case REMOVE_EXPENSE_FROM_EXPENSE_GROUP:
       return {
         ...state,
         expenseGroups: state.expenseGroups.map((group) => {
@@ -68,6 +69,14 @@ const expenseReducer = (state = initialState, action) => {
                 }),
               }
             : group;
+        }),
+      };
+    // Deletes an expense group
+    case REMOVE_EXPENSE_GROUP:
+      return {
+        ...state,
+        expenseGroups: state.expenseGroups.filter((expense) => {
+          return expense._id !== action.payload.groupId;
         }),
       };
     // Sets the selected expense group based on _id

@@ -16,7 +16,7 @@ const App = () => {
   });
 
   useEffect(() => {
-    dispatch({ type: 'FETCH_EXPENSE_GROUPS' });
+    dispatch({ type: 'GET_EXPENSE_GROUPS' });
   }, []);
 
   return (

@@ -1,5 +1,8 @@
 import { takeLatest, put, call } from 'redux-saga/effects';
-import actionCreators, { DELETE_EXPENSE } from '../actions';
+import actionCreators, {
+  DELETE_EXPENSE,
+  DELETE_EXPENSE_GROUP,
+} from '../actions';
 
 const {
   redirect,
@@ -7,7 +10,7 @@ const {
   setExpenseGroups,
   setNewExpense,
   updateExpenseGroups,
-  deleteExpenseFromExpenseGroup,
+  removeExpenseFromExpenseGroup,
   setSelectedExpenseGroup,
   setNewExpenseGroup,
   updateSelectedExpenseGroup,
@@ -140,7 +143,7 @@ function* deleteExpense({ payload }) {
       return;
     }
 
-    yield put(deleteExpenseFromExpenseGroup({ groupId, expenseId }));
+    yield put(removeExpenseFromExpenseGroup({ groupId, expenseId }));
 
     yield put(setSelectedExpenseGroup({ groupId }));
   } catch (err) {
@@ -148,10 +151,15 @@ function* deleteExpense({ payload }) {
   }
 }
 
+function* deleteExpenseGroup({ payload }) {
+  const { groupId } = payload;
+}
+
 export default function* watchExpenseGroups() {
-  yield takeLatest('FETCH_EXPENSE_GROUPS', fetchExpenseGroups);
+  yield takeLatest('GET_EXPENSE_GROUPS', fetchExpenseGroups);
   yield takeLatest('INSERT_NEW_EXPENSE', postNewExpense);
   yield takeLatest('INSERT_NEW_EXPENSE_GROUP', postNewExpenseGroup);
   yield takeLatest('UPDATE_EXPENSE_GROUP', updateExpenseGroup);
   yield takeLatest(DELETE_EXPENSE, deleteExpense);
+  yield takeLatest(DELETE_EXPENSE_GROUP, deleteExpenseGroup);
 }

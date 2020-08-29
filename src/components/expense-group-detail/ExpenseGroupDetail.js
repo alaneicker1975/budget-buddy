@@ -87,13 +87,11 @@ const ExpenseGroupDetail = () => {
             />
           </div>
           <div className="text-align-center text-align-right@large">
-            <span className="text-size-20@large">
-              <FormField
-                label="Budget Amount"
-                className="expense-group-detail__budget-amount text-align-center text-align-right@large"
-                value={budgetAmount}
-              />
-            </span>
+            <FormField
+              label="Budget Amount"
+              className="expense-group-detail__budget-amount text-align-center text-align-right@large"
+              value={budgetAmount}
+            />
           </div>
           <div className="text-align-center text-align-right@large">
             <Button theme="tertiary" size="md">
