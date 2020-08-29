@@ -12,15 +12,9 @@ import {
   Button,
   CheckOption,
 } from '@alaneicker/atomik-ui';
-import ConfirmDelete from '../confirm-delete';
 import actionCreators from '../../actions';
 
-const {
-  toggleNewExpenseForm,
-  deleteExpense,
-  showConfirmDeleteDialog,
-  hideConfirmDeleteDialog,
-} = actionCreators;
+const { toggleNewExpenseForm, showConfirmDeleteDialog } = actionCreators;
 
 const ExpenseForm = ({ expenses, isNewExpense, groupId }) => {
   const dispatch = useDispatch();
@@ -164,6 +158,7 @@ const ExpenseForm = ({ expenses, isNewExpense, groupId }) => {
                     onClick={() => {
                       return dispatch(
                         showConfirmDeleteDialog({
+                          actionType: 'deleteExpense',
                           isActive: true,
                           expenseId: _id,
                           content: expense,
@@ -198,25 +193,6 @@ const ExpenseForm = ({ expenses, isNewExpense, groupId }) => {
           </List>
         )}
       </form>
-      {!isNewExpense && (
-        <ConfirmDelete
-          isActive={confirmDeleteDialog.isActive}
-          onConfirm={() => {
-            dispatch(
-              deleteExpense({
-                groupId: confirmDeleteDialog.groupId,
-                expenseId: confirmDeleteDialog.expenseId,
-              }),
-            );
-            return dispatch(hideConfirmDeleteDialog());
-          }}
-          onCancel={() => {
-            return dispatch(hideConfirmDeleteDialog());
-          }}
-        >
-          {confirmDeleteDialog.content}
-        </ConfirmDelete>
-      )}
     </>
   );
 };

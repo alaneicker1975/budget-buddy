@@ -121,16 +121,20 @@ import schemas from './schemas';
     }
   });
 
-  app.delete('/api/expense-groups/:groupId/:expenseId', async (req, res) => {
+  app.delete('/api/expense-groups/:groupId/:expenseId?', async (req, res) => {
     try {
       const { groupId, expenseId } = req.params;
-      const expenseGroup = await ExpenseGroup.findById(groupId);
 
-      expenseGroup.expenses = expenseGroup.expenses.filter((expense) => {
-        return String(expense._id) !== expenseId;
-      });
-
-      await expenseGroup.save();
+      if (expenseId) {
+        const expenseGroup = await ExpenseGroup.findById(groupId);
+        expenseGroup.expenses = expenseGroup.expenses.filter((expense) => {
+          return String(expense._id) !== expenseId;
+        });
+        await expenseGroup.save();
+      } else {
+        const expenseGroup = await ExpenseGroup.findByIdAndRemove(groupId);
+        await expenseGroup.save();
+      }
 
       res.send({});
     } catch ({ name, message }) {

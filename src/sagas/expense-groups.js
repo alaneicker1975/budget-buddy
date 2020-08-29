@@ -10,6 +10,7 @@ const {
   setExpenseGroups,
   setNewExpense,
   updateExpenseGroups,
+  removeExpenseGroup,
   removeExpenseFromExpenseGroup,
   setSelectedExpenseGroup,
   setNewExpenseGroup,
@@ -153,6 +154,24 @@ function* deleteExpense({ payload }) {
 
 function* deleteExpenseGroup({ payload }) {
   const { groupId } = payload;
+
+  const response = yield call(
+    fetch,
+    `http://localhost:9000/api/expense-groups/${groupId}`,
+    {
+      method: 'DELETE',
+      headers: { 'Content-type': 'application/json; charset=UTF-8' },
+    },
+  );
+
+  const { err } = yield response.json();
+
+  if (err) {
+    console.error(err);
+    return;
+  }
+
+  yield put(removeExpenseGroup({ groupId }));
 }
 
 export default function* watchExpenseGroups() {

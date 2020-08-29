@@ -5,12 +5,21 @@ import ExpenseGroupDetail from './components/expense-group-detail';
 import SideNav from './components/side-nav';
 import Header from './components/header';
 import NewExpenseGroup from './components/new-expense-group';
+import ConfirmDelete from './components/confirm-delete';
+import actionCreators from './actions';
+
+const {
+  deleteExpense,
+  deleteExpenseGroup,
+  hideConfirmDeleteDialog,
+} = actionCreators;
 
 const App = () => {
   const dispatch = useDispatch();
 
   const {
-    expenses: { expenseGroups, selectedExpenseId, showNewExpenseForm },
+    confirmDeleteDialog,
+    expenses: { expenseGroups, selectedExpenseId },
   } = useSelector((state) => {
     return state;
   });
@@ -33,6 +42,34 @@ const App = () => {
           <Route path="/expense-group/:id" component={ExpenseGroupDetail} />
         </div>
       </div>
+      <ConfirmDelete
+        isActive={confirmDeleteDialog.isActive}
+        onConfirm={() => {
+          const { actionType } = confirmDeleteDialog;
+          if (actionType === 'deleteGroup') {
+            dispatch(
+              deleteExpenseGroup({
+                groupId: confirmDeleteDialog.groupId,
+              }),
+            );
+          }
+          if (actionType === 'deleteExpense') {
+            dispatch(
+              deleteExpense({
+                groupId: confirmDeleteDialog.groupId,
+                expenseId: confirmDeleteDialog.expenseId,
+              }),
+            );
+          }
+          return dispatch(hideConfirmDeleteDialog());
+        }}
+        onCancel={() => {
+          return dispatch(hideConfirmDeleteDialog());
+        }}
+      >
+        {confirmDeleteDialog.actionType === 'deleteGroup' && 'Group:'}{' '}
+        {confirmDeleteDialog.content}
+      </ConfirmDelete>
     </main>
   );
 };

@@ -34,6 +34,7 @@ const actionCreators = {};
   'setExpenseGroups',
   'setNewExpense',
   'updateExpenseGroups',
+  'removeExpenseGroup',
   'removeExpenseFromExpenseGroup',
   'deleteExpenseGroup',
   'setSelectedExpenseGroup',
