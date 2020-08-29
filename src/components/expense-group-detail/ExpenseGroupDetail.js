@@ -6,12 +6,15 @@ import Chart from 'react-apexcharts';
 import { Button, FormField } from '@alaneicker/atomik-ui';
 import ExpenseForm from '../expense-form';
 import EndOfMonthSummary from '../end-of-month-summary';
+import ConfirmDelete from '../confirm-delete';
 import actionCreators from '../../actions';
 
 const {
   toggleNewExpenseForm,
   redirect,
   setSelectedExpenseGroup,
+  showConfirmDeleteDialog,
+  hideConfirmDeleteDialog,
 } = actionCreators;
 
 const ExpenseGroupDetail = () => {
@@ -21,6 +24,7 @@ const ExpenseGroupDetail = () => {
   const [contentHeight, setContentHeight] = useState('0px');
 
   const {
+    confirmDeleteDialog,
     expenses: { selectedExpense, showNewExpenseForm },
   } = useSelector((state) => {
     return state;
@@ -94,7 +98,19 @@ const ExpenseGroupDetail = () => {
             />
           </div>
           <div className="text-align-center text-align-right@large">
-            <Button theme="tertiary" size="md">
+            <Button
+              theme="tertiary"
+              size="md"
+              onClick={() => {
+                return dispatch(
+                  showConfirmDeleteDialog({
+                    isActive: true,
+                    content: title,
+                    groupId: id,
+                  }),
+                );
+              }}
+            >
               Delete Group
             </Button>
           </div>
@@ -169,6 +185,18 @@ const ExpenseGroupDetail = () => {
             />
           </div>
         </div>
+        <ConfirmDelete
+          isActive={confirmDeleteDialog.isActive}
+          onConfirm={() => {
+            dispatch();
+            return dispatch(hideConfirmDeleteDialog());
+          }}
+          onCancel={() => {
+            return dispatch(hideConfirmDeleteDialog());
+          }}
+        >
+          Group: {confirmDeleteDialog.content}
+        </ConfirmDelete>
       </div>
     );
   }

@@ -7,7 +7,7 @@ const initialState = {
   isActive: false,
   expenseId: null,
   groupId: null,
-  expense: null,
+  content: null,
 };
 
 const confirmDeleteDialogReducer = (state = initialState, action) => {

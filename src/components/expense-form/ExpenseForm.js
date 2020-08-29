@@ -166,8 +166,8 @@ const ExpenseForm = ({ expenses, isNewExpense, groupId }) => {
                         showConfirmDeleteDialog({
                           isActive: true,
                           expenseId: _id,
+                          content: expense,
                           groupId,
-                          expense,
                         }),
                       );
                     }}
@@ -214,7 +214,7 @@ const ExpenseForm = ({ expenses, isNewExpense, groupId }) => {
             return dispatch(hideConfirmDeleteDialog());
           }}
         >
-          {confirmDeleteDialog.expense}
+          {confirmDeleteDialog.content}
         </ConfirmDelete>
       )}
     </>
