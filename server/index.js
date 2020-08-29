@@ -132,8 +132,9 @@ import schemas from './schemas';
         });
         await expenseGroup.save();
       } else {
-        const expenseGroup = await ExpenseGroup.findByIdAndRemove(groupId);
-        await expenseGroup.save();
+        await ExpenseGroup.findOneAndDelete({
+          _id: groupId,
+        });
       }
 
       res.send({});
