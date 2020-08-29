@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import * as yup from 'yup';
 import { useFormik } from 'formik';
 import {
@@ -15,31 +15,19 @@ import {
 import ConfirmDelete from '../confirm-delete';
 import actionCreators from '../../actions';
 
-const { toggleNewExpenseForm, deleteExpense } = actionCreators;
+const {
+  toggleNewExpenseForm,
+  deleteExpense,
+  showConfirmDeleteDialog,
+  hideConfirmDeleteDialog,
+} = actionCreators;
 
 const ExpenseForm = ({ expenses, isNewExpense, groupId }) => {
   const dispatch = useDispatch();
 
-  const [confirmDelete, setConfirmDelete] = useState({});
-
-  const hideConfirmDelete = () => {
-    setConfirmDelete((prevState) => {
-      return {
-        ...prevState,
-        isActive: false,
-      };
-    });
-  };
-
-  const dispatchDelete = () => {
-    hideConfirmDelete();
-    dispatch(
-      deleteExpense({
-        groupId: confirmDelete.groupId,
-        expenseId: confirmDelete.expenseId,
-      }),
-    );
-  };
+  const { confirmDeleteDialog } = useSelector((state) => {
+    return state;
+  });
 
   const onExpenseUpdate = (e, expenseId) => {
     const { type, name, value, checked } = e.target;
@@ -174,12 +162,14 @@ const ExpenseForm = ({ expenses, isNewExpense, groupId }) => {
                     theme="tertiary"
                     size="md"
                     onClick={() => {
-                      return setConfirmDelete({
-                        isActive: true,
-                        groupId,
-                        expenseId: _id,
-                        expense,
-                      });
+                      return dispatch(
+                        showConfirmDeleteDialog({
+                          isActive: true,
+                          expenseId: _id,
+                          groupId,
+                          expense,
+                        }),
+                      );
                     }}
                   >
                     Delete
@@ -210,11 +200,21 @@ const ExpenseForm = ({ expenses, isNewExpense, groupId }) => {
       </form>
       {!isNewExpense && (
         <ConfirmDelete
-          isActive={confirmDelete.isActive}
-          onConfirm={dispatchDelete}
-          onCancel={hideConfirmDelete}
+          isActive={confirmDeleteDialog.isActive}
+          onConfirm={() => {
+            dispatch(
+              deleteExpense({
+                groupId: confirmDeleteDialog.groupId,
+                expenseId: confirmDeleteDialog.expenseId,
+              }),
+            );
+            return dispatch(hideConfirmDeleteDialog());
+          }}
+          onCancel={() => {
+            return dispatch(hideConfirmDeleteDialog());
+          }}
         >
-          {confirmDelete.expense}
+          {confirmDeleteDialog.expense}
         </ConfirmDelete>
       )}
     </>

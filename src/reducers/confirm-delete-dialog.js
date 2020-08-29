@@ -10,15 +10,15 @@ const initialState = {
   expense: null,
 };
 
-const appReducer = (state = initialState, action) => {
+const confirmDeleteDialogReducer = (state = initialState, action) => {
   switch (action.type) {
     case SHOW_CONFIRM_DELETE_DIALOG:
-      return { ...state };
+      return { ...state, ...action.payload };
     case HIDE_CONFIRM_DELETE_DIALOG:
-      return { ...state };
+      return { ...state, isActive: false };
     default:
       return state;
   }
 };
 
-export default appReducer;
+export default confirmDeleteDialogReducer;
