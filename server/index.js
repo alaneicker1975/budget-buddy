@@ -60,15 +60,9 @@ import schemas from './schemas';
 
   app.post('/api/expense-groups', async (req, res) => {
     try {
-      const {
-        body: { startDate, endDate, ...rest },
-      } = req;
+      const { body } = req;
 
-      const expenseGroup = await new ExpenseGroup({
-        startDate: new Date(startDate),
-        endDate: new Date(endDate),
-        ...rest,
-      }).save();
+      const expenseGroup = await new ExpenseGroup({ ...body }).save();
 
       res.status(201).send({ expenseGroup });
     } catch ({ name, message }) {
@@ -107,9 +101,13 @@ import schemas from './schemas';
       } = req;
 
       const expenseGroup = await ExpenseGroup.findById(groupId);
-      const expense = await expenseGroup.expenses.id(expenseId);
 
-      expense[name] = name === 'isPaid' ? checked : value;
+      if (expenseId) {
+        const expense = await expenseGroup.expenses.id(expenseId);
+        expense.set(name, name === 'isPaid' ? checked : value);
+      } else {
+        expenseGroup.set(name, value);
+      }
 
       await expenseGroup.save();
 

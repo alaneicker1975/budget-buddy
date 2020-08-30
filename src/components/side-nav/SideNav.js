@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import moment from 'moment';
 import { List, ListItem } from '@alaneicker/atomik-ui';
 
 const SideNav = ({ data, selectedExpenseId }) => {
@@ -24,7 +23,7 @@ const SideNav = ({ data, selectedExpenseId }) => {
                   'is-active': _id === selectedExpenseId,
                 })}
               >
-                {moment(startDate).format('L')} - {moment(endDate).format('L')}
+                {startDate} - {endDate}
               </Link>
             </ListItem>
           );

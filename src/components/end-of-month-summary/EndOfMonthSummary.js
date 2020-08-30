@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import moment from 'moment';
 
 const EndOfMonthSummary = ({
   budgetAmount,
@@ -19,7 +18,7 @@ const EndOfMonthSummary = ({
       Base on your current budget of $<b>{formatNumber(budgetAmount)}</b> and a
       total balance of $<b>{formatNumber(totalBalance)}</b> in expenses due, you
       should have a remaning balance of $<b>{formatNumber(remainingBalance)}</b>{' '}
-      on {moment(endDate).format('L')}.
+      on {endDate}.
     </p>
   );
 };

@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import moment from 'moment';
 import Chart from 'react-apexcharts';
 import CurrencyInput from 'react-currency-input-field';
 import { Button, FormField, Label } from '@alaneicker/atomik-ui';
@@ -14,6 +13,7 @@ const {
   toggleNewExpenseForm,
   setSelectedExpenseGroup,
   showConfirmDeleteDialog,
+  updateExpenseGroup,
 } = actionCreators;
 
 const ExpenseGroupDetail = () => {
@@ -27,6 +27,12 @@ const ExpenseGroupDetail = () => {
   } = useSelector((state) => {
     return state;
   });
+
+  const onExpenseGroupUpdate = (e) => {
+    const updates = e.target ? e.target : e;
+    const { name, value } = updates;
+    dispatch(updateExpenseGroup({ groupId: id, name, value }));
+  };
 
   useEffect(() => {
     dispatch(setSelectedExpenseGroup({ groupId: id }));
@@ -79,21 +85,27 @@ const ExpenseGroupDetail = () => {
           <div className="text-align-center text-align-left@large">
             <div>
               <FormField
+                name="startDate"
                 aria-label="start date"
                 className="expense-group-detail__date"
-                value={moment(startDate).format('L')}
+                value={startDate}
+                onChange={onExpenseGroupUpdate}
               />
               <span className="margin-left-4 margin-right-4">-</span>
               <FormField
+                name="endDate"
                 aria-label="end date"
                 className="expense-group-detail__date"
-                value={moment(endDate).format('L')}
+                value={endDate}
+                onChange={onExpenseGroupUpdate}
               />
             </div>
             <FormField
+              name="title"
               aria-label="expense title"
               className="expense-group-detail__title text-align-center text-align-left@large"
               value={title}
+              onChange={onExpenseGroupUpdate}
             />
           </div>
           <div className="text-align-center text-align-right@large">
@@ -101,7 +113,7 @@ const ExpenseGroupDetail = () => {
               Budget Amount
             </Label>
             <CurrencyInput
-              className="atomikui-formfield__input expense-group-detail__budget-amount"
+              className="expense-group-detail__budget-amount"
               id="budget-amount"
               name="budgetAmount"
               defaultValue={budgetAmount}
@@ -109,7 +121,7 @@ const ExpenseGroupDetail = () => {
               decimalsLimit={2}
               prefix="$"
               onChange={(value, name) => {
-                return console.log(value, name);
+                return onExpenseGroupUpdate({ name, value });
               }}
             />
           </div>

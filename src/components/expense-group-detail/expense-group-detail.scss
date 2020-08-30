@@ -54,6 +54,13 @@
     line-height: 0.5;
     text-align: center;
     width: rem(135);
+
+    // Since we're using a thrid-party CurrencyInput component instead of the
+    // Atimik UI FormField, we need to manually add the focus styles.
+    &:focus {
+      box-shadow: rem(0 0 0 2) $focus-blue-light;
+      outline: 0;
+    }
   }
 
   @media (min-width: $breakpoint-large) {

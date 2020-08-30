@@ -64,9 +64,9 @@ function* postNewExpenseGroup({ data }) {
   }
 }
 
-function* updateExpenseGroup({ data }) {
+function* updateExpenseGroup({ payload }) {
   try {
-    const { groupId, ...body } = data;
+    const { groupId, expenseId, ...body } = payload;
 
     const response = yield call(
       fetch,
@@ -74,7 +74,7 @@ function* updateExpenseGroup({ data }) {
       {
         method: 'PUT',
         headers: { 'Content-type': 'application/json; charset=UTF-8' },
-        body: JSON.stringify(body),
+        body: JSON.stringify({ expenseId, ...body }),
       },
     );
 
@@ -86,10 +86,7 @@ function* updateExpenseGroup({ data }) {
     }
 
     yield put(updateSelectedExpenseGroup({ expenseGroup }));
-
-    yield put(
-      updateExpenseGroups({ groupId: data.groupId, expenseId: data.expenseId }),
-    );
+    yield put(updateExpenseGroups({ groupId }));
   } catch (err) {
     console.error(err);
   }

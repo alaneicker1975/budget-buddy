@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import * as yup from 'yup';
 import { useFormik } from 'formik';
 import {
@@ -14,22 +14,18 @@ import {
 } from '@alaneicker/atomik-ui';
 import actionCreators from '../../actions';
 
-const { toggleNewExpenseForm, showConfirmDeleteDialog } = actionCreators;
+const {
+  toggleNewExpenseForm,
+  showConfirmDeleteDialog,
+  updateExpenseGroup,
+} = actionCreators;
 
 const ExpenseForm = ({ expenses, isNewExpense, groupId }) => {
   const dispatch = useDispatch();
 
-  const { confirmDeleteDialog } = useSelector((state) => {
-    return state;
-  });
-
   const onExpenseUpdate = (e, expenseId) => {
-    const { type, name, value, checked } = e.target;
-
-    dispatch({
-      type: 'UPDATE_EXPENSE_GROUP',
-      data: { groupId, expenseId, type, name, value, checked },
-    });
+    const { name, value, checked } = e.target;
+    dispatch(updateExpenseGroup({ groupId, expenseId, name, value, checked }));
   };
 
   const validationSchema = yup.object().shape({
