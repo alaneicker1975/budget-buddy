@@ -35,18 +35,25 @@
     }
   }
 
+  .expense-group-detail__date {
+    display: inline-block;
+    width: rem(86);
+
+    & > input {
+      width: 100%;
+    }
+  }
+
   .expense-group-detail__title,
   .expense-group-detail__budget-amount {
     font-size: rem(36);
   }
 
   .expense-group-detail__budget-amount {
+    color: $green-100;
     line-height: 0.5;
-
-    & > input {
-      color: $green-100;
-      width: rem(85);
-    }
+    text-align: center;
+    width: rem(135);
   }
 
   @media (min-width: $breakpoint-large) {
@@ -59,9 +66,9 @@
       }
 
       & > :last-child {
+        align-self: stretch;
         border-left: rem(1) solid darken($gray-100, 7%);
         padding-left: rem(20);
-        align-self: stretch;
         position: relative;
 
         & > * {
@@ -86,12 +93,14 @@
       }
     }
 
-    .expense-group-detail__title,
-    .expense-group-detail__date,
     .expense-group-detail__budget-amount {
+      text-align: right;
+    }
+
+    .expense-group-detail__title,
+    .expense-group-detail__date {
       & > input {
         text-align: inherit;
-        width: auto;
       }
     }
   }

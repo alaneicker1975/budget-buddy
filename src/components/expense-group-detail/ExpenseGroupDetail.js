@@ -3,7 +3,8 @@ import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
 import Chart from 'react-apexcharts';
-import { Button, FormField } from '@alaneicker/atomik-ui';
+import CurrencyInput from 'react-currency-input-field';
+import { Button, FormField, Label } from '@alaneicker/atomik-ui';
 import ExpenseForm from '../expense-form';
 import EndOfMonthSummary from '../end-of-month-summary';
 import actionCreators from '../../actions';
@@ -76,22 +77,40 @@ const ExpenseGroupDetail = () => {
       <div className="expense-group-detail">
         <div className="expense-group-detail__hd">
           <div className="text-align-center text-align-left@large">
+            <div>
+              <FormField
+                aria-label="start date"
+                className="expense-group-detail__date"
+                value={moment(startDate).format('L')}
+              />
+              <span className="margin-left-4 margin-right-4">-</span>
+              <FormField
+                aria-label="end date"
+                className="expense-group-detail__date"
+                value={moment(endDate).format('L')}
+              />
+            </div>
             <FormField
-              className="expense-group-detail__date"
-              value={`${moment(startDate).format('L')} - ${moment(
-                endDate,
-              ).format('L')}`}
-            />
-            <FormField
+              aria-label="expense title"
               className="expense-group-detail__title text-align-center text-align-left@large"
               value={title}
             />
           </div>
           <div className="text-align-center text-align-right@large">
-            <FormField
-              label="Budget Amount"
-              className="expense-group-detail__budget-amount text-align-center text-align-right@large"
-              value={budgetAmount}
+            <Label className="display-block" htmlFor="budget-amount">
+              Budget Amount
+            </Label>
+            <CurrencyInput
+              className="atomikui-formfield__input expense-group-detail__budget-amount"
+              id="budget-amount"
+              name="budgetAmount"
+              defaultValue={budgetAmount}
+              allowDecimals={true}
+              decimalsLimit={2}
+              prefix="$"
+              onChange={(value, name) => {
+                return console.log(value, name);
+              }}
             />
           </div>
           <div className="text-align-center text-align-right@large">

@@ -8309,6 +8309,11 @@ react-calendar@^3.0.1:
     merge-class-names "^1.1.1"
     prop-types "^15.6.0"
 
+react-currency-input-field@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.npmjs.org/react-currency-input-field/-/react-currency-input-field-2.2.0.tgz#c2eefe301881d8688ab4ee9ef0cd6700eb2af827"
+  integrity sha512-KBC+o32SiVf2HO43mz6DytnOQdjMZVKQaUHCi/6flqtdrBROWmPjh/RQEmP56IcIN2WmuMcNI7zjyun1lMmx1w==
+
 react-dom@^16.13.1:
   version "16.13.1"
   resolved "https://registry.npmjs.org/react-dom/-/react-dom-16.13.1.tgz#c1bd37331a0486c078ee54c4740720993b2e0e7f"
