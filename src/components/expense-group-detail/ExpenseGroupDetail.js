@@ -85,6 +85,7 @@ const ExpenseGroupDetail = () => {
           <div className="text-align-center text-align-left@large">
             <div>
               <FormField
+                key={Math.random()}
                 name="startDate"
                 aria-label="start date"
                 className="expense-group-detail__date"
@@ -93,6 +94,7 @@ const ExpenseGroupDetail = () => {
               />
               <span className="margin-left-4 margin-right-4">-</span>
               <FormField
+                key={Math.random()}
                 name="endDate"
                 aria-label="end date"
                 className="expense-group-detail__date"
@@ -101,6 +103,7 @@ const ExpenseGroupDetail = () => {
               />
             </div>
             <FormField
+              key={Math.random()}
               name="title"
               aria-label="expense title"
               className="expense-group-detail__title text-align-center text-align-left@large"
@@ -113,6 +116,7 @@ const ExpenseGroupDetail = () => {
               Budget Amount
             </Label>
             <CurrencyInput
+              key={Math.random()}
               className="expense-group-detail__budget-amount"
               id="budget-amount"
               name="budgetAmount"

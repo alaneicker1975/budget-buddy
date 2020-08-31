@@ -169,6 +169,7 @@ function* deleteExpenseGroup({ payload }) {
   }
 
   yield put(removeExpenseGroup({ groupId }));
+  yield put(setSelectedExpenseGroup({ groupId: null }));
 }
 
 export default function* watchExpenseGroups() {
