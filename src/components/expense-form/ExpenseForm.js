@@ -82,7 +82,7 @@ const ExpenseForm = ({ expenses, isNewExpense, groupId }) => {
                       'expense-form__item__text-input text-weight-bold': !isNewExpense,
                     })}
                     name="expense"
-                    value={isNewExpense ? values.expense : expense}
+                    defaultValue={isNewExpense ? values.expense : expense}
                     {...(!isNewExpense && {
                       placeholder: 'Expense Title',
                       'aria-label': 'expense title',
@@ -100,7 +100,7 @@ const ExpenseForm = ({ expenses, isNewExpense, groupId }) => {
                       ),
                     })}
                     hasError={!!(errors.expense && touched.expense)}
-                    onChange={
+                    onBlur={
                       isNewExpense
                         ? handleChange
                         : (e) => {
@@ -134,9 +134,9 @@ const ExpenseForm = ({ expenses, isNewExpense, groupId }) => {
                         </>
                       ),
                     })}
-                    value={isNewExpense ? values.balance : balance}
+                    defaultValue={isNewExpense ? values.balance : balance}
                     hasError={!!(errors.balance && touched.balance)}
-                    onChange={
+                    onBlur={
                       isNewExpense
                         ? handleChange
                         : (e) => {

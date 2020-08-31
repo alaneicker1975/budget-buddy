@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@alaneicker/atomik-ui@0.17.0":
-  version "0.17.0"
-  resolved "https://registry.npmjs.org/@alaneicker/atomik-ui/-/atomik-ui-0.17.0.tgz#065e2c888131c7e39be56c5c73da78b096f3028c"
-  integrity sha512-CtlSEyAAdZnh2M6y9lbtkYjLZYGzen6oIee2O2tbJCfBNe9/8O4Pw1VtgpoiCY9HVQLadG2AtO1GH90N/23ahA==
+"@alaneicker/atomik-ui@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.npmjs.org/@alaneicker/atomik-ui/-/atomik-ui-1.1.0.tgz#77a20515bc68c54f65b10596909eb4d062a59de4"
+  integrity sha512-EKDTaZNzuXWWTMp7ov5n0c1XeflDPJRnu7GJ6X1r+/rpLdaQ5Bj3TKR+164ifVxpJ+XeFb41gDaElLcfi01YpQ==
   dependencies:
     "@babel/runtime-corejs3" "^7.10.2"
     "@fortawesome/fontawesome-svg-core" "^1.2.28"
@@ -17,7 +17,10 @@
     d3-ease "^1.0.6"
     downshift "^5.0.6"
     focus-trap "^5.1.0"
+    lodash.sample "^4.2.1"
+    lodash.shuffle "^4.2.0"
     moment "^2.25.3"
+    numeral "^2.0.6"
     prop-types "^15.7.2"
     react "^16.13.0"
     react-calendar "^3.0.1"
@@ -6266,6 +6269,16 @@ lodash.once@^4.1.1:
   resolved "https://registry.npmjs.org/lodash.once/-/lodash.once-4.1.1.tgz#0dd3971213c7c56df880977d504c88fb471a97ac"
   integrity sha1-DdOXEhPHxW34gJd9UEyI+0cal6w=
 
+lodash.sample@^4.2.1:
+  version "4.2.1"
+  resolved "https://registry.npmjs.org/lodash.sample/-/lodash.sample-4.2.1.tgz#5e4291b0c753fa1abeb0aab8fb29df1b66f07f6d"
+  integrity sha1-XkKRsMdT+hq+sKq4+ynfG2bwf20=
+
+lodash.shuffle@^4.2.0:
+  version "4.2.0"
+  resolved "https://registry.npmjs.org/lodash.shuffle/-/lodash.shuffle-4.2.0.tgz#145b5053cf875f6f5c2a33f48b6e9948c6ec7b4b"
+  integrity sha1-FFtQU8+HX29cKjP0i26ZSMbse0s=
+
 lodash.sortby@^4.7.0:
   version "4.7.0"
   resolved "https://registry.npmjs.org/lodash.sortby/-/lodash.sortby-4.7.0.tgz#edd14c824e2cc9c1e0b0a1b42bb5210516a42438"
@@ -7009,6 +7022,11 @@ number-is-nan@^1.0.0:
   version "1.0.1"
   resolved "https://registry.npmjs.org/number-is-nan/-/number-is-nan-1.0.1.tgz#097b602b53422a522c1afb8790318336941a011d"
   integrity sha1-CXtgK1NCKlIsGvuHkDGDNpQaAR0=
+
+numeral@^2.0.6:
+  version "2.0.6"
+  resolved "https://registry.npmjs.org/numeral/-/numeral-2.0.6.tgz#4ad080936d443c2561aed9f2197efffe25f4e506"
+  integrity sha1-StCAk21EPCVhrtnyGX7//iX05QY=
 
 nwsapi@^2.1.3, nwsapi@^2.2.0:
   version "2.2.0"

@@ -12,6 +12,7 @@ import schemas from './schemas';
 
   await mongoose.connect(process.env.MONGODB_CONNECTION_STRING, {
     useNewUrlParser: true,
+    useUnifiedTopology: true,
   });
 
   const db = mongoose.connection;

@@ -32,3 +32,8 @@ b,
 strong {
   font-weight: $font-semibold;
 }
+
+input {
+  font-size: inherit;
+  font-family: inherit;
+}

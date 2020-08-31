@@ -88,24 +88,24 @@ const ExpenseGroupDetail = () => {
                 name="startDate"
                 aria-label="start date"
                 className="expense-group-detail__date"
-                value={startDate}
-                onChange={onExpenseGroupUpdate}
+                defaultValue={startDate}
+                onBlur={onExpenseGroupUpdate}
               />
               <span className="margin-left-4 margin-right-4">-</span>
               <FormField
                 name="endDate"
                 aria-label="end date"
                 className="expense-group-detail__date"
-                value={endDate}
-                onChange={onExpenseGroupUpdate}
+                defaultValue={endDate}
+                onBlur={onExpenseGroupUpdate}
               />
             </div>
             <FormField
               name="title"
               aria-label="expense title"
               className="expense-group-detail__title text-align-center text-align-left@large"
-              value={title}
-              onChange={onExpenseGroupUpdate}
+              defaultValue={title}
+              onBlur={onExpenseGroupUpdate}
             />
           </div>
           <div className="text-align-center text-align-right@large">

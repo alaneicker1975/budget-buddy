@@ -15,7 +15,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@alaneicker/atomik-ui": "0.17.0",
+    "@alaneicker/atomik-ui": "^1.1.0",
     "@babel/cli": "^7.10.5",
     "@babel/runtime": "^7.11.2",
     "@fortawesome/fontawesome-svg-core": "^1.2.28",
