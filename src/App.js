@@ -14,11 +14,18 @@ const {
   deleteExpenseGroup,
   hideConfirmDeleteDialog,
   pushMessage,
+  resetMessages,
 } = actionCreators;
 
 const App = () => {
   const dispatch = useDispatch();
   const history = useHistory();
+
+  history.listen(({ pathname }) => {
+    if (pathname !== '/') {
+      dispatch(resetMessages());
+    }
+  });
 
   const {
     app: { messages },
@@ -29,7 +36,7 @@ const App = () => {
   });
 
   useEffect(() => {
-    // TODO: dispatch messages reset here....
+    dispatch(resetMessages());
     dispatch({ type: 'GET_EXPENSE_GROUPS' });
   }, []);
 

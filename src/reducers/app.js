@@ -1,4 +1,9 @@
-import { PUSH_MESSAGE, PULL_MESSAGE, REDIRECT } from '../actions';
+import {
+  PUSH_MESSAGE,
+  PULL_MESSAGE,
+  RESET_MESSAGES,
+  REDIRECT,
+} from '../actions';
 
 const initialState = {
   redirectTo: null,
@@ -10,6 +15,8 @@ const appReducer = (state = initialState, action) => {
     // Redirects to specified route
     case REDIRECT:
       return { ...state, redirectTo: action.payload };
+    case RESET_MESSAGES:
+      return { ...state, messages: [] };
     case PUSH_MESSAGE:
       return { ...state, messages: [...state.messages, action.payload] };
     case PULL_MESSAGE:

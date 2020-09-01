@@ -15,6 +15,7 @@ export const SHOW_CONFIRM_DELETE_DIALOG = 'SHOW_CONFIRM_DELETE_DIALOG';
 export const HIDE_CONFIRM_DELETE_DIALOG = 'HIDE_CONFIRM_DELETE_DIALOG';
 export const PUSH_MESSAGE = 'PUSH_MESSAGE';
 export const PULL_MESSAGE = 'PULL_MESSAGE';
+export const RESET_MESSAGES = 'RESET_MESSAGES';
 
 // Saga action types
 export const GET_EXPENSE_OPTIONS = 'GET_EXPENSE_OPTIONS';
@@ -33,6 +34,7 @@ const actionCreators = {};
   'redirect',
   'pushMessage',
   'pullMesssage',
+  'resetMessages',
   'toggleNewExpenseForm',
   'setRecurringExpenses',
   'setExpenseGroups',
