@@ -1,7 +1,7 @@
 import {
   TOGGLE_NEW_EXPENSE_FORM,
   SET_RECURRING_EXPENSES,
-  RESET_SELECTED_EXPENSE_ID,
+  RESET_SELECTED_EXPENSE_GROUP_ID,
   SET_EXPENSE_GROUPS,
   SET_NEW_EXPENSE,
   UPDATE_EXPENSE_GROUPS,
@@ -14,7 +14,7 @@ import {
 
 const initialState = {
   selectedExpense: null,
-  selectedExpenseId: null,
+  selectedExpenseGroupId: null,
   showNewExpenseForm: false,
   recurringExpenses: [],
   expenseGroups: [],
@@ -31,9 +31,9 @@ const expenseReducer = (state = initialState, action) => {
     // Sets expense options
     case SET_RECURRING_EXPENSES:
       return { ...state, recurringExpenses: action.payload };
-    // Resets the selectedExpenseId
-    case RESET_SELECTED_EXPENSE_ID:
-      return { ...state, selectedExpenseId: null };
+    // Resets the selectedExpenseGroupId
+    case RESET_SELECTED_EXPENSE_GROUP_ID:
+      return { ...state, selectedExpenseGroupId: null };
     // Sets expense groups
     case SET_EXPENSE_GROUPS:
       return { ...state, expenseGroups: action.payload };
@@ -87,7 +87,7 @@ const expenseReducer = (state = initialState, action) => {
     case SET_SELECTED_EXPENSE_GROUP:
       return {
         ...state,
-        selectedExpenseId: action.payload.groupId,
+        selectedExpenseGroupId: action.payload.groupId,
         selectedExpense: state.expenseGroups.find((expense) => {
           return expense._id === action.payload.groupId;
         }),

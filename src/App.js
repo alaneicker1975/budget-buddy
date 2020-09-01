@@ -11,7 +11,7 @@ import actionCreators from './actions';
 
 const {
   getExpenseGroups,
-  resetSelectedExpenseId,
+  resetSelectedExpenseGroupId,
   deleteExpense,
   deleteExpenseGroup,
   hideConfirmDeleteDialog,
@@ -27,12 +27,12 @@ const App = () => {
     if (pathname !== '/') {
       dispatch(resetMessages());
     } else {
-      dispatch(resetSelectedExpenseId({ selectedExpenseId: null }));
+      dispatch(resetSelectedExpenseGroupId({ selectedExpenseGroupId: null }));
     }
   });
 
   const {
-    expenses: { expenseGroups, selectedExpenseId },
+    expenses: { expenseGroups, selectedExpenseGroupId },
     messaging: { messages },
     actionConfirmDialog: { confirmType, showConfirmDialog, confirmOptions },
   } = useSelector((state) => {
@@ -40,7 +40,7 @@ const App = () => {
   });
 
   useEffect(() => {
-    dispatch(resetSelectedExpenseId({ selectedExpenseId: null }));
+    dispatch(resetSelectedExpenseGroupId({ selectedExpenseGroupId: null }));
     dispatch(resetMessages());
     dispatch(getExpenseGroups());
   }, []);
@@ -52,7 +52,10 @@ const App = () => {
       </div>
       <div className="layout__main">
         <div className="layout__sidebar">
-          <SideNav data={expenseGroups} selectedExpenseId={selectedExpenseId} />
+          <SideNav
+            data={expenseGroups}
+            selectedExpenseGroupId={selectedExpenseGroupId}
+          />
         </div>
         <div className="layout__content">
           {messages.map(({ id, type, message }, i) => {
