@@ -13,6 +13,8 @@ export const REMOVE_EXPENSE_FROM_EXPENSE_GROUP =
 export const REMOVE_EXPENSE_GROUP = 'REMOVE_EXPENSE_GROUP';
 export const SHOW_CONFIRM_DELETE_DIALOG = 'SHOW_CONFIRM_DELETE_DIALOG';
 export const HIDE_CONFIRM_DELETE_DIALOG = 'HIDE_CONFIRM_DELETE_DIALOG';
+export const PUSH_MESSAGE = 'PUSH_MESSAGE';
+export const PULL_MESSAGE = 'PULL_MESSAGE';
 
 // Saga action types
 export const GET_EXPENSE_OPTIONS = 'GET_EXPENSE_OPTIONS';
@@ -29,6 +31,8 @@ const actionCreators = {};
 [
   // Reducer actions
   'redirect',
+  'pushMessage',
+  'pullMesssage',
   'toggleNewExpenseForm',
   'setRecurringExpenses',
   'setExpenseGroups',

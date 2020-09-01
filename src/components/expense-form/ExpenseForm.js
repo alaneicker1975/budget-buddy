@@ -156,11 +156,12 @@ const ExpenseForm = ({ expenses, isNewExpense, groupId }) => {
                     onClick={() => {
                       return dispatch(
                         showConfirmDeleteDialog({
-                          actionType: 'deleteExpense',
-                          isActive: true,
-                          expenseId: _id,
-                          content: expense,
-                          groupId,
+                          confirmType: 'deleteExpense',
+                          confirmOptions: {
+                            groupId,
+                            expenseId: _id,
+                            content: expense,
+                          },
                         }),
                       );
                     }}

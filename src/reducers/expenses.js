@@ -84,9 +84,9 @@ const expenseReducer = (state = initialState, action) => {
       return {
         ...state,
         selectedExpenseId: action.payload.groupId,
-        selectedExpense: state.expenseGroups.filter((expense) => {
+        selectedExpense: state.expenseGroups.find((expense) => {
           return expense._id === action.payload.groupId;
-        })[0],
+        }),
       };
     // Updates expenseGroups array with new expense object
     case SET_NEW_EXPENSE_GROUP:

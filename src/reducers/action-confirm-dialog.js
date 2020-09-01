@@ -4,21 +4,23 @@ import {
 } from '../actions';
 
 const initialState = {
-  actionType: '',
-  isActive: false,
-  expenseId: null,
-  groupId: null,
-  content: null,
+  confirmType: '',
+  showConfirmDialog: false,
+  confirmOptions: {},
 };
 
 const confirmDeleteDialogReducer = (state = initialState, action) => {
   switch (action.type) {
     case SHOW_CONFIRM_DELETE_DIALOG:
-      return { ...state, content: '', ...action.payload };
+      return {
+        ...state,
+        showConfirmDialog: true,
+        ...action.payload,
+      };
     case HIDE_CONFIRM_DELETE_DIALOG:
       return {
         ...state,
-        isActive: false,
+        showConfirmDialog: false,
         groupId: null,
         expenseId: null,
       };

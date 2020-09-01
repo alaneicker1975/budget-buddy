@@ -1,9 +1,9 @@
 import expenseReducer from './expenses';
 import appReducer from './app';
-import confirmDeleteDialogReducer from './confirm-delete-dialog';
+import actionConfirmDialogReducer from './action-confirm-dialog';
 
 const allReducers = {
-  confirmDeleteDialog: confirmDeleteDialogReducer,
+  actionConfirmDialog: actionConfirmDialogReducer,
   expenses: expenseReducer,
   app: appReducer,
 };

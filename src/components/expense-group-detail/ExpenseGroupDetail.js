@@ -136,10 +136,11 @@ const ExpenseGroupDetail = () => {
               onClick={() => {
                 return dispatch(
                   showConfirmDeleteDialog({
-                    actionType: 'deleteGroup',
-                    isActive: true,
-                    content: title,
-                    groupId: id,
+                    confirmType: 'deleteGroup',
+                    confirmOptions: {
+                      content: title,
+                      groupId: id,
+                    },
                   }),
                 );
               }}
