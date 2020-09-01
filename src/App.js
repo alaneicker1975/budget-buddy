@@ -40,7 +40,6 @@ const App = () => {
   });
 
   useEffect(() => {
-    dispatch(resetSelectedExpenseGroupId({ selectedExpenseGroupId: null }));
     dispatch(resetMessages());
     dispatch(getExpenseGroups());
   }, []);
