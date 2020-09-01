@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { Card, Statistic } from '@alaneicker/atomik-ui';
+import { Card, Statistic, Button } from '@alaneicker/atomik-ui';
 import renderChart from '../../utilities/chart';
 import {
   calculateTotalBalance,
@@ -19,7 +19,7 @@ const ExpenseGroupsOverview = () => {
   return expenseGroups ? (
     <>
       <h1 className="margin-bottom-24 text-weight-semibold text-size-30">
-        Expense Groups at a Glance
+        Expenses at a Glance
       </h1>
       <div className="margin-bottom-28">
         <hr />
@@ -32,11 +32,7 @@ const ExpenseGroupsOverview = () => {
           const remainingBalance = budgetAmount - totalBalance;
 
           return (
-            <Link
-              to={`/expense-group/${_id}`}
-              key={`item-${i}`}
-              className="expenses-overview__item"
-            >
+            <div key={`item-${i}`} className="expenses-overview__item">
               <Card
                 title={
                   <div className="expenses-overview__hd">
@@ -75,8 +71,16 @@ const ExpenseGroupsOverview = () => {
                     />
                   </div>
                 </div>
+                <Link
+                  to={`/expense-group/${_id}`}
+                  className="atomikui-btn atomikui-btn--primary atomikui-btn--block"
+                  theme="primary"
+                  block
+                >
+                  view the Group
+                </Link>
               </Card>
-            </Link>
+            </div>
           );
         })}
       </div>
