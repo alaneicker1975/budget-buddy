@@ -11,6 +11,7 @@ import actionCreators from './actions';
 
 const {
   getExpenseGroups,
+  resetSelectedExpenseId,
   deleteExpense,
   deleteExpenseGroup,
   hideConfirmDeleteDialog,
@@ -25,6 +26,8 @@ const App = () => {
   history.listen(({ pathname }) => {
     if (pathname !== '/') {
       dispatch(resetMessages());
+    } else {
+      dispatch(resetSelectedExpenseId({ selectedExpenseId: null }));
     }
   });
 
@@ -37,6 +40,7 @@ const App = () => {
   });
 
   useEffect(() => {
+    dispatch(resetSelectedExpenseId({ selectedExpenseId: null }));
     dispatch(resetMessages());
     dispatch(getExpenseGroups());
   }, []);

@@ -1,6 +1,7 @@
 import {
   TOGGLE_NEW_EXPENSE_FORM,
   SET_RECURRING_EXPENSES,
+  RESET_SELECTED_EXPENSE_ID,
   SET_EXPENSE_GROUPS,
   SET_NEW_EXPENSE,
   UPDATE_EXPENSE_GROUPS,
@@ -30,6 +31,9 @@ const expenseReducer = (state = initialState, action) => {
     // Sets expense options
     case SET_RECURRING_EXPENSES:
       return { ...state, recurringExpenses: action.payload };
+    // Resets the selectedExpenseId
+    case RESET_SELECTED_EXPENSE_ID:
+      return { ...state, selectedExpenseId: null };
     // Sets expense groups
     case SET_EXPENSE_GROUPS:
       return { ...state, expenseGroups: action.payload };
