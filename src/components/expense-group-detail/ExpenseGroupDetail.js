@@ -7,6 +7,10 @@ import ExpenseForm from '../expense-form';
 import EndOfMonthSummary from '../end-of-month-summary';
 import actionCreators from '../../actions';
 import renderChart from '../../utilities/chart';
+import {
+  calculateTotalBalance,
+  calculateUnpaidBalance,
+} from '../../utilities/expense-balances';
 
 const {
   redirect,
@@ -59,14 +63,8 @@ const ExpenseGroupDetail = () => {
       endDate,
     } = selectedExpense;
 
-    const totalBalance = expenses.reduce((a, b) => {
-      return a + +b.balance;
-    }, 0);
-
-    const unpaidBalance = expenses.reduce((a, b) => {
-      return !b.isPaid ? a + +b.balance : a;
-    }, 0);
-
+    const totalBalance = calculateTotalBalance(expenses);
+    const unpaidBalance = calculateUnpaidBalance(expenses);
     const remainingBalance = budgetAmount - totalBalance;
 
     return (
