@@ -43,8 +43,9 @@ const ExpenseForm = ({ expenses, isNewExpense, groupId }) => {
   const { handleSubmit, handleChange, values, errors, touched } = useFormik({
     initialValues,
     validationSchema,
-    onSubmit: () => {
-      return dispatch({ type: 'INSERT_NEW_EXPENSE', data: { ...values } });
+    onSubmit: (formData, { resetForm }) => {
+      dispatch({ type: 'INSERT_NEW_EXPENSE', data: { ...formData } });
+      return resetForm();
     },
   });
 
