@@ -116,7 +116,6 @@ const ExpenseGroupDetail = () => {
               Budget Amount
             </Label>
             <CurrencyInput
-              key={Math.random()}
               className="expense-group-detail__budget-amount"
               id="budget-amount"
               name="budgetAmount"
