@@ -29,8 +29,8 @@ const App = () => {
   });
 
   const {
-    app: { messages },
     expenses: { expenseGroups, selectedExpenseId },
+    messaging: { messages },
     actionConfirmDialog: { confirmType, showConfirmDialog, confirmOptions },
   } = useSelector((state) => {
     return state;
