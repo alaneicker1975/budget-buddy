@@ -1,12 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import Chart from 'react-apexcharts';
 import CurrencyInput from 'react-currency-input-field';
 import { Button, FormField, Label } from '@alaneicker/atomik-ui';
 import ExpenseForm from '../expense-form';
 import EndOfMonthSummary from '../end-of-month-summary';
 import actionCreators from '../../actions';
+import renderChart from '../../utilities/chart';
 
 const {
   redirect,
@@ -68,16 +68,6 @@ const ExpenseGroupDetail = () => {
     }, 0);
 
     const remainingBalance = budgetAmount - totalBalance;
-
-    const chartOptions = {
-      labels: expenses.map(({ expense }) => {
-        return expense === '' ? 0 : expense;
-      }),
-    };
-
-    const chartSeries = expenses.map(({ balance }) => {
-      return +balance;
-    });
 
     return (
       <div className="expense-group-detail">
@@ -198,13 +188,7 @@ const ExpenseGroupDetail = () => {
                 </span>
               </div>
               <hr />
-              <div>
-                <Chart
-                  type="donut"
-                  options={chartOptions}
-                  series={chartSeries}
-                />
-              </div>
+              <div>{renderChart(expenses)}</div>
             </div>
 
             <h4 className="margin-top-16 margin-bottom-8 text-weight-semibold">

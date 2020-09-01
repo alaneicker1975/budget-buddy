@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { Route, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { Alert } from '@alaneicker/atomik-ui';
+import ExpenseGroupsOverview from './components/expense-groups-overview';
 import ExpenseGroupDetail from './components/expense-group-detail';
 import SideNav from './components/side-nav';
 import Header from './components/header';
@@ -69,6 +70,7 @@ const App = () => {
               </Alert>
             );
           })}
+          <Route path="/" exact component={ExpenseGroupsOverview} />
           <Route path="/new-expense-group" component={NewExpenseGroup} />
           <Route path="/expense-group/:id" component={ExpenseGroupDetail} />
         </div>

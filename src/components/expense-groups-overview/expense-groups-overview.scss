@@ -1,0 +1,16 @@
+.expenses-overview {
+  display: flex;
+  flex-wrap: wrap;
+
+  &__item {
+    padding: rem(0 0 20);
+    flex: 1;
+  }
+
+  @media (min-width: $breakpoint-medium) {
+    &__item {
+      flex: 50% 0 0;
+      padding: rem(10);
+    }
+  }
+}

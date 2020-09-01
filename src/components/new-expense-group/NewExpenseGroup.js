@@ -102,7 +102,6 @@ const NewExpenseGroup = () => {
       <h1 className="margin-bottom-24 text-weight-semibold text-size-30">
         New Expense Group
       </h1>
-
       <div className="margin-bottom-28">
         <hr />
       </div>
