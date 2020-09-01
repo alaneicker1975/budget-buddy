@@ -10,6 +10,7 @@ import ConfirmDelete from './components/confirm-delete';
 import actionCreators from './actions';
 
 const {
+  getExpenseGroups,
   deleteExpense,
   deleteExpenseGroup,
   hideConfirmDeleteDialog,
@@ -37,7 +38,7 @@ const App = () => {
 
   useEffect(() => {
     dispatch(resetMessages());
-    dispatch({ type: 'GET_EXPENSE_GROUPS' });
+    dispatch(getExpenseGroups());
   }, []);
 
   return (

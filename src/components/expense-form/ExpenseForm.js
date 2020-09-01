@@ -18,6 +18,7 @@ const {
   toggleNewExpenseForm,
   showConfirmDeleteDialog,
   updateExpenseGroup,
+  insertNewExpense,
 } = actionCreators;
 
 const ExpenseForm = ({ expenses, isNewExpense, groupId }) => {
@@ -44,7 +45,7 @@ const ExpenseForm = ({ expenses, isNewExpense, groupId }) => {
     initialValues,
     validationSchema,
     onSubmit: (formData, { resetForm }) => {
-      dispatch({ type: 'INSERT_NEW_EXPENSE', data: { ...formData } });
+      dispatch(insertNewExpense({ ...formData }));
       return resetForm();
     },
   });

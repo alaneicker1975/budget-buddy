@@ -49,8 +49,11 @@ const actionCreators = {};
   'showConfirmDeleteDialog',
   'hideConfirmDeleteDialog',
   // Saga watcher actions
+  'getExpenseGroups',
   'deleteExpense',
   'updateExpenseGroup',
+  'insertNewExpenseGroup',
+  'insertNewExpense',
 ].forEach((action) => {
   // converts the function name to the corresponding action type
   const actionType = action.replace(/([a-z])([A-Z])/g, '$1_$2').toUpperCase();

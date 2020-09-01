@@ -15,7 +15,7 @@ import {
 } from '@alaneicker/atomik-ui';
 import actionCreators from '../../actions';
 
-const { setSelectedExpenseGroup } = actionCreators;
+const { setSelectedExpenseGroup, insertNewExpenseGroup } = actionCreators;
 
 const NewExpenseGroup = () => {
   const dispatch = useDispatch();
@@ -47,10 +47,7 @@ const NewExpenseGroup = () => {
     initialValues,
     validationSchema,
     onSubmit: () => {
-      return dispatch({
-        type: 'INSERT_NEW_EXPENSE_GROUP',
-        data: { ...values },
-      });
+      return dispatch(insertNewExpenseGroup({ ...values }));
     },
   });
 

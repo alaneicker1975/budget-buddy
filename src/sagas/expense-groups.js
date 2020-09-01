@@ -1,7 +1,11 @@
 import { takeLatest, put, call } from 'redux-saga/effects';
 import actionCreators, {
+  GET_EXPENSE_GROUPS,
   DELETE_EXPENSE,
   DELETE_EXPENSE_GROUP,
+  UPDATE_EXPENSE_GROUP,
+  INSERT_NEW_EXPENSE,
+  INSERT_NEW_EXPENSE_GROUP,
 } from '../actions';
 
 const {
@@ -37,7 +41,7 @@ function* fetchExpenseGroups() {
   }
 }
 
-function* postNewExpenseGroup({ data }) {
+function* insertNewExpenseGroup({ payload }) {
   try {
     const response = yield call(
       fetch,
@@ -45,7 +49,7 @@ function* postNewExpenseGroup({ data }) {
       {
         method: 'POST',
         headers: { 'Content-type': 'application/json; charset=UTF-8' },
-        body: JSON.stringify(data),
+        body: JSON.stringify(payload),
       },
     );
 
@@ -92,9 +96,9 @@ function* updateExpenseGroup({ payload }) {
   }
 }
 
-function* postNewExpense({ data }) {
+function* insertNewExpense({ payload }) {
   try {
-    const { groupId, ...body } = data;
+    const { groupId, ...body } = payload;
 
     const response = yield call(
       fetch,
@@ -173,10 +177,10 @@ function* deleteExpenseGroup({ payload }) {
 }
 
 export default function* watchExpenseGroups() {
-  yield takeLatest('GET_EXPENSE_GROUPS', fetchExpenseGroups);
-  yield takeLatest('INSERT_NEW_EXPENSE', postNewExpense);
-  yield takeLatest('INSERT_NEW_EXPENSE_GROUP', postNewExpenseGroup);
-  yield takeLatest('UPDATE_EXPENSE_GROUP', updateExpenseGroup);
+  yield takeLatest(GET_EXPENSE_GROUPS, fetchExpenseGroups);
+  yield takeLatest(INSERT_NEW_EXPENSE, insertNewExpense);
+  yield takeLatest(INSERT_NEW_EXPENSE_GROUP, insertNewExpenseGroup);
+  yield takeLatest(UPDATE_EXPENSE_GROUP, updateExpenseGroup);
   yield takeLatest(DELETE_EXPENSE, deleteExpense);
   yield takeLatest(DELETE_EXPENSE_GROUP, deleteExpenseGroup);
 }
