@@ -18,12 +18,6 @@ const ExpenseGroupsOverview = () => {
 
   return expenseGroups ? (
     <>
-      <h1 className="margin-bottom-24 text-weight-semibold text-size-30">
-        Expenses at a Glance
-      </h1>
-      <div className="margin-bottom-28">
-        <hr />
-      </div>
       <div className="expenses-overview">
         {expenseGroups.map(({ _id, title, expenses, budgetAmount }, i) => {
           const totalBalance = calculateTotalBalance(expenses);
