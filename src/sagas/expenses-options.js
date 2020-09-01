@@ -1,9 +1,9 @@
 import { takeLatest, put, call } from 'redux-saga/effects';
-import actionCreators from '../actions';
+import actionCreators, { GET_EXPENSE_OPTIONS } from '../actions';
 
 const { setRecurringExpenses } = actionCreators;
 
-function* fetchExpenses() {
+function* getExpenses() {
   try {
     const response = yield call(
       fetch,
@@ -22,5 +22,5 @@ function* fetchExpenses() {
   }
 }
 export default function* watchExpenses() {
-  yield takeLatest('GET_EXPENSE_OPTIONS', fetchExpenses);
+  yield takeLatest(GET_EXPENSE_OPTIONS, getExpenses);
 }

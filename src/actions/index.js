@@ -50,6 +50,7 @@ const actionCreators = {};
   'hideConfirmDeleteDialog',
   // Saga watcher actions
   'getExpenseGroups',
+  'getExpenseOptions',
   'deleteExpense',
   'updateExpenseGroup',
   'insertNewExpenseGroup',

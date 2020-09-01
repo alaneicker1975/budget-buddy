@@ -21,7 +21,7 @@ const {
   updateSelectedExpenseGroup,
 } = actionCreators;
 
-function* fetchExpenseGroups() {
+function* getExpenseGroups() {
   try {
     const response = yield call(
       fetch,
@@ -177,7 +177,7 @@ function* deleteExpenseGroup({ payload }) {
 }
 
 export default function* watchExpenseGroups() {
-  yield takeLatest(GET_EXPENSE_GROUPS, fetchExpenseGroups);
+  yield takeLatest(GET_EXPENSE_GROUPS, getExpenseGroups);
   yield takeLatest(INSERT_NEW_EXPENSE, insertNewExpense);
   yield takeLatest(INSERT_NEW_EXPENSE_GROUP, insertNewExpenseGroup);
   yield takeLatest(UPDATE_EXPENSE_GROUP, updateExpenseGroup);
