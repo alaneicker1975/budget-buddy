@@ -28,10 +28,10 @@ const ExpenseGroupsOverview = () => {
               <Card
                 title={
                   <div className="expenses-overview__hd">
-                    {title}
+                    <span>{title}</span>
                     <span className="text-size-16 text-weight-normal">
                       <Badge theme="dark-blue">
-                        <span className="text-weight-bold">
+                        <span className="text-size-16">
                           Budget{' '}
                           {`$${budgetAmount.toLocaleString('en', {
                             minimumFractionDigits: 2,
