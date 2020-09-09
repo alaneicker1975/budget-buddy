@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { Card, Statistic, Button } from '@alaneicker/atomik-ui';
+import { Card, Statistic, Badge } from '@alaneicker/atomik-ui';
 import renderChart from '../../utilities/chart';
 import {
   calculateTotalBalance,
@@ -20,10 +20,8 @@ const ExpenseGroupsOverview = () => {
     <>
       <div className="expenses-overview">
         {expenseGroups.map(({ _id, title, expenses, budgetAmount }, i) => {
-          const totalBalance = calculateTotalBalance(expenses);
           const unpaidBalance = calculateUnpaidBalance(expenses);
           const paidBalance = calculatePaidBalance(expenses);
-          const remainingBalance = budgetAmount - totalBalance;
 
           return (
             <div key={`item-${i}`} className="expenses-overview__item">
@@ -31,11 +29,15 @@ const ExpenseGroupsOverview = () => {
                 title={
                   <div className="expenses-overview__hd">
                     {title}
-                    <span className="text-size-16">
-                      Total Balance $
-                      {remainingBalance.toLocaleString('en', {
-                        minimumFractionDigits: 2,
-                      })}
+                    <span className="text-size-16 text-weight-normal">
+                      <Badge theme="dark-blue">
+                        <span className="text-weight-bold">
+                          Budget{' '}
+                          {`$${budgetAmount.toLocaleString('en', {
+                            minimumFractionDigits: 2,
+                          })}`}
+                        </span>
+                      </Badge>
                     </span>
                   </div>
                 }
@@ -68,8 +70,6 @@ const ExpenseGroupsOverview = () => {
                 <Link
                   to={`/expense-group/${_id}`}
                   className="atomikui-btn atomikui-btn--primary atomikui-btn--block"
-                  theme="primary"
-                  block
                 >
                   view the Group
                 </Link>
