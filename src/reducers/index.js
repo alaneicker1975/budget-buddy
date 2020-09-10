@@ -1,7 +1,7 @@
-import expenseReducer from './expenses';
-import appReducer from './app';
-import messageReducer from './messaging';
-import actionConfirmDialogReducer from './action-confirm-dialog';
+import expenseReducer from './expensesReducer';
+import appReducer from './appReducer';
+import messageReducer from './messagingReducer';
+import actionConfirmDialogReducer from './actionConfirmDialogReducer';
 
 const allReducers = {
   actionConfirmDialog: actionConfirmDialogReducer,

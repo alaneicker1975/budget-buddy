@@ -4,7 +4,6 @@ import { useSelector } from 'react-redux';
 import { Card, Statistic, Badge } from '@alaneicker/atomik-ui';
 import renderChart from '../../utilities/chart';
 import {
-  calculateTotalBalance,
   calculateUnpaidBalance,
   calculatePaidBalance,
 } from '../../utilities/expense-balances';

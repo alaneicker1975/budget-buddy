@@ -1,7 +1,7 @@
 import { all } from 'redux-saga/effects';
-import watchExpenseGroups from './expense-groups';
-import watchExpensesOptions from './expenses-options';
+import expenseGroupsSaga from './expenseGroupsSaga';
+import expenseOptionsSaga from './expenseOptionsSaga';
 
 export default function* rootSaga() {
-  yield all([watchExpenseGroups(), watchExpensesOptions()]);
+  yield all([expenseGroupsSaga(), expenseOptionsSaga()]);
 }

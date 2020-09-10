@@ -176,7 +176,7 @@ function* deleteExpenseGroup({ payload }) {
   yield put(setSelectedExpenseGroup({ groupId: null }));
 }
 
-export default function* watchExpenseGroups() {
+export default function* expenseGroupsSaga() {
   yield takeLatest(GET_EXPENSE_GROUPS, getExpenseGroups);
   yield takeLatest(INSERT_NEW_EXPENSE, insertNewExpense);
   yield takeLatest(INSERT_NEW_EXPENSE_GROUP, insertNewExpenseGroup);

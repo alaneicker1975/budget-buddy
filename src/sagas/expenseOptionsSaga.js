@@ -21,6 +21,6 @@ function* getExpenses() {
     console.error(err);
   }
 }
-export default function* watchExpenses() {
+export default function* expenseOptionsSaga() {
   yield takeLatest(GET_EXPENSE_OPTIONS, getExpenses);
 }
