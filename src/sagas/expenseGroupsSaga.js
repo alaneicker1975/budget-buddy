@@ -146,7 +146,6 @@ function* deleteExpense({ payload }) {
     }
 
     yield put(removeExpenseFromExpenseGroup({ groupId, expenseId }));
-
     yield put(setSelectedExpenseGroup({ groupId }));
   } catch (err) {
     console.error(err);

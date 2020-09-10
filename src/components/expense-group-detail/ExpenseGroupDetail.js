@@ -6,7 +6,7 @@ import { Button, FormField, Label } from '@alaneicker/atomik-ui';
 import ExpenseForm from '../expense-form';
 import EndOfMonthSummary from '../end-of-month-summary';
 import actionCreators from '../../actions';
-import renderChart from '../../utilities/chart';
+import chart from '../../utilities/chart';
 import {
   calculateTotalBalance,
   calculateUnpaidBalance,
@@ -73,7 +73,6 @@ const ExpenseGroupDetail = () => {
           <div className="text-align-center text-align-left@large">
             <div>
               <FormField
-                key={Math.random()}
                 name="startDate"
                 aria-label="start date"
                 className="expense-group-detail__date"
@@ -82,7 +81,6 @@ const ExpenseGroupDetail = () => {
               />
               <span className="margin-left-4 margin-right-4">-</span>
               <FormField
-                key={Math.random()}
                 name="endDate"
                 aria-label="end date"
                 className="expense-group-detail__date"
@@ -91,7 +89,6 @@ const ExpenseGroupDetail = () => {
               />
             </div>
             <FormField
-              key={Math.random()}
               name="title"
               aria-label="expense title"
               className="expense-group-detail__title text-align-center text-align-left@large"
@@ -186,7 +183,7 @@ const ExpenseGroupDetail = () => {
                 </span>
               </div>
               <hr />
-              <div>{renderChart(expenses)}</div>
+              <div>{chart(expenses)}</div>
             </div>
 
             <h4 className="margin-top-16 margin-bottom-8 text-weight-semibold">

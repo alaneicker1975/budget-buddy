@@ -1,7 +1,7 @@
 import React from 'react';
 import Chart from 'react-apexcharts';
 
-const renderChart = (expenses) => {
+const chart = (expenses) => {
   const chartOptions = {
     labels: expenses.map(({ expense }) => {
       return expense === '' ? 0 : expense;
@@ -15,4 +15,4 @@ const renderChart = (expenses) => {
   return <Chart type="donut" options={chartOptions} series={chartSeries} />;
 };
 
-export default renderChart;
+export default chart;

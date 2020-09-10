@@ -125,10 +125,11 @@ import schemas from './schemas';
       const { groupId, expenseId } = req.params;
 
       if (expenseId) {
-        await ExpenseGroup.update(
-          {},
-          { $pull: { expenses: { _id: expenseId } } },
-        );
+        const expenseGroup = await ExpenseGroup.findById(groupId);
+        expenseGroup.expenses = expenseGroup.expenses.filter((expense) => {
+          return String(expense._id) !== expenseId;
+        });
+        await expenseGroup.save();
       } else {
         await ExpenseGroup.findOneAndDelete({
           _id: groupId,

@@ -80,7 +80,6 @@ const ExpenseForm = ({ expenses, isNewExpense, groupId }) => {
               <div className="expense-form__item__info-fields">
                 <div className="expense-form__item__expense-field">
                   <FormField
-                    key={Math.random()}
                     className={classnames({
                       'expense-form__item__text-input text-weight-bold': !isNewExpense,
                     })}
@@ -115,7 +114,6 @@ const ExpenseForm = ({ expenses, isNewExpense, groupId }) => {
                 <div className="expense-form__item__balance-field">
                   {!isNewExpense && '$'}
                   <FormField
-                    key={Math.random()}
                     className={classnames({
                       'expense-form__item__text-input': !isNewExpense,
                     })}

@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { Card, Statistic, Badge } from '@alaneicker/atomik-ui';
-import renderChart from '../../utilities/chart';
+import chart from '../../utilities/chart';
 import {
   calculateUnpaidBalance,
   calculatePaidBalance,
@@ -41,7 +41,7 @@ const ExpenseGroupsOverview = () => {
                   </div>
                 }
               >
-                {renderChart(expenses)}
+                {chart(expenses)}
                 <div className="expenses-overview__balances">
                   <div>
                     <Statistic

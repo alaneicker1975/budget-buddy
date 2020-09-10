@@ -1,12 +1,12 @@
 import expenseReducer from './expensesReducer';
 import appReducer from './appReducer';
-import messageReducer from './messagingReducer';
-import actionConfirmDialogReducer from './actionConfirmDialogReducer';
+import messageReducer from './messageReducer';
+import confirmDialogReducer from './confirmDeleteDialogReducer';
 
 const allReducers = {
-  actionConfirmDialog: actionConfirmDialogReducer,
+  confirmDeleteDialog: confirmDialogReducer,
   expenses: expenseReducer,
-  messaging: messageReducer,
+  messages: messageReducer,
   app: appReducer,
 };
 
