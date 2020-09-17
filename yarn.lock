@@ -2,18 +2,19 @@
 # yarn lockfile v1
 
 
-"@alaneicker/atomik-ui@^1.1.0":
-  version "1.1.0"
-  resolved "https://registry.npmjs.org/@alaneicker/atomik-ui/-/atomik-ui-1.1.0.tgz#77a20515bc68c54f65b10596909eb4d062a59de4"
-  integrity sha512-EKDTaZNzuXWWTMp7ov5n0c1XeflDPJRnu7GJ6X1r+/rpLdaQ5Bj3TKR+164ifVxpJ+XeFb41gDaElLcfi01YpQ==
+"@alaneicker/atomik-ui@^1.6.2":
+  version "1.6.2"
+  resolved "https://registry.npmjs.org/@alaneicker/atomik-ui/-/atomik-ui-1.6.2.tgz#1d68fb27868bbd85f9c64ebffb4a09f955fe8a67"
+  integrity sha512-qnN7WIeMNYxaZaa7QFwnZ/t/ENbSwBB5p/7CF9BfLOc1oNJOVE2HzXs5KYgTo297tDfWlYLW7u76KTNRLYbZ7A==
   dependencies:
-    "@babel/runtime-corejs3" "^7.10.2"
+    "@babel/runtime-corejs3" "^7.11.2"
     "@fortawesome/fontawesome-svg-core" "^1.2.28"
     "@fortawesome/free-solid-svg-icons" "^5.13.0"
     "@fortawesome/react-fontawesome" "^0.1.9"
     card-validator "^6.2.0"
     classnames "^2.2.6"
-    core-js "^3.0.0"
+    core-js "^3.6.5"
+    country-flag-icons "^1.2.3"
     d3-ease "^1.0.6"
     downshift "^5.0.6"
     focus-trap "^5.1.0"
@@ -22,11 +23,10 @@
     moment "^2.25.3"
     numeral "^2.0.6"
     prop-types "^15.7.2"
-    react "^16.13.0"
     react-calendar "^3.0.1"
-    react-dom "^16.13.1"
     react-flexbox-grid "^2.1.2"
     react-masked-field "^2.0.3"
+    react-merge-refs "^1.1.0"
     react-spring "^8.0.27"
     shortid "^2.2.15"
 
@@ -985,7 +985,7 @@
     pirates "^4.0.0"
     source-map-support "^0.5.16"
 
-"@babel/runtime-corejs3@^7.10.2":
+"@babel/runtime-corejs3@^7.11.2":
   version "7.11.2"
   resolved "https://registry.npmjs.org/@babel/runtime-corejs3/-/runtime-corejs3-7.11.2.tgz#02c3029743150188edeb66541195f54600278419"
   integrity sha512-qh5IR+8VgFz83VBa6OkaET6uN/mJOhHONuy3m1sgF0CV6mXdPSEBdA7e1eUbVvyNtANjMbg22JUv71BaDXLY6A==
@@ -993,7 +993,7 @@
     core-js-pure "^3.0.0"
     regenerator-runtime "^0.13.4"
 
-"@babel/runtime@^7.1.2", "@babel/runtime@^7.10.2", "@babel/runtime@^7.10.5", "@babel/runtime@^7.11.2", "@babel/runtime@^7.3.1", "@babel/runtime@^7.4.4", "@babel/runtime@^7.5.5", "@babel/runtime@^7.6.3", "@babel/runtime@^7.8.4":
+"@babel/runtime@^7.1.2", "@babel/runtime@^7.10.2", "@babel/runtime@^7.10.5", "@babel/runtime@^7.3.1", "@babel/runtime@^7.4.4", "@babel/runtime@^7.5.5", "@babel/runtime@^7.6.3", "@babel/runtime@^7.8.4":
   version "7.11.2"
   resolved "https://registry.npmjs.org/@babel/runtime/-/runtime-7.11.2.tgz#f549c13c754cc40b87644b9fa9f09a6a95fe0736"
   integrity sha512-TeWkU52so0mPtDcaCTxNBI/IHiz0pZgr8VEFqXFtZWpYD08ZB6FaSwVAS8MKRQAP3bYKiVjwysOJgMFY28o6Tw==
@@ -2896,15 +2896,15 @@ core-js-pure@^3.0.0:
   resolved "https://registry.npmjs.org/core-js-pure/-/core-js-pure-3.6.5.tgz#c79e75f5e38dbc85a662d91eea52b8256d53b813"
   integrity sha512-lacdXOimsiD0QyNf9BC/mxivNJ/ybBGJXQFKzRekp1WTHoVUWsUHEn+2T8GJAzzIhyOuXA+gOxCVN3l+5PLPUA==
 
+core-js@3.6.5, core-js@^3.2.1, core-js@^3.6.5:
+  version "3.6.5"
+  resolved "https://registry.npmjs.org/core-js/-/core-js-3.6.5.tgz#7395dc273af37fb2e50e9bd3d9fe841285231d1a"
+  integrity sha512-vZVEEwZoIsI+vPEuoF9Iqf5H7/M3eeQqWlQnYa8FSKKePuYTf5MWnxb5SDAzCa60b3JBRS5g9b+Dq7b1y/RCrA==
+
 core-js@^2.4.0, core-js@^2.6.5:
   version "2.6.11"
   resolved "https://registry.npmjs.org/core-js/-/core-js-2.6.11.tgz#38831469f9922bded8ee21c9dc46985e0399308c"
   integrity sha512-5wjnpaT/3dV+XB4borEsnAYQchn00XSgTAWKDkEqv+K8KevjbzmofK6hfJ9TZIlpj2N0xQpazy7PiRQiWHqzWg==
-
-core-js@^3.0.0, core-js@^3.2.1, core-js@^3.6.5:
-  version "3.6.5"
-  resolved "https://registry.npmjs.org/core-js/-/core-js-3.6.5.tgz#7395dc273af37fb2e50e9bd3d9fe841285231d1a"
-  integrity sha512-vZVEEwZoIsI+vPEuoF9Iqf5H7/M3eeQqWlQnYa8FSKKePuYTf5MWnxb5SDAzCa60b3JBRS5g9b+Dq7b1y/RCrA==
 
 core-util-is@1.0.2, core-util-is@~1.0.0:
   version "1.0.2"
@@ -2939,6 +2939,11 @@ cosmiconfig@^6.0.0:
     parse-json "^5.0.0"
     path-type "^4.0.0"
     yaml "^1.7.2"
+
+country-flag-icons@^1.2.3:
+  version "1.2.4"
+  resolved "https://registry.npmjs.org/country-flag-icons/-/country-flag-icons-1.2.4.tgz#9118bfaadb9257e0f7b816db41db8a0c2ea1120a"
+  integrity sha512-E2DUkp0wKU05K2752MHmuG3UGfrn0d/LWM0Nlary5YBIUaBsM86Kyj4pkuMckYpoHdO/v3gLWpzn89SZSosqOA==
 
 create-ecdh@^4.0.0:
   version "4.0.4"
@@ -8368,6 +8373,11 @@ react-masked-field@^2.0.3:
     prop-types "^15.7.2"
     tslib "^1.9.3"
 
+react-merge-refs@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.npmjs.org/react-merge-refs/-/react-merge-refs-1.1.0.tgz#73d88b892c6c68cbb7a66e0800faa374f4c38b06"
+  integrity sha512-alTKsjEL0dKH/ru1Iyn7vliS2QRcBp9zZPGoWxUOvRGWPUYgjo+V01is7p04It6KhgrzhJGnIj9GgX8W4bZoCQ==
+
 react-redux@^7.2.1:
   version "7.2.1"
   resolved "https://registry.npmjs.org/react-redux/-/react-redux-7.2.1.tgz#8dedf784901014db2feca1ab633864dee68ad985"
@@ -8426,7 +8436,7 @@ react-test-renderer@^16.0.0-0:
     react-is "^16.8.6"
     scheduler "^0.19.1"
 
-react@^16.13.0, react@^16.13.1:
+react@^16.13.1:
   version "16.13.1"
   resolved "https://registry.npmjs.org/react/-/react-16.13.1.tgz#2e818822f1a9743122c063d6410d85c1e3afe48e"
   integrity sha512-YMZQQq32xHLX0bz5Mnibv1/LHb3Sqzngu7xstSM+vrkE5Kzr9xE0yMByK5kMoTK30YVJE61WfbxIFFvfeDKT1w==
