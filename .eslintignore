@@ -1,0 +1,3 @@
+dist/
+service-worker.js
+*.test.js
